@@ -1,0 +1,274 @@
+body {
+    margin: 0px;
+    padding-bottom: 50px;
+	
+    padding-top: 500px;
+    background-image: url("https://scstylecaster.files.wordpress.com/2014/01/dating-quotes-2.jpg");
+    
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center 100px;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-size: cover;
+}
+
+/* Navigation */
+#nav {
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	width: 100%;
+}
+
+#nav .nav-title {
+	
+}
+
+#nav .nav-title a {
+  	text-decoration: none;
+  	color: #333;
+    font-family: miss-fajardose;
+    font-size: 1.8em;
+    font-weight: 100;
+}
+
+#nav .nav-title a:hover {
+  	color: #444;
+}
+
+#nav .nav-title h1 {
+    text-align: center;
+    padding: 20px 0px 5px;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+#nav .navbar {
+    text-align: center;
+    background-color: rgba(95, 146, 209, 0.88);
+}
+
+#nav .navbar ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#nav .navbar ul ul {
+	visibility: hidden;
+	position: absolute;
+	left: 0;
+	top: 27px;
+	width: 310px;
+	display: block;
+	padding: 2px;
+	background-color: grey;
+	border-radius: 0 0 10px 10px;
+	text-align: left;
+}
+
+#nav .navbar ul ul li {
+	display: block;
+}
+
+#nav .navbar ul li:hover ul {
+    visibility: visible;
+}
+
+
+#nav .navbar ul li {
+	display: inline;
+    position: relative;
+}
+
+#nav .navbar a {
+    padding: 5px 10px;
+    display: inline-block;
+    color: white;
+    font-size: 1.1em;
+    text-decoration: none;
+}
+
+#nav .navbar ul li:hover > a {
+	background-color: rgba(128, 128, 128, 0.79);
+	border-radius: 2px;
+}
+
+#nav .navbar ul ul li:hover > a {
+	background-color: rgba(51, 51, 51, 0.6);
+	border-radius: 4px;
+}
+
+#nav .navbar .link-sep {
+    color: #FFF;
+    font-size: 0.3em;
+    vertical-align: super;
+}
+
+/* Content */
+.rounded-frame-small {
+    background-color: #FFF;
+    font-size: 14px;
+    margin-bottom: 24px;
+    padding: 8px 8px;
+    box-shadow: 1px 1px 5px -3px rgba(0, 0, 0, 0.4);
+    border-radius: 5px 5px 50% 50% / 5px 5px 12px 12px;
+	
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+#content, .section { /*rename to frame*/
+    margin: 40px 10px;
+    padding: 10px 20px;
+/*    background-color: rgba(255, 255, 255, 0.95);*/
+    background-color: rgba(255, 255, 255, 0.84);
+    margin-bottom: 24px;
+	
+    box-shadow: 1px 1px 5px -3px rgba(0, 0, 0, 0.4);
+    border-radius: 25px 25px 50% 50% / 25px 25px 30px 30px;
+    box-sizing: border-box;
+}
+
+#content {
+	max-width: 900px;
+	margin: auto;
+}
+
+* {
+	color: #333; /* default font color */
+	font-family: comfortaa;
+}
+
+h2, h3, h4, h5 {
+	font-family: montez;
+}
+
+#content img {
+	max-width: 100%;
+}
+
+.section {
+	padding: 20px;
+}
+
+.section-content {
+	padding: 10px;
+}
+
+.thumbnail {
+    max-width: 24%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.thumbnail img {
+	width: 100%;
+	margin-top: 2px;
+	margin-bottom: 4px;
+	border-radius: 4px;
+}
+
+.caption {
+    margin-bottom: 2px;
+    display: block;
+}
+
+.anchor{
+  display: block;
+  height: 150px;
+  margin-top: -150px;
+  visibility: hidden;
+}
+
+hr {
+	margin-top: 30px;
+	max-width: 90%;
+	background: rgb(232, 229, 206) none repeat scroll 0% 0%;
+	border: 0px none;
+	height: 3px;
+}
+
+.red-notice {
+	color: red;
+	font-size: 0.7em;
+}
+
+/* Form */
+form div {
+	padding: 5px;
+}
+
+form label {
+	width: 100px;
+	display: inline-block;
+}
+
+form input, form #DOB {
+	border: 1px solid grey;
+	border-radius: 4px;
+	padding: 1px;
+	display: inline-block;
+}
+
+form input.valid,
+form #DOB.valid {
+	border-color: green;
+}
+
+form input.invalid,
+form #DOB.invalid {
+	border-color: red;
+}
+
+form input.required,
+form #DOB.required {
+	border-color: orange;
+}
+
+form .accept-terms {
+    font-size: 0.8em;
+    vertical-align: middle;
+    width: inherit;
+}
+
+form .error-msg {
+	display: inline-block;
+	margin: 0 5px 0;
+    font-size: 0.8em;
+}
+
+/* Footer */
+#footer {
+	
+}
+
+
+
+
+.plan h4 {
+    position: relative;
+    color: #686758;
+	font-family: inherit;
+    background: transparent linear-gradient(315deg, transparent 22px, #E8E5CE 0px) no-repeat scroll right bottom;
+    width: 600px;
+    transition: color 0.3s ease 0s, background-color 0.3s ease 0s, width 0.2s ease 0s, padding 0.4s ease 0s;
+    padding: 5px 60px 5px 10px;
+		margin-bottom: 0;
+    display: inline-block;
+}
+
+.plan img {
+	margin-top: -30px;
+	border-radius: 0 10px 10px 10px;
+}
+
+.plan p {
+	margin: 0;
+	margin-top: -30px;
+	padding: 40px 10px 10px 20px;
+	border-radius: 0 10px 10px 10px;
+	background-color: rgba(255, 255, 255, 0.95);
+}
