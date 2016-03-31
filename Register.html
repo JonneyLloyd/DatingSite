@@ -7,6 +7,28 @@
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<script type = "text/javascript" src="http://use.edgefonts.net/comfortaa:n4,n3,n7:all;miss-fajardose:n4:all;montez:n4:all.js"></script>
 	<script type = "text/javascript" src="formValidation.js"></script>
+	<script type="text/javascript" src="jquery-2.2.2.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var x_timer;
+			$("#username").keyup(function (e){
+				clearTimeout(x_timer);
+				var user_name = $(this).val();
+				x_timer = setTimeout(function(){
+					check_username_ajax(user_name);
+				}, 1000);
+			});
+
+			function check_username_ajax(username){
+				$("#user-result").html('<img src="loader.gif" />');
+				$.post('http://localhost/DatingSite/local.php', {username:username}, function(data) {
+					$("#user-result").html(data);
+				});
+			}
+		});
+	</script>
+
+
 	<title>Register</title>
 
 </head>
@@ -49,6 +71,11 @@
 				<div class="row requiredRow">
 					<label for="Email">E-mail</label>
 					<input id="Email" name="Email" type="text" onblur="checkFormEmail(this);" title="" />
+				</div>
+
+				<div class="row requiredRow">
+					<label for="username">Username</label>
+					<input id="username" name="username" type="text"  title="" /> <span id="user-result"></span>
 				</div>
 
 				<div class="row requiredRow">

@@ -38,7 +38,9 @@ function addErrorMsg(el, msg) {
 function removeErrorMsg(el) {
 	//Removes the error message
 	var par = el.parentNode;
-	if (par.childNodes[4])
+	if (par.childNodes[9])
+		par.removeChild(par.childNodes[9]);
+	else if(par.childNodes[4])
 		par.removeChild(par.childNodes[4]);
 }
 
@@ -131,8 +133,17 @@ function checkFormPassword2(el) {
 }
 
 
+function check_username(){
+
+
+}
+
+
+
+
+
 function checkFormDate(day, month, year) {
-	var dayField = document.getElementById("DOBday");
+	//var dayField = document.getElementById("DOBday");
 	var yearField = document.getElementById("DOByear");
 
 	if (day.value == 0 || month.value == 0 || year.value == 0) {
@@ -142,14 +153,14 @@ function checkFormDate(day, month, year) {
 
 	var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 	if (year.value > (new Date()).getFullYear() - 18) {
-		markInvalid(yearField, "Invalid value for year: " + year.value);
+        markInvalid(yearField, "Invalid value for year: " + year.value);
 		return false;
 	}
 	if ((!(year.value % 4) && year.value % 100) || !(year.value % 400))
 		daysInMonth[1] = 29;
 
 	if (day.value > daysInMonth[month.value - 1]) {
-		markInvalid(dayField, "Invalid value for day: " + day.value);
+		markInvalid(yearField, "Invalid value for day: " + day.value);
 		return false;
 	}
 
@@ -168,6 +179,17 @@ function checkFormAge(el) {
 	return true;
 
 }
+
+
+function finishAjax(id, response){
+
+    $('#'+id).html(unescape(response));
+    $('#'+id).fadeIn(1000);
+}
+
+
+
+
 
 function checkForm(form) {
 	var valid = true;
