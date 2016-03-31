@@ -156,14 +156,14 @@ function checkFormPassword2(el) {
 
 
 function checkFormDate(day, month, year) {
+
 	//var dayField = document.getElementById("DOBday");
 	var yearField = document.getElementById("DOByear");
 
 	if (day.value == 0 || month.value == 0 || year.value == 0) {
-		markRequired(dayField, "Invalid date");
+		markRequired(yearField, "Invalid date");
 		return false;
 	}
-
 	var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 	if (year.value > (new Date()).getFullYear() - 18) {
         markInvalid(yearField, "Invalid value for year: " + year.value);
@@ -171,14 +171,13 @@ function checkFormDate(day, month, year) {
 	}
 	if ((!(year.value % 4) && year.value % 100) || !(year.value % 400))
 		daysInMonth[1] = 29;
-
 	if (day.value > daysInMonth[month.value - 1]) {
 		markInvalid(yearField, "Invalid value for day: " + day.value);
 		return false;
 	}
-
-	markValid(fields);
+	//markValid(yearField);
 	return true;
+
 }
 
 

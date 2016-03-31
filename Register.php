@@ -1,11 +1,23 @@
-<?PHP
+<?php
 require_once("./include/dbConfig.php");
-
-if(isset($_POST['submitted']))
+if(isset($_POST['Email']))
 {
 
-}
+	$firstName = strtolower(htmlspecialchars($_POST["Firstname"]));
+	$surname = strtolower(htmlspecialchars($_POST["Surname"]));
+	$email = strtolower(htmlspecialchars($_POST["Email"]));
+	$password = htmlspecialchars($_POST["Password1"]);
+	$dob = htmlspecialchars($_POST["DOByear"] ."-" . $_POST["DOBmonth"] . "-" .$_POST["DOBday"]);
+	$nickname = strtolower(htmlspecialchars($_POST["username"]));
 
+	$query = "INSERT INTO `group17db`.`user` (`user_id`, `password`, `nickname`,
+												`f_name`, `l_name`, `sex`, `seeking`,
+												`dob`, `about`, `email`)
+			VALUES (NULL, '" . $password . "', '" . $nickname . "','" . $firstName . "', '" . $surname . "', NULL, NULL, '" . $dob ."', NULL, '" .$email ."')";
+	$result = mysqli_query($conn,$query)
+		or die ("Couldn't execute query.");
+	header("Location: Details.php");
+}
 ?>
 
 
@@ -54,6 +66,7 @@ if(isset($_POST['submitted']))
 
 </head>
 <body>
+
 <div id="nav">
 	<div class="nav-title">
 		<h1><a href="index.html">Perfect Matches</a></h1>
@@ -68,7 +81,7 @@ if(isset($_POST['submitted']))
 				<span class="link-sep">&#9679;</span></li>
 			<li><a href='LogIn.html'>Log In</a></li>
 				<span class="link-sep">&#9679;</span></li>
-			<li><a href='Register.html'>Register</a></li>
+			<li><a href='Register.php'>Register</a></li>
 		</ul>
 	</div>
 </div>
@@ -77,8 +90,8 @@ if(isset($_POST['submitted']))
 <p>Perfect Matches</p>
 	<div class="section">
 			<p></p>
-			<h3>Register</h3>
-				<form name="Registration" method="post" id="Registration" action ="Details.html" onsubmit="return checkForm(this);" >
+			<h3>Register</h3><!--action ="Details.html" -->
+				<form name="Registration" method="post" id="Registration"  onsubmit="return checkForm(this);" >
 					<div class="row requiredRow">
 						<label for="Firstname">First name</label>
 						<input id="Firstname" name="Firstname" type="text" onblur="checkFormFirstname(this); " title="" />
