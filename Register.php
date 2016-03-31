@@ -1,3 +1,16 @@
+<?PHP
+require_once("./include/dbConfig.php");
+
+if(isset($_POST['submitted']))
+{
+
+}
+
+?>
+
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -15,7 +28,7 @@
 				clearTimeout(x_timer);
 				var user_name = $(this).val();
 				x_timer = setTimeout(function(){
-					check_username_ajax(user_name);
+					if (user_name.length > 2)check_username_ajax(user_name);
 				}, 1000);
 			});
 
@@ -26,6 +39,14 @@
 				});
 			}
 		});
+
+		function check_email_ajax(email){
+			$("#email-result").html('<img src="loader.gif" />');
+			var emailCheck = $(email).val();
+			if (emailCheck.length > 4)$.post('http://localhost/DatingSite/local.php', {email:emailCheck}, function(data) {
+				$("#email-result").html(data);
+			});
+		}
 	</script>
 
 
@@ -60,7 +81,7 @@
 				<form name="Registration" method="post" id="Registration" action ="Details.html" onsubmit="return checkForm(this);" >
 					<div class="row requiredRow">
 						<label for="Firstname">First name</label>
-						<input id="Firstname" name="Firstname" type="text" onblur="checkFormFirstname(this);" title="" />
+						<input id="Firstname" name="Firstname" type="text" onblur="checkFormFirstname(this); " title="" />
 					</div>
 
 				<div class="row requiredRow">
@@ -70,12 +91,12 @@
 
 				<div class="row requiredRow">
 					<label for="Email">E-mail</label>
-					<input id="Email" name="Email" type="text" onblur="checkFormEmail(this);" title="" />
+					<input id="Email" name="Email" type="text" onblur="checkFormEmail(this); check_email_ajax(this);" title="" />  <span id="email-result">
 				</div>
 
 				<div class="row requiredRow">
 					<label for="username">Username</label>
-					<input id="username" name="username" type="text"  title="" /> <span id="user-result"></span>
+					<input id="username" name="username" type="text" onblur="checkFormUsername(this);"  title="" /> <span id="user-result"></span>
 				</div>
 
 				<div class="row requiredRow">

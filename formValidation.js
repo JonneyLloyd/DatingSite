@@ -38,10 +38,14 @@ function addErrorMsg(el, msg) {
 function removeErrorMsg(el) {
 	//Removes the error message
 	var par = el.parentNode;
-	if (par.childNodes[9])
-		par.removeChild(par.childNodes[9]);
-	else if(par.childNodes[4])
-		par.removeChild(par.childNodes[4]);
+	//alert(par.childNodes.length);
+	if (par.childNodes[8]) {
+		par.removeChild(par.childNodes[8]);//date
+	}
+	else if(par.childNodes[6])
+		par.removeChild(par.childNodes[6]);//email
+	//else if(par.childNodes[4])
+		//par.removeChild(par.childNodes[4]);
 }
 
 
@@ -95,6 +99,21 @@ function checkFormEmail(el) {
 
 }
 
+function checkFormUsername(el) {
+	re = /^[A-Za-z0-9._]{2,}$/;
+	if (!el.value.match(re)) {
+		if (el.value == "") markReset(el);
+		else markInvalid(el, "Invalid Username");
+
+		return false;
+	}
+
+	markValid(el);
+	return true;
+
+}
+
+
 
 function checkFormPassword1(el) {
 
@@ -129,12 +148,6 @@ function checkFormPassword2(el) {
 
 	markValid(el);
 	return true;
-
-}
-
-
-function check_username(){
-
 
 }
 
@@ -181,13 +194,6 @@ function checkFormAge(el) {
 }
 
 
-function finishAjax(id, response){
-
-    $('#'+id).html(unescape(response));
-    $('#'+id).fadeIn(1000);
-}
-
-
 
 
 
@@ -203,6 +209,9 @@ function checkForm(form) {
 	}
 
 	if (!checkFormEmail(form.Email)) {
+		valid = false;
+	}
+	if (!checkFormUsername(form.username)) {
 		valid = false;
 	}
 
@@ -224,7 +233,7 @@ function checkForm(form) {
 	}
 
 	//check required
-	var fields = ["Firstname", "Surname", "Email", "Password1", "Password2"];
+	var fields = ["Firstname", "Surname", "Email", "Password1", "Password2", "username"];
 
 	for (var i = 0; i < fields.length; i++) {
 		var field = document.forms["Registration"][fields[i]];
