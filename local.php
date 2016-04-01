@@ -8,15 +8,6 @@ require_once("./include/dbConfig.php");
 //use htmlspecialchars() on incoming values
 
 
-
-function registerUser(){
-    $first_name = htmlspecialchars($_POST['Firstname']);
-    $surname = htmlspecialchars($_POST['Surname']);
-    $email = htmlspecialchars($_POST['Email']);
-    $password = htmlspecialchars($_POST['Password1']);
-    $dob = htmlspecialchars($_POST['DOBday' . '-' . 'DOBmonth' . '-' . 'DOByear']);
-}
-
 if(isset($_POST['username']))
 {
     $username = filter_var($_POST["username"], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH);

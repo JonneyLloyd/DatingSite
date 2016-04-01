@@ -1,5 +1,6 @@
 <?php
 require_once("./include/dbConfig.php");
+include('LogInProcess.php'); // Includes Login Script
 if(isset($_POST['Email']))
 {
 
@@ -16,7 +17,12 @@ if(isset($_POST['Email']))
 			VALUES (NULL, '" . $password . "', '" . $nickname . "','" . $firstName . "', '" . $surname . "', NULL, NULL, '" . $dob ."', NULL, '" .$email ."')";
 	$result = mysqli_query($conn,$query)
 		or die ("Couldn't execute query.");
+
+
+
 	header("Location: Details.php");
+
+
 }
 ?>
 
@@ -90,7 +96,7 @@ if(isset($_POST['Email']))
 <p>Perfect Matches</p>
 	<div class="section">
 			<p></p>
-			<h3>Register</h3><!--action ="Details.html" -->
+			<h3>Register</h3>
 				<form name="Registration" method="post" id="Registration"  onsubmit="return checkForm(this);" >
 					<div class="row requiredRow">
 						<label for="Firstname">First name</label>
