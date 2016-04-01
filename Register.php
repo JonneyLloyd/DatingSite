@@ -85,7 +85,7 @@ if(isset($_POST['Email']))
 			<li><a href='About.html'>About us</a></li>
 			<li>
 				<span class="link-sep">&#9679;</span></li>
-			<li><a href='LogIn.html'>Log In</a></li>
+			<li><a href='LogIn.php'>Log In</a></li>
 				<span class="link-sep">&#9679;</span></li>
 			<li><a href='Register.php'>Register</a></li>
 		</ul>
@@ -97,7 +97,7 @@ if(isset($_POST['Email']))
 	<div class="section">
 			<p></p>
 			<h3>Register</h3>
-				<form name="Registration" method="post" id="Registration"  onsubmit="return checkForm(this);" >
+				<form name="Registration" method="post" id="Registration" action = "" onsubmit="return checkForm(this);" >
 					<div class="row requiredRow">
 						<label for="Firstname">First name</label>
 						<input id="Firstname" name="Firstname" type="text" onblur="checkFormFirstname(this); " title="" />

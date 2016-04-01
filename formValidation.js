@@ -193,7 +193,26 @@ function checkFormAge(el) {
 }
 
 
+function checkLoginForm(form){
+	var valid = true;
+	if (!checkFormUsername(form.username)) {
+		valid = false;
+	}
+	if (!checkFormPassword1(form.password)) {
+		valid = false;
+	}
+	var fields = ["username", "password"];
+	for (var i = 0; i < fields.length; i++) {
+		var field = document.forms["login"][fields[i]];
+		if (field.value == "") {
+			markRequired(field);
+			valid = false;
+		}
+	}
 
+	return valid;
+
+}
 
 
 function checkForm(form) {
