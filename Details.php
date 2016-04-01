@@ -26,6 +26,7 @@ else {
 }
 
 }
+
 ?>
 
 
@@ -43,17 +44,26 @@ else {
 	<div class="nav-title">
 		<h1><a href="Index.html">Perfect Matches</a></h1>
 	</div>
-		<div class="navbar">
+	<div class="navbar">
 		<ul>
-			<li class='active'><a href='HomePage.php'>Home</a></li>
+			<li class='active'><a href='Profile.html'>Profile</a></li>
 			<li>
 				<span class="link-sep">&#9679;</span></li>
-			<li><a href='About.html'>About us</a></li>
+			<li><a href='Details.php'>AccountAdmin</a></li>
 			<li>
 				<span class="link-sep">&#9679;</span></li>
-			<li><a href='LogIn.html'>Log In</a></li>
+			<li class='has-sub'><a href='#'>Search</a>
+				<ul>
+					<li><a href='Page1.html'>SearchPage1</a></li>
+					<li><a href='Page2.html'>SuggestedMatches</a></li>
+					<li><a href='Page3.html'>Browse</a></li>
+					<li><a href='Page4.html'>Page4</a></li>
+					<li><a href='Page5.html'>Page5</a></li>
+				</ul>
+			</li>
+			<li>
 				<span class="link-sep">&#9679;</span></li>
-			<li><a href='Register.php'>Register</a></li>
+			<li><a href='LogOut.php'>Log Out</a></li>
 		</ul>
 	</div>
 </div>
@@ -79,12 +89,25 @@ else {
 					<textarea name="bio" input id="bio" type="text"  title="" />Say something about yourself</textarea><br><br>
 
 				</div>
+
+
 				<div class="row">
 					<input type="submit" value="Update" />
 				</div>
-			</form> 
-			</p>
-			
+			</form>
+	<br><br><br>
+		<form action="upload.php" method="post" enctype="multipart/form-data">
+			<div class="row">
+			<label for="Profile">Change Profile Pic:</label>
+			<input type="file" name="fileToUpload" id="fileToUpload">
+			<input type="submit" value="Upload Image" name="submit">
+			</div>
+		</form>
+		<img src="<?php echo "uploads" . '/' . $_SESSION['login_user']; ?>.jpg" />
+		</p>
+		</p>
+
+
 	</div>
 	</div>
 	<div id="footer">

@@ -1,6 +1,8 @@
 <?php
+    require_once("./include/dbConfig.php");
     session_start(); // Starting Session
     $error=''; // Variable To Store Error Message
+
     if (isset($_POST['Asubmit'])) {
         if (empty($_POST['username']) || empty($_POST['password'])) {
             $error = "Username or Password is invalid";
@@ -38,6 +40,12 @@
         } else {
             $_SESSION['login_user'] = strtolower(htmlspecialchars($_POST["username"]));
             $_SESSION['user_password'] = htmlspecialchars($_POST["Password1"]);
+
+            $query1 = "SELECT user_id from user WHERE nickname =  '" .$_SESSION['login_user'] . "';";
+            $result = mysqli_query($conn,$query1)
+                or die ("Couldn't execute query.");
+            $row = mysqli_fetch_array($result);
+            $_SESSION['user_id'] = $row[0];
 
         }
     }
