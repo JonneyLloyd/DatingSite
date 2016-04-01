@@ -1,6 +1,29 @@
 <?php
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
+
+$query = "SELECT user_id from user WHERE nickname =  '" .$_SESSION['login_user'] . "';";
+$result = mysqli_query($conn,$query)
+or die ("Couldn't execute query.");
+$row = mysqli_fetch_array($result);
+
+$user_id = $row[0];
+
+$query = "SELECT f_name from user WHERE user_id = '" . $user_id . "';";
+$query2 = "SELECT l_name from user WHERE user_id = '" . $user_id . "';";
+$result = mysqli_query($conn,$query)
+or die ("Couldn't execute query.");
+$row = mysqli_fetch_array($result);
+
+$f_name = ucfirst($row[0]);
+
+$result = mysqli_query($conn,$query2)
+or die ("Couldn't execute query.");
+$row = mysqli_fetch_array($result);
+
+$l_name = ucfirst($row[0]);
+
+
 if(isset($_POST['gender']))
 {
 	if (empty($_POST['bio']) || empty($_POST['seeking'])) {
@@ -12,7 +35,6 @@ else {
 	$sex = strtolower(htmlspecialchars($_POST["gender"]));
 	$pref =strtolower(htmlspecialchars($_POST["seeking"]));
 	$bio = strtolower(htmlspecialchars($_POST["bio"]));
-
 	$query1 = "SELECT user_id from user WHERE nickname =  '" .$_SESSION['login_user'] . "';";
 	$result = mysqli_query($conn,$query1)
 		or die ("Couldn't execute query.");
@@ -46,7 +68,7 @@ else {
 	</div>
 	<div class="navbar">
 		<ul>
-			<li class='active'><a href='Profile.html'>Profile</a></li>
+			<li class='active'><a href='Profile.php'>Profile</a></li>
 			<li>
 				<span class="link-sep">&#9679;</span></li>
 			<li><a href='Details.php'>AccountAdmin</a></li>
@@ -68,7 +90,7 @@ else {
 	</div>
 </div>
 <div id="content">
-<p><?= "Welcome " . $_SESSION['login_user'];?></p>
+	<h3><?= $f_name . " " . $l_name ?></h3>
 	<div class="section">
 			<h3>Details</h3>
 			<p>
@@ -103,7 +125,11 @@ else {
 			<input type="submit" value="Upload Image" name="submit">
 			</div>
 		</form>
-		<img src="<?php echo "uploads" . '/' . $_SESSION['login_user']; ?>.jpg" />
+		<div class="thumbnail rounded-frame-small">
+			<img src="uploads/<?= $_SESSION['login_user']?>.jpg" alt="Profile pic" />
+			<br />
+			<span class="caption">Profile</span>
+		</div>
 		</p>
 		</p>
 
