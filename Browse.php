@@ -2,41 +2,12 @@
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
 if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
-	$username = $_SESSION['login_user'];
 
-	$query = "SELECT user_id from user WHERE nickname =  '" . $_SESSION['login_user'] . "';";
-	$result = mysqli_query($conn, $query)
-	or die ("Couldn't execute query.");
-	$row = mysqli_fetch_array($result);
-
-	$user_id = $row[0];
-
-	$query = "SELECT * from user WHERE user_id = '" . $user_id . "';";
-	$result = mysqli_query($conn, $query)
-	or die ("Couldn't execute query.");
-	$row = mysqli_fetch_array($result);
-
-	$f_name = ucfirst($row[3]);
-	$s_name = ucfirst($row[4]);
-	$sex = $row[5];
-	if ($sex == "m")
-		$sex = "man";
-	else
-		$sex = "woman";
-	$pref = $row[6];
-	if ($pref == "m")
-		$pref = "man";
-	else
-		$pref = "woman";
-	$dob = $row[7];
-	$about = $row[8];
-	$age = date("Y/m/d") - $dob;
 }
 else
-	header("location: LogIn.php");
-
-
+    header("location: LogIn.php");
 ?>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -78,27 +49,52 @@ else
 </div>
 
 <div id="content">
-	<h3><?= $f_name . " " . $s_name ?></h3>
-	<div class="section">
-		<p></p>
-		<div class="thumbnail rounded-frame-small">
-			<img src="uploads/<?= $username?>.jpg" alt="Profile pic" />
-			<br />
-			<span class="caption">Profile</span>
-		</div>
-		<div class="section-content">
+	<h3>Browse users</h3>
+<?php
+    $query = "SELECT * FROM `user`";
+    $result = mysqli_query($conn, $query)
+    or die ("Couldn't execute query.");
+    while($row = mysqli_fetch_array($result))
+    {
+        $user_id = $row['user_id'];
+        $f_name = ucfirst($row['f_name']);
+        $name = $row['nickname'];
+        $bio = $row['about'];
+         if ($row['sex'] == "m")
+             $sex = "man";
+        else
+            $sex = "woman";
+        if ($row['seeking'] == "m")
+            $seeking = "man";
+        else
+            $seeking = "woman";
 
-			<ul>
-				<p>My name is  <?= $f_name . " " . $s_name . "."?></p>
-				<p>I am a <?= $age . " year old " . $sex . " looking for a " . $pref . "."?></p>
-				<p>Here's a little about myself:</p>
-				<p><?=$about?></p>
 
-			</ul>
-		</div>
-	</div>
-	<div id="footer">
-	</div>
-	</div>
+        echo "<div class='section'>
+            <p></p>
+            <div class='thumbnail rounded-frame-small'>
+                <img src='uploads/" . $name .".jpg' alt='Profile pic' />
+                <br />
+                <span class='caption'>Profile</span>
+            </div>
+
+            <div class='section-content'>
+                <ul>
+                    <p>My name is " . $f_name . ".</p>
+                    <p>I am a " . $sex . " looking for a " .$seeking . "</p>
+                    <p>Here's a little about myself:</p>
+                    <p> " . $bio . "</p>
+                    <p></p>
+
+                </ul>
+            </div>
+        </div>";
+
+    }
+?>
+
+<div id="footer">
+</div>
+</div>
 </body>
 </html>

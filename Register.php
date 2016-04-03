@@ -18,9 +18,17 @@ if(isset($_POST['Email']))
 	$result = mysqli_query($conn,$query)
 		or die ("Couldn't execute query.");
 
+	//another query to add user to login table
+	echo $_SESSION['user_id'];
+	sleep(3);
+/*
+$query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $_SESSION['user_id'] . "', '" . 1 . "');";
+	$result = mysqli_query($conn,$query)
+	or die ("Couldn't execute query.");*/
 
 
-	header("Location: Details.php");
+
+		header("Location: Details.php");
 
 
 }

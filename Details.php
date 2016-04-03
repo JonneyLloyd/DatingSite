@@ -1,53 +1,59 @@
 <?php
+
+//need to add another seperate form to add/remove likes & dislikes
+// use a button to bring up a pop up
+
+
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
-
-$query = "SELECT user_id from user WHERE nickname =  '" .$_SESSION['login_user'] . "';";
-$result = mysqli_query($conn,$query)
-or die ("Couldn't execute query.");
-$row = mysqli_fetch_array($result);
-
-$user_id = $row[0];
-
-$query = "SELECT f_name from user WHERE user_id = '" . $user_id . "';";
-$query2 = "SELECT l_name from user WHERE user_id = '" . $user_id . "';";
-$result = mysqli_query($conn,$query)
-or die ("Couldn't execute query.");
-$row = mysqli_fetch_array($result);
-
-$f_name = ucfirst($row[0]);
-
-$result = mysqli_query($conn,$query2)
-or die ("Couldn't execute query.");
-$row = mysqli_fetch_array($result);
-
-$l_name = ucfirst($row[0]);
-
-
-if(isset($_POST['gender']))
-{
-	if (empty($_POST['bio']) || empty($_POST['seeking'])) {
-		$error = "Please complete form";
-		echo $error;
-		header("Location: Details.php");
-	}
-else {
-	$sex = strtolower(htmlspecialchars($_POST["gender"]));
-	$pref =strtolower(htmlspecialchars($_POST["seeking"]));
-	$bio = strtolower(htmlspecialchars($_POST["bio"]));
-	$query1 = "SELECT user_id from user WHERE nickname =  '" .$_SESSION['login_user'] . "';";
-	$result = mysqli_query($conn,$query1)
-		or die ("Couldn't execute query.");
+if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
+	$query = "SELECT user_id from user WHERE nickname =  '" . $_SESSION['login_user'] . "';";
+	$result = mysqli_query($conn, $query)
+	or die ("Couldn't execute query.");
 	$row = mysqli_fetch_array($result);
 
+	$user_id = $row[0];
 
-	$query2 = "UPDATE `user` SET `sex` = '" . $sex . "', `seeking` = '" . $pref .
-			"', `about` = '" . $bio . "' WHERE `user`.`user_id` = " . $row[0] . ";";
-	$result = mysqli_query($conn,$query2)
-		or die ("Couldn't execute query2.");
-}
+	$query = "SELECT f_name from user WHERE user_id = '" . $user_id . "';";
+	$query2 = "SELECT l_name from user WHERE user_id = '" . $user_id . "';";
+	$result = mysqli_query($conn, $query)
+	or die ("Couldn't execute query.");
+	$row = mysqli_fetch_array($result);
 
+	$f_name = ucfirst($row[0]);
+
+	$result = mysqli_query($conn, $query2)
+	or die ("Couldn't execute query.");
+	$row = mysqli_fetch_array($result);
+
+	$l_name = ucfirst($row[0]);
+
+
+	if (isset($_POST['gender'])) {
+		if (empty($_POST['bio']) || empty($_POST['seeking'])) {
+			$error = "Please complete form";
+			echo $error;
+			header("Location: Details.php");
+		} else {
+			$sex = strtolower(htmlspecialchars($_POST["gender"]));
+			$pref = strtolower(htmlspecialchars($_POST["seeking"]));
+			$bio = strtolower(htmlspecialchars($_POST["bio"]));
+			$query1 = "SELECT user_id from user WHERE nickname =  '" . $_SESSION['login_user'] . "';";
+			$result = mysqli_query($conn, $query1)
+			or die ("Couldn't execute query.");
+			$row = mysqli_fetch_array($result);
+
+
+			$query2 = "UPDATE `user` SET `sex` = '" . $sex . "', `seeking` = '" . $pref .
+				"', `about` = '" . $bio . "' WHERE `user`.`user_id` = " . $row[0] . ";";
+			$result = mysqli_query($conn, $query2)
+			or die ("Couldn't execute query2.");
+		}
+
+	}
 }
+else
+	header("location: LogIn.php");
 
 ?>
 
@@ -78,7 +84,7 @@ else {
 				<ul>
 					<li><a href='Page1.html'>SearchPage1</a></li>
 					<li><a href='Page2.html'>SuggestedMatches</a></li>
-					<li><a href='Page3.html'>Browse</a></li>
+					<li><a href='Browse.php'>Browse</a></li>
 					<li><a href='Page4.html'>Page4</a></li>
 					<li><a href='Page5.html'>Page5</a></li>
 				</ul>
