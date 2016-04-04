@@ -23,8 +23,16 @@ if(isset($_POST['username'])) {
 		$query = "UPDATE `group17db`.`login` SET `status` = '1' WHERE `login`.`user_id` =". $_SESSION['user_id'].  ";";
 		$result = mysqli_query($conn,$query)
 		or die ("Couldn't execute query.");
+		if($nickname == "admin"){
+			header("location: admin.php");
+		}
+		else {
+			//no logged in
+			//go to log in.php
+			header("Location: Profile.php");
+		}
+//if $nickname == "admin" then go to admin log in else go to profile
 
-		header("Location: Profile.php");
 	}
 	else {
 		$login_error = "Username or password not found";
