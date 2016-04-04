@@ -63,7 +63,7 @@ else
 				<span class="link-sep">&#9679;</span></li>
 			<li class='has-sub'><a href='#'>Search</a>
 				<ul>
-					<li><a href='Page1.html'>SearchPage1</a></li>
+					<li><a href='Search.php'>Search Users</a></li>
 					<li><a href='Page2.html'>SuggestedMatches</a></li>
 					<li><a href='Browse.php'>Browse</a></li>
 					<li><a href='Page4.html'>Page4</a></li>

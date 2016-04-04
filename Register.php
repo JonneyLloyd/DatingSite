@@ -16,22 +16,37 @@ if(isset($_POST['Email']))
 												`dob`, `about`, `email`)
 			VALUES (NULL, '" . $password . "', '" . $nickname . "','" . $firstName . "', '" . $surname . "', NULL, NULL, '" . $dob ."', NULL, '" .$email ."')";
 	$result = mysqli_query($conn,$query)
-		or die ("Couldn't execute query.");
+		or die ("Couldn't execute addUser query.");
 
 	//another query to add user to login table
-	//fix here
-	$query = "SELECT user_id from user WHERE nickname =  '" . $_SESSION['login_user'] . "';";
+	$query = "SELECT user_id from user WHERE nickname =  '" . $nickname . "';";
 	$result = mysqli_query($conn, $query)
-	or die ("Couldn't execute query.");
+	or die ("Couldn't execute getID query.");
 	$row = mysqli_fetch_array($result);
 	$user_id = $row[0];
 
 
 $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $user_id . "', '" . 1 . "');";
 	$result = mysqli_query($conn,$query)
-	or die ("Couldn't execute query.");
+	or die ("Couldn't execute insert login query.");
 
+	{
+		if (empty($_POST['username']) || empty($_POST['Password1'])) {
+			$error = "Username or Password is invalid";
+			echo $error;
+			header("Location: LogIn.php");
+		} else {
+			$_SESSION['login_user'] = strtolower(htmlspecialchars($_POST["username"]));
+			$_SESSION['user_password'] = htmlspecialchars($_POST["Password1"]);
 
+			$query1 = "SELECT * from user WHERE nickname =  '" .$_SESSION['login_user'] . "';";
+			$result = mysqli_query($conn,$query1)
+			or die ("Couldn't execute query login id.");
+			$row = mysqli_fetch_array($result);
+			$_SESSION['user_id'] = $row['user_id'];
+
+		}
+	}
 
 		header("Location: Details.php");
 
