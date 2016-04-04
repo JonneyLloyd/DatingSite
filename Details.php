@@ -6,7 +6,7 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute query.");
 	$row = mysqli_fetch_array($result);
-
+//test comment
 	$user_id = $row[0];
 
 	$query = "SELECT f_name from user WHERE user_id = '" . $user_id . "';";
