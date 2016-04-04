@@ -43,9 +43,9 @@
 
             $query1 = "SELECT user_id from user WHERE nickname =  '" .$_SESSION['login_user'] . "';";
             $result = mysqli_query($conn,$query1)
-                or die ("Couldn't execute query.");
+                or die ("Couldn't execute query login id.");
             $row = mysqli_fetch_array($result);
-            $_SESSION['user_id'] = $row[0];
+            $_SESSION['user_id'] = $row['user_id'];
 
         }
     }
