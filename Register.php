@@ -19,12 +19,12 @@ if(isset($_POST['Email']))
 		or die ("Couldn't execute query.");
 
 	//another query to add user to login table
-	echo $_SESSION['user_id'];
-	sleep(3);
-/*
+	//fix here
+
+
 $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $_SESSION['user_id'] . "', '" . 1 . "');";
 	$result = mysqli_query($conn,$query)
-	or die ("Couldn't execute query.");*/
+	or die ("Couldn't execute query.");
 
 
 
@@ -60,7 +60,7 @@ $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $_SE
 
 			function check_username_ajax(username){
 				$("#user-result").html('<img src="loader.gif" />');
-				$.post('http://localhost/DatingSite/local.php', {username:username}, function(data) {
+				$.post('local.php', {username:username}, function(data) {
 					$("#user-result").html(data);
 				});
 			}
@@ -69,7 +69,7 @@ $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $_SE
 		function check_email_ajax(email){
 			$("#email-result").html('<img src="loader.gif" />');
 			var emailCheck = $(email).val();
-			if (emailCheck.length > 4)$.post('http://localhost/DatingSite/local.php', {email:emailCheck}, function(data) {
+			if (emailCheck.length > 4)$.post('local.php', {email:emailCheck}, function(data) {
 				$("#email-result").html(data);
 			});
 		}
