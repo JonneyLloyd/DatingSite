@@ -62,10 +62,6 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 	{
 		$like[$counter] = $row["like_desc"];
 		$counter++;
-		//fix counter offset
-
-
-
 	}
 	$query = "SELECT dislike_desc FROM `dislike` WHERE user_id = '" . $user_id . "'";
 	$result = mysqli_query($conn, $query)
@@ -90,16 +86,21 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 			echo $error;
 			header("Location: Details.php");
 		} else {
+			$sexMale = "";
+			$sexFemale = "";
+			$seekingMale = "";
+			$seekingFemale = "";
 			$sex = strtolower(htmlspecialchars($_POST["gender"]));
-			$pref = strtolower(htmlspecialchars($_POST["seeking"]));
 			if ($sex == "m")
 				$sexMale = "Checked";
 			else
 				$sexFemale = "Checked";
+			$pref = strtolower(htmlspecialchars($_POST["seeking"]));
 			if ($pref == "m")
 				$seekingMale = "Checked";
 			else
 				$seekingFemale = "Checked";
+
 			$bio = strtolower(htmlspecialchars($_POST["bio"]));
 			$query1 = "SELECT user_id from user WHERE nickname =  '" . $_SESSION['login_user'] . "';";
 			$result = mysqli_query($conn, $query1)
