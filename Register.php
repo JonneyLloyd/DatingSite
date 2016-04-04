@@ -20,9 +20,14 @@ if(isset($_POST['Email']))
 
 	//another query to add user to login table
 	//fix here
+	$query = "SELECT user_id from user WHERE nickname =  '" . $_SESSION['login_user'] . "';";
+	$result = mysqli_query($conn, $query)
+	or die ("Couldn't execute query.");
+	$row = mysqli_fetch_array($result);
+	$user_id = $row[0];
 
 
-$query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $_SESSION['user_id'] . "', '" . 1 . "');";
+$query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $user_id . "', '" . 1 . "');";
 	$result = mysqli_query($conn,$query)
 	or die ("Couldn't execute query.");
 
