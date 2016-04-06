@@ -4,7 +4,7 @@ include('LogInProcess.php'); // Includes Login Script
 if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) {
     header("location: LogIn.php");
 }
-else if ((! isset( $_POST['Firstname'])) && (! isset( $_POST['Surname']))&& (! isset( $_POST['Like']))&& (! isset( $_POST['Disike'])))
+else if ((( $_POST['Firstname'] == "")) && (( $_POST['Surname'] == ""))&& (( $_POST['Like'] == ""))&& (( $_POST['Disike'] == "")))
     header("location: Search.php");
 ?>
 
@@ -34,7 +34,7 @@ else if ((! isset( $_POST['Firstname'])) && (! isset( $_POST['Surname']))&& (! i
             <li class='has-sub'><a href='#'>Search</a>
                 <ul>
                     <li><a href='Search.php'>Search Users</a></li>
-                    <li><a href='Page2.html'>SuggestedMatches</a></li>
+                    <li><a href='SuggestedMatches.php'>SuggestedMatches</a></li>
                     <li><a href='Browse.php'>Browse</a></li>
                     <li><a href='Page4.html'>Page4</a></li>
                     <li><a href='Page5.html'>Page5</a></li>
@@ -90,6 +90,14 @@ else if ((! isset( $_POST['Firstname'])) && (! isset( $_POST['Surname']))&& (! i
         else $final_query = "SELECT user.user_id, user.f_name, user.nickname, user.about, user.sex, user.seeking FROM `user` JOIN `dislike` on user.user_id = dislike.user_id WHERE dislike_desc LIKE'" . $dislike . "'";
         $count++;
     }
+    $sex = strtolower(htmlspecialchars($_POST['gender']));
+    if ($sex != null) {
+        if ($count != 0) $final_query .= " AND sex = '" . $sex . "'";
+        else $final_query = "SELECT user.user_id, user.f_name, user.nickname, user.about, user.sex, user.seeking FROM `user` JOIN `dislike` on user.user_id = dislike.user_id WHERE dislike_desc LIKE'" . $dislike . "'";
+        $count++;
+    }
+
+
 if ($count == 0){
     echo "<div class='section'>
             <h3>No serarch terms entered!</h3>
@@ -119,7 +127,7 @@ if ($count == 0){
             <div class='thumbnail rounded-frame-small'>
                 <img src='uploads/" . $name . ".jpg' alt='Profile pic' />
                 <br />
-                <span class='caption'>Profile</span>
+                <span class='caption'></span>
             </div>
 
             <div class='section-content'>
@@ -128,7 +136,16 @@ if ($count == 0){
                     <p>I am a " . $sex . " looking for a " . $seeking . "</p>
                     <p>Here's a little about myself:</p>
                     <p> " . $bio . "</p>
-                    <p></p>
+                    <br><br>
+
+        <form name = 'contact' action='Contact.php' method='post' enctype='multipart/form-data'>
+			<div class='row'>
+			<label for='Profile'>Contact $f_name</label>
+            <input type='hidden' name='contact_id' value='$user_id' />
+            <input type='hidden' name='contact_f_name' value='$f_name' />
+			<input type='submit' value='Contact' name='submit''>
+			</div>
+		</form>
 
                 </ul>
             </div>

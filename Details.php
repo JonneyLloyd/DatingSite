@@ -176,16 +176,15 @@ else
 			<li class='active'><a href='Profile.php'>Profile</a></li>
 			<li>
 				<span class="link-sep">&#9679;</span></li>
-			<li><a href='Details.php'>AccountAdmin</a></li>
+			<li><a href='Details.php'>Account Settings</a></li>
 			<li>
 				<span class="link-sep">&#9679;</span></li>
-			<li class='has-sub'><a href='#'>Search</a>
+			<li class='has-sub'><a href='#'>Options</a>
 				<ul>
 					<li><a href='Search.php'>Search Users</a></li>
-					<li><a href='Page2.html'>SuggestedMatches</a></li>
-					<li><a href='Browse.php'>Browse</a></li>
-					<li><a href='Page4.html'>Page4</a></li>
-					<li><a href='Page5.html'>Page5</a></li>
+					<li><a href='Browse.php'>Browse Users</a></li>
+					<li><a href='SuggestedMatches.php'>Suggested Matches</a></li>
+					<li><a href='Mailbox.php'>Mailbox</a></li>
 				</ul>
 			</li>
 			<li>
@@ -215,7 +214,7 @@ else
 
 				<div class="row requiredRow">
 					<label for="Bio">Bio</label>
-					<textarea name="bio" input id="bio" type="text"  title="" /><?=htmlspecialchars($bio)?> </textarea><br><br>
+					<textarea name="bio" input id="bio" type="text"  title=""   rows="4" cols="50"><?=htmlspecialchars($bio)?> </textarea><br><br>
 
 				</div>
 
@@ -266,7 +265,7 @@ else
 				</div>
 			</form>
 	<br><br><br>
-		<form action="upload.php" method="post" enctype="multipart/form-data">
+		<form action="upload.php" method="post" enctype="multipart/form-data" >
 			<div class="row">
 			<label for="Profile">Change Profile Pic:</label>
 			<input type="file" name="fileToUpload" id="fileToUpload">
@@ -276,7 +275,7 @@ else
 		<div class="thumbnail rounded-frame-small">
 			<img src="uploads/<?= $_SESSION['login_user']?>.jpg" alt="Profile pic" />
 			<br />
-			<span class="caption">Profile</span>
+			<span class="caption"></span>
 		</div>
 
 	</div>

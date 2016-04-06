@@ -17,6 +17,8 @@ if(isset($_POST['Email']))
 			VALUES (NULL, '" . $password . "', '" . $nickname . "','" . $firstName . "', '" . $surname . "', NULL, NULL, '" . $dob ."', NULL, '" .$email ."')";
 	$result = mysqli_query($conn,$query)
 		or die ("Couldn't execute addUser query.");
+	copy("uploads/user.jpg","uploads/$nickname.jpg");
+
 
 	//another query to add user to login table
 	$query = "SELECT user_id from user WHERE nickname =  '" . $nickname . "';";

@@ -1,11 +1,23 @@
 <?php
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
-if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
-}
-else
+if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) {
     header("location: LogIn.php");
+}
+$reciever_id = "";
+$reciever_name = "";
+$sender_id = "";
+if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
+    $reciever_id = $_POST['contact_id'];
+    $reciever_name = $_POST['contact_f_name'];
+    $sender_id = $_SESSION['user_id'];
+
+
+}
+
+
 ?>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -13,9 +25,8 @@ else
 <head>
     <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
     <script type = "text/javascript" src="http://use.edgefonts.net/comfortaa:n4,n3,n7:all;miss-fajardose:n4:all;montez:n4:all.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="style.css"/>
     <title>Dating Website</title>
-
 </head>
 <body>
 <div id="nav">
@@ -46,41 +57,22 @@ else
 </div>
 
 <div id="content">
-    <h3>Search Users</h3>
     <div class="section">
-        <h3>Enter 1 or more search terms</h3>
-        <p>
-        <form name="Details" method="post" id="Details"  action="SearchResults.php" onsubmit="">
-            <div class="row">
-                <label for="Firstname">Firstname</label>
-                <input id="Firstname" name="Firstname" type="text" title="" placeholder="Firstname"/>
-            </div>
-            <div class="row">
-                <label for="Surname">Surname</label>
-                <input id="Surname" name="Surname" type="text" title=""  placeholder="Surname"/>
-            </div>
-            <div class="row">
-                <label for="Like">Like</label>
-                <input id="Like" name="Like" type="text" title=""  placeholder="Like"/>
-            </div>
-            <div class="row">
-                <label for="Dislike">Dislike</label>
-                <input id="Dislike" name="Dislike" type="text" title=""  placeholder="Dislike"/>
-            </div>
+        <p>To: <?=$reciever_name?> </p>
+        <form name = "sendMessage" id ="sendMessage" action="ContactUser.php" method="post" >
             <div class="row requiredRow">
-                <label for="Sex">Sex</label>
-                <input type="radio" name="gender" value="m" checked>Male
-                <input type="radio" name="gender" value="f">Female<br><br>
-            </div>
-            <div class="row">
-                <input type="submit" value="Update" />
+                <label for="message">Message</label>
+                <textarea name="message_text" input id="message_text" type="text"  title=""  rows="4" cols="50">Hello <?=$reciever_name?>,</textarea><br><br>
+                <input type='hidden' name='receiver_id' value='<?=$reciever_id?>' />
+                <input type='hidden' name='sender_id' value='<?=$sender_id?>' />
+                <input type="submit" value="Send" />
+                <p></p>
             </div>
         </form>
     </div>
+</div>
+<div id="footer">
 
-
-    <div id="footer">
-    </div>
 </div>
 </body>
 </html>
