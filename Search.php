@@ -2,7 +2,6 @@
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
 if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
-//this is  a comment
 }
 else
     header("location: LogIn.php");
@@ -34,7 +33,7 @@ else
             <li class='has-sub'><a href='#'>Search</a>
                 <ul>
                     <li><a href='Search.php'>Search Users</a></li>
-                    <li><a href='Page2.html'>SuggestedMatches</a></li>
+                    <li><a href='SuggestedMatches.php'>SuggestedMatches</a></li>
                     <li><a href='Browse.php'>Browse</a></li>
                     <li><a href='Page4.html'>Page4</a></li>
                     <li><a href='Page5.html'>Page5</a></li>
@@ -68,6 +67,11 @@ else
             <div class="row">
                 <label for="Dislike">Dislike</label>
                 <input id="Dislike" name="Dislike" type="text" title=""  placeholder="Dislike"/>
+            </div>
+            <div class="row requiredRow">
+                <label for="Sex">Sex</label>
+                <input type="radio" name="gender" value="m" checked>Male
+                <input type="radio" name="gender" value="f">Female<br><br>
             </div>
             <div class="row">
                 <input type="submit" value="Update" />

@@ -64,7 +64,7 @@ else
 			<li class='has-sub'><a href='#'>Search</a>
 				<ul>
 					<li><a href='Search.php'>Search Users</a></li>
-					<li><a href='Page2.html'>SuggestedMatches</a></li>
+					<li><a href='SuggestedMatches.php'>SuggestedMatches</a></li>
 					<li><a href='Browse.php'>Browse</a></li>
 					<li><a href='Page4.html'>Page4</a></li>
 					<li><a href='Page5.html'>Page5</a></li>
