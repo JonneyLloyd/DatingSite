@@ -50,7 +50,7 @@ if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) 
 
 <?php
 $user = $_SESSION['user_id'];
-$query = "SELECT * FROM `messages` WHERE receiver_id = '" . $user . "'";
+$query = "SELECT * FROM `messages` WHERE receiver_id = '" . $user . "' order by message_id desc";
 $result = mysqli_query($conn, $query)
 or die ("Couldn't execute message query.");
 while($row = mysqli_fetch_array($result))
