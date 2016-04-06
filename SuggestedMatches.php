@@ -29,16 +29,15 @@ else
             <li class='active'><a href='Profile.php'>Profile</a></li>
             <li>
                 <span class="link-sep">&#9679;</span></li>
-            <li><a href='Details.php'>AccountAdmin</a></li>
+            <li><a href='Details.php'>Account Settings</a></li>
             <li>
                 <span class="link-sep">&#9679;</span></li>
-            <li class='has-sub'><a href='#'>Search</a>
+            <li class='has-sub'><a href='#'>Options</a>
                 <ul>
                     <li><a href='Search.php'>Search Users</a></li>
-                    <li><a href='SuggestedMatches.php'>SuggestedMatches</a></li>
-                    <li><a href='Browse.php'>Browse</a></li>
-                    <li><a href='Page4.html'>Page4</a></li>
-                    <li><a href='Page5.html'>Page5</a></li>
+                    <li><a href='Browse.php'>Browse Users</a></li>
+                    <li><a href='SuggestedMatches.php'>Suggested Matches</a></li>
+                    <li><a href='Mailbox.php'>Mailbox</a></li>
                 </ul>
             </li>
             <li>
@@ -115,12 +114,12 @@ else
         </div>";
 
     }
-
+/*
     $query2 = "SELECT a.user_id, count(*) as dislike_score FROM `dislike` a LEFT JOIN `dislike` b ON a.dislike_desc = b.dislike_desc
               where a.dislike_desc != '' and a.user_id > b.user_id and a.user_id != '" . $user_id . "'
               order by dislike_score desc";
 
-
+*/
 
 
 

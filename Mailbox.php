@@ -1,11 +1,9 @@
 <?php
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
-if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
-//this is  a comment
-}
-else
+if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) {
     header("location: LogIn.php");
+}
 ?>
 
 
@@ -48,61 +46,58 @@ else
 </div>
 
 <div id="content">
-	<h3>Browse users</h3>
+	<h3>Mailbox</h3>
+
 <?php
-    $query = "SELECT * FROM `user`";
-    $result = mysqli_query($conn, $query)
-    or die ("Couldn't execute query.");
-    while($row = mysqli_fetch_array($result))
-    {
-        $user_id = $row['user_id'];
-        $f_name = ucfirst($row['f_name']);
-        $name = $row['nickname'];
-        $bio = $row['about'];
-         if ($row['sex'] == "m")
-             $sex = "man";
-        else
-            $sex = "woman";
-        if ($row['seeking'] == "m")
-            $seeking = "man";
-        else
-            $seeking = "woman";
+$user = $_SESSION['user_id'];
+$query = "SELECT * FROM `messages` WHERE receiver_id = '" . $user . "'";
+$result = mysqli_query($conn, $query)
+or die ("Couldn't execute message query.");
+while($row = mysqli_fetch_array($result))
+{
+    $sender = $row['sender_id'];
+    $message = htmlspecialchars($row['message_body']);
+    $query2 = "SELECT f_name, l_name, nickname FROM `user` WHERE user_id = '" . $sender . "'";
+    $result2 = mysqli_query($conn, $query2)
+    or die ("Couldn't execute name query.");
+	$row2 = mysqli_fetch_array($result2);
+	$receiver_nickname = $row2['nickname'];
+    $sender_f_name = ucfirst(htmlspecialchars($row2['f_name']));
+	$sender_l_name = ucfirst(htmlspecialchars($row2['l_name']));
 
-
-        echo "<div class='section'>
+    echo "<div class='section'>
             <p></p>
             <div class='thumbnail rounded-frame-small'>
-                <img src='uploads/" . $name .".jpg' alt='Profile pic' />
+                <img src='uploads/" . $receiver_nickname .".jpg' alt='Profile pic' />
                 <br />
                 <span class='caption'></span>
             </div>
-
             <div class='section-content'>
                 <ul>
-                    <p>My name is " . $f_name . ".</p>
-                    <p>I am a " . $sex . " looking for a " .$seeking . "</p>
-                    <p>Here's a little about myself:</p>
-                    <p> " . $bio . "</p>
-                     <br><br>
-
-        <form name = 'contact' action='Contact.php' method='post' enctype='multipart/form-data'>
-			<div class='row'>
-			<label for='Profile'>Contact $f_name</label>
-            <input type='hidden' name='contact_id' value='$user_id' />
-            <input type='hidden' name='contact_f_name' value='$f_name' />
-			<input type='submit' value='Contact' name='submit''>
-			</div>
-		</form>
+                    <p>Message from: " . $sender_f_name . " " .$sender_l_name . ".</p>
+                    <p>" . $message . "</p>
+                    <br>
+                    <form action='Contact.php' method='post' enctype='multipart/form-data'>
+					<div class='row'>
+						<label for='Profile'></label>
+						<input type='hidden' name='contact_id' value='$sender' />
+						<input type='hidden' name='contact_f_name' value='$sender_f_name' />
+						<input type='submit' value='Reply' name='submit''>
+					</div>
+					</form>
 
                 </ul>
             </div>
         </div>";
 
-    }
+}
+
 ?>
 
 <div id="footer">
-</div>
+    </div>
 </div>
 </body>
 </html>
+
+

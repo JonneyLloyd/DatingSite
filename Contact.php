@@ -38,16 +38,15 @@ if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
             <li class='active'><a href='Profile.php'>Profile</a></li>
             <li>
                 <span class="link-sep">&#9679;</span></li>
-            <li><a href='Details.php'>AccountAdmin</a></li>
+            <li><a href='Details.php'>Account Settings</a></li>
             <li>
                 <span class="link-sep">&#9679;</span></li>
-            <li class='has-sub'><a href='#'>Search</a>
+            <li class='has-sub'><a href='#'>Options</a>
                 <ul>
                     <li><a href='Search.php'>Search Users</a></li>
-                    <li><a href='SuggestedMatches.php'>SuggestedMatches</a></li>
-                    <li><a href='Browse.php'>Browse</a></li>
-                    <li><a href='Page4.html'>Page4</a></li>
-                    <li><a href='Page5.html'>Page5</a></li>
+                    <li><a href='Browse.php'>Browse Users</a></li>
+                    <li><a href='SuggestedMatches.php'>Suggested Matches</a></li>
+                    <li><a href='Mailbox.php'>Mailbox</a></li>
                 </ul>
             </li>
             <li>
@@ -59,13 +58,11 @@ if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
 
 <div id="content">
     <div class="section">
-        <button type="button">Inbox</button>
-        <button type="button">Sent Messages</button>
         <p>To: <?=$reciever_name?> </p>
         <form name = "sendMessage" id ="sendMessage" action="ContactUser.php" method="post" >
             <div class="row requiredRow">
                 <label for="message">Message</label>
-                <textarea name="message_text" input id="message_text" type="text"  title=""  cols="">Hello <?=$reciever_name?>,</textarea><br><br>
+                <textarea name="message_text" input id="message_text" type="text"  title=""  rows="4" cols="50">Hello <?=$reciever_name?>,</textarea><br><br>
                 <input type='hidden' name='receiver_id' value='<?=$reciever_id?>' />
                 <input type='hidden' name='sender_id' value='<?=$sender_id?>' />
                 <input type="submit" value="Send" />
