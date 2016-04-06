@@ -265,7 +265,7 @@ else
 				</div>
 			</form>
 	<br><br><br>
-		<form action="upload.php" method="post" enctype="multipart/form-data">
+		<form action="upload.php" method="post" enctype="multipart/form-data" >
 			<div class="row">
 			<label for="Profile">Change Profile Pic:</label>
 			<input type="file" name="fileToUpload" id="fileToUpload">

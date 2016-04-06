@@ -60,10 +60,12 @@ else
     $seeking = $row['seeking'];
 
     $like_array = array();
+
     $query1 = "SELECT * from user z LEFT JOIN
-              (SELECT a.user_id, count(*) as like_score FROM `like` a LEFT JOIN `like` b ON a.like_desc = b.like_desc
-              where a.like_desc != '' and a.user_id > b.user_id and a.user_id != '". $user_id . "'
-              order by like_score desc)t on z.user_id = t.user_id WHERE sex = '" . $seeking . "'";
+                (select b.user_id, count(*) as score from `like` a left join `like` b on a.like_desc = b.like_desc
+                where a.user_id = '". $user_id . "' and b.user_id != '". $user_id . "' and a.like_desc != ''
+                group by b.user_id)t on z.user_id = t.user_id WHERE sex = '" . $seeking . "'
+                order by score desc";
 
     $result = mysqli_query($conn, $query1)
     or die ($query1 . " could not be executed");
