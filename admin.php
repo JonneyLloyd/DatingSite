@@ -9,6 +9,7 @@ else
 
 $error = 0;
 $banErr = $reasonErr = $exists = $already_banned = "";
+//check if submit has been pressed
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$user = strtolower(htmlspecialchars($_POST["user"]));
 	$reason = strtolower(htmlspecialchars($_POST["Reason"]));
