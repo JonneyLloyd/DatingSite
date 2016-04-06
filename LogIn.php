@@ -1,11 +1,13 @@
 <?php
-require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
 $login_error = "";
+require_once("./include/dbConfig.php");
 if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
 	header("location: Profile.php");
 }
+
 if(isset($_POST['username'])) {
+
 	$nickname = strtolower(htmlspecialchars($_POST["username"]));
 	$password = htmlspecialchars($_POST["password"]);
 	$query = "SELECT * from user WHERE nickname =  '" . $nickname . "' AND  password = '" . $password . "';";

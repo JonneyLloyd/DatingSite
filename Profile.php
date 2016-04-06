@@ -84,7 +84,7 @@ else
 		<div class="thumbnail rounded-frame-small">
 			<img src="uploads/<?= $username?>.jpg" alt="Profile pic" />
 			<br />
-			<span class="caption">Profile</span>
+			<span class="caption"></span>
 		</div>
 		<div class="section-content">
 

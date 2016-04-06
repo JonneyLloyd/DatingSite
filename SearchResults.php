@@ -127,7 +127,7 @@ if ($count == 0){
             <div class='thumbnail rounded-frame-small'>
                 <img src='uploads/" . $name . ".jpg' alt='Profile pic' />
                 <br />
-                <span class='caption'>Profile</span>
+                <span class='caption'></span>
             </div>
 
             <div class='section-content'>
@@ -136,7 +136,15 @@ if ($count == 0){
                     <p>I am a " . $sex . " looking for a " . $seeking . "</p>
                     <p>Here's a little about myself:</p>
                     <p> " . $bio . "</p>
-                    <p></p>
+                    <br><br>
+
+        <form action='Contact.php' method='post' enctype='multipart/form-data'>
+			<div class='row'>
+			<label for='Profile'>Contact $f_name</label>
+            <input type='hidden' name='action' value='$user_id' />
+			<input type='submit' value='Contact' name='submit''>
+			</div>
+		</form>
 
                 </ul>
             </div>

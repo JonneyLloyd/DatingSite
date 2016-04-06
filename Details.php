@@ -276,7 +276,7 @@ else
 		<div class="thumbnail rounded-frame-small">
 			<img src="uploads/<?= $_SESSION['login_user']?>.jpg" alt="Profile pic" />
 			<br />
-			<span class="caption">Profile</span>
+			<span class="caption"></span>
 		</div>
 
 	</div>
