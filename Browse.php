@@ -86,10 +86,11 @@ else
                     <p> " . $bio . "</p>
                      <br><br>
 
-        <form action='Contact.php' method='post' enctype='multipart/form-data'>
+        <form name = 'contact' action='Contact.php' method='post' enctype='multipart/form-data'>
 			<div class='row'>
 			<label for='Profile'>Contact $f_name</label>
-            <input type='hidden' name='action' value='$user_id' />
+            <input type='hidden' name='contact_id' value='$user_id' />
+            <input type='hidden' name='contact_f_name' value='$f_name' />
 			<input type='submit' value='Contact' name='submit''>
 			</div>
 		</form>
