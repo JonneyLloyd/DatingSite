@@ -123,7 +123,7 @@ $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $use
 </div>
 
 <div id="content">
-<p>Perfect Matches</p>
+	<h2>Perfect Matches</h2>
 	<div class="section">
 			<p></p>
 			<h3>Register</h3>

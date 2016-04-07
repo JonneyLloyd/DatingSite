@@ -108,21 +108,22 @@ if ($count == 0){
             or die ($final_query . " could not be executed");
 
         while ($row = mysqli_fetch_array($result)) {
-            $user_id = $row['user_id'];
-            $f_name = ucfirst($row['f_name']);
-            $name = $row['nickname'];
-            $bio = $row['about'];
-            if ($row['sex'] == "m")
-                $sex = "man";
-            else
-                $sex = "woman";
-            if ($row['seeking'] == "m")
-                $seeking = "man";
-            else
-                $seeking = "woman";
+            if (strtolower($row['nickname'] != "admin")) {
+                $user_id = $row['user_id'];
+                $f_name = ucfirst($row['f_name']);
+                $name = $row['nickname'];
+                $bio = $row['about'];
+                if ($row['sex'] == "m")
+                    $sex = "man";
+                else
+                    $sex = "woman";
+                if ($row['seeking'] == "m")
+                    $seeking = "man";
+                else
+                    $seeking = "woman";
 
 
-            echo "<div class='section'>
+                echo "<div class='section'>
             <p></p>
             <div class='thumbnail rounded-frame-small'>
                 <img src='uploads/" . $name . ".jpg' alt='Profile pic' />
@@ -150,7 +151,7 @@ if ($count == 0){
                 </ul>
             </div>
         </div>";
-
+            }
         }
     }
     ?>

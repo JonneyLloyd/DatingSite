@@ -61,35 +61,45 @@ else
 
     $like_array = array();
 
-    $query1 = "SELECT * from user z LEFT JOIN
+
+    $query1 =  "SELECT * from user d LEFT JOIN (select user_id, ((score * 2) - neg_score) as total from
+                ((select b.user_id, count(*) as score from `like` a left join `like` b on a.like_desc = b.like_desc
+                where a.user_id = '". $user_id . "' and b.user_id != '". $user_id . "' and a.like_desc != '' group by b.user_id)q join
+                (select z.user_id, count(*) as neg_score from `dislike` x left join `dislike` z on x.dislike_desc = z.dislike_desc
+                where x.user_id = '". $user_id . "' and z.user_id != '". $user_id . "' and x.dislike_desc != '' group by z.user_id)w using(user_id)))t
+                on d.user_id = t.user_id WHERE sex = 'f' order by total desc";
+
+
+    /*$query1 = "SELECT * from user z LEFT JOIN
                 (select b.user_id, count(*) as score from `like` a left join `like` b on a.like_desc = b.like_desc
                 where a.user_id = '". $user_id . "' and b.user_id != '". $user_id . "' and a.like_desc != ''
                 group by b.user_id)t on z.user_id = t.user_id WHERE sex = '" . $seeking . "'
-                order by score desc";
+                order by score desc";*/
 
     $result = mysqli_query($conn, $query1)
     or die ($query1 . " could not be executed");
 
     while($row = mysqli_fetch_array($result))
     {
-        $user_id = $row['user_id'];
-        $f_name = ucfirst($row['f_name']);
-        $name = $row['nickname'];
-        $bio = $row['about'];
-        if ($row['sex'] == "m")
-            $sex = "man";
-        else
-            $sex = "woman";
-        if ($row['seeking'] == "m")
-            $seeking = "man";
-        else
-            $seeking = "woman";
+        if (strtolower($row['nickname'] != "admin")) {
+            $user_id = $row['user_id'];
+            $f_name = ucfirst($row['f_name']);
+            $name = $row['nickname'];
+            $bio = $row['about'];
+            if ($row['sex'] == "m")
+                $sex = "man";
+            else
+                $sex = "woman";
+            if ($row['seeking'] == "m")
+                $seeking = "man";
+            else
+                $seeking = "woman";
 
 
-        echo "<div class='section'>
+            echo "<div class='section'>
             <p></p>
             <div class='thumbnail rounded-frame-small'>
-                <img src='uploads/" . $name .".jpg' alt='Profile pic' />
+                <img src='uploads/" . $name . ".jpg' alt='Profile pic' />
                 <br />
                 <span class='caption'></span>
             </div>
@@ -97,7 +107,7 @@ else
             <div class='section-content'>
                 <ul>
                     <p>My name is " . $f_name . ".</p>
-                    <p>I am a " . $sex . " looking for a " .$seeking . "</p>
+                    <p>I am a " . $sex . " looking for a " . $seeking . "</p>
                     <p>Here's a little about myself:</p>
                     <p> " . $bio . "</p>
                      <br><br>
@@ -114,7 +124,7 @@ else
                 </ul>
             </div>
         </div>";
-
+        }
     }
 /*
     $query2 = "SELECT a.user_id, count(*) as dislike_score FROM `dislike` a LEFT JOIN `dislike` b ON a.dislike_desc = b.dislike_desc

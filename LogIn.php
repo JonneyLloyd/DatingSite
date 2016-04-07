@@ -76,7 +76,7 @@ if(isset($_POST['username'])) {
 </div>
 
 <div id="content">
-<p>Perfect Matches</p>
+	<h2>Perfect Matches</h2>
 	<div class="section">
 		<p>
 
