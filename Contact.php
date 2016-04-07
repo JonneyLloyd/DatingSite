@@ -7,6 +7,7 @@ if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) 
 $reciever_id = "";
 $reciever_name = "";
 $sender_id = "";
+$hidden_fields = "";
 if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
     $reciever_id = $_POST['contact_id'];
     $reciever_name = $_POST['contact_f_name'];
@@ -59,12 +60,17 @@ if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
 <div id="content">
     <div class="section">
         <p>To: <?=$reciever_name?> </p>
+        <?php
+        if (isset($_POST['report_id']) && isset($_POST['report_f_name'])) {
+            $hidden_fields = "Reporting ID: " . $_POST['report_id'] . "\nReporting: " . $_POST['report_f_name'] . ".\n";
+            echo $hidden_fields;
+                }
+        ?>
         <form name = "sendMessage" id ="sendMessage" action="ContactUser.php" method="post" >
             <div class="row requiredRow">
                 <label for="message">Message</label>
-                <textarea name="message_text" input id="message_text" type="text"  title=""  rows="4" cols="50">Hello <?=$reciever_name?>,</textarea><br><br>
-                <input type='hidden' name='receiver_id' value='<?=$reciever_id?>' />
-                <input type='hidden' name='sender_id' value='<?=$sender_id?>' />
+                <textarea name="message_text" input id="message_text" type="text"  title=""  rows="4" cols="50"> <?=$hidden_fields?></textarea><br><br>
+
                 <input type="submit" value="Send" />
                 <p></p>
             </div>

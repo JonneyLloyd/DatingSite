@@ -112,12 +112,23 @@ else
                     <p> " . $bio . "</p>
                      <br><br>
 
-        <form action='Contact.php' method='post' enctype='multipart/form-data'>
+        <form name = 'contact' action='Contact.php' method='post' enctype='multipart/form-data'>
 			<div class='row'>
 			<label for='Profile'>Contact $f_name</label>
             <input type='hidden' name='contact_id' value='$user_id' />
             <input type='hidden' name='contact_f_name' value='$f_name' />
 			<input type='submit' value='Contact' name='submit''>
+			</div>
+		</form>
+<br>
+		<form name = 'report' action='Contact.php' method='post' enctype='multipart/form-data'>
+			<div class='row'>
+			<label for='Profile'>Report $f_name</label>
+            <input type='hidden' name='contact_id' value='admin' />
+            <input type='hidden' name='contact_f_name' value='Administrator' />
+             <input type='hidden' name='report_id' value='$user_id' />
+            <input type='hidden' name='report_f_name' value='$f_name' />
+			<input type='submit' value='Report' name='submit''>
 			</div>
 		</form>
 
@@ -126,17 +137,6 @@ else
         </div>";
         }
     }
-/*
-    $query2 = "SELECT a.user_id, count(*) as dislike_score FROM `dislike` a LEFT JOIN `dislike` b ON a.dislike_desc = b.dislike_desc
-              where a.dislike_desc != '' and a.user_id > b.user_id and a.user_id != '" . $user_id . "'
-              order by dislike_score desc";
-
-*/
-
-
-
-
-
     ?>
 
 

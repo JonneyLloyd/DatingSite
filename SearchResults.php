@@ -147,6 +147,17 @@ if ($count == 0){
 			<input type='submit' value='Contact' name='submit''>
 			</div>
 		</form>
+<br>
+		<form name = 'report' action='Contact.php' method='post' enctype='multipart/form-data'>
+			<div class='row'>
+			<label for='Profile'>Report $f_name</label>
+            <input type='hidden' name='contact_id' value='admin' />
+            <input type='hidden' name='contact_f_name' value='Administrator' />
+             <input type='hidden' name='report_id' value='$user_id' />
+            <input type='hidden' name='report_f_name' value='$f_name' />
+			<input type='submit' value='Report' name='submit''>
+			</div>
+		</form>
 
                 </ul>
             </div>
