@@ -74,7 +74,7 @@ header("location: LogIn.php");
                 (select user_id, (IFNULL(score * 2, 0) - IFNULL(neg_score, 0)) as total from
                 ((select b.user_id, IFNULL(count(*), 0) as score from `like` a left join
                  `like` b on a.like_desc = b.like_desc where a.user_id = '". $user_id . "' and b.user_id != '". $user_id . "'
-                  and a.like_desc != '' group by b.user_id)q join
+                  and a.like_desc != '' group by b.user_id)q left join
                  (select z.user_id, IFNULL(count(*), 0) as neg_score
                  from `like` x left join `dislike` z on x.like_desc = z.dislike_desc
                   where x.user_id = '". $user_id . "' and x.like_desc != '' group by z.user_id)w using(user_id)))t
