@@ -77,7 +77,7 @@ $banned_users = mysqli_query($conn, $display)
 	</div>
 	<div class="navbar">
 		<ul>
-			<li><a href='admin.php'>Admin</a></li>
+			<li><a href='Ban_user.html'>Ban User</a></li>
 			<li>
 				<span class="link-sep">&#9679;</span></li>
 			<li class='has-sub'><a href='#'>Search</a>
@@ -86,6 +86,7 @@ $banned_users = mysqli_query($conn, $display)
 					<li><a href='Mailbox.php'>Mailbox</a></li>
 				</ul>
 			</li>
+
 			<li>
 				<span class="link-sep">&#9679;</span></li>
 			<li><a href='LogOut.php'>Log Out</a></li>
