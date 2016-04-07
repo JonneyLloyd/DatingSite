@@ -14,7 +14,7 @@
             $_SESSION['login_user'] = $username;
             $_SESSION['user_password'] = $password;
 
-            header("Location: HomePage.html");
+            header("Location: HomePage.php");
             /*$connection = mysqli_connect($servername, $dbusername, $password, $dbname, $port = 3307);
             // To protect MySQL injection for Security purpose
             /**$username = stripslashes($username);

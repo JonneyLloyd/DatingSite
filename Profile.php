@@ -51,7 +51,7 @@ else
 <body>
 <div id="nav">
 	<div class="nav-title">
-		<h1><a href="Index.html">Perfect Matches</a></h1>
+		<h1><a href="MainPage.html">Perfect Matches</a></h1>
 	</div>
 		<div class="navbar">
 		<ul>

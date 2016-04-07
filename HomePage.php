@@ -19,19 +19,26 @@ else
     <body>
     <div id="nav">
         <div class="nav-title">
-            <h1><a href="Index.html">Perfect Matches</a></h1>
+            <h1><a href="MainPage.html">Perfect Matches</a></h1>
         </div>
             <div class="navbar">
             <ul>
-                <li class='active'><a href='index.html'>Home</a></li>
+                <li class='active'><li><a href='Profile.php'>Profile</a></li>
                 <li>
                     <span class="link-sep">&#9679;</span></li>
-                <li><a href='About.html'>About us</a></li>
+                <li><a href='Details.php'>Account Settings</a></li>
                 <li>
                     <span class="link-sep">&#9679;</span></li>
-                <li><a href='LogIn.php'>Log In</a></li>
-                    <span class="link-sep">&#9679;</span></li>
-                <li><a href='Register.php'>Register</a></li>
+                <li class='has-sub'><a href='#'>Options</a>
+                    <ul>
+                        <li><a href='Search.php'>Search Users</a></li>
+                        <li><a href='Browse.php'>Browse Users</a></li>
+                        <li><a href='SuggestedMatches.php'>Suggested Matches</a></li>
+                        <li><a href='Mailbox.php'>Mailbox</a></li>
+                    </ul>
+                </li>
+                <span class="link-sep">&#9679;</span></li>
+                <li><a href='LogOut.php'>Log Out</a></li>
             </ul>
         </div>
     </div>
