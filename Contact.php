@@ -71,7 +71,8 @@ if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
             <div class="row requiredRow">
                 <label for="message">Message</label>
                 <textarea name="message_text" input id="message_text" type="text"  title=""  rows="4" cols="50"> <?=$hidden_fields?></textarea><br><br>
-
+                <input type='hidden' name='receiver_id' value='<?=$reciever_id?>' />
+                <input type='hidden' name='sender_id' value='<?=$sender_id?>' />
                 <input type="submit" value="Send" />
                 <p></p>
             </div>
