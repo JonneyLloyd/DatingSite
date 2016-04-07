@@ -48,7 +48,7 @@ else
 </div>
 
 <div id="content">
-    <h3>Suggested Matches</h3>
+    <h3>Your Top Five Matches</h3>
 
     <?php
     $user_id = $_SESSION['user_id'];
@@ -62,26 +62,31 @@ else
     $like_array = array();
 
 
-    $query1 =  "SELECT * from user d LEFT JOIN (select user_id, ((score * 2) - neg_score) as total from
+    /*$query1 =  "SELECT * from user d LEFT JOIN (select user_id, ((score * 2) - neg_score) as total from
                 ((select b.user_id, count(*) as score from `like` a left join `like` b on a.like_desc = b.like_desc
                 where a.user_id = '". $user_id . "' and b.user_id != '". $user_id . "' and a.like_desc != '' group by b.user_id)q join
                 (select z.user_id, count(*) as neg_score from `dislike` x left join `dislike` z on x.dislike_desc = z.dislike_desc
                 where x.user_id = '". $user_id . "' and z.user_id != '". $user_id . "' and x.dislike_desc != '' group by z.user_id)w using(user_id)))t
-                on d.user_id = t.user_id WHERE sex = 'f' order by total desc";
+                on d.user_id = t.user_id WHERE sex = 'f' order by total desc";*/
 
 
-    /*$query1 = "SELECT * from user z LEFT JOIN
-                (select b.user_id, count(*) as score from `like` a left join `like` b on a.like_desc = b.like_desc
-                where a.user_id = '". $user_id . "' and b.user_id != '". $user_id . "' and a.like_desc != ''
-                group by b.user_id)t on z.user_id = t.user_id WHERE sex = '" . $seeking . "'
-                order by score desc";*/
+    $query1 = "SELECT * from user d LEFT JOIN
+                (select user_id, (IFNULL(score * 2, 0) - IFNULL(neg_score, 0)) as total from
+                ((select b.user_id, IFNULL(count(*), 0) as score from `like` a left join
+                 `like` b on a.like_desc = b.like_desc where a.user_id = '". $user_id . "' and b.user_id != '". $user_id . "'
+                  and a.like_desc != '' group by b.user_id)q join
+                 (select z.user_id, IFNULL(count(*), 0) as neg_score
+                 from `like` x left join `dislike` z on x.like_desc = z.dislike_desc
+                  where x.user_id = '". $user_id . "' and x.like_desc != '' group by z.user_id)w using(user_id)))t
+                  on d.user_id = t.user_id WHERE sex = '". $seeking . "' order by total desc";
 
     $result = mysqli_query($conn, $query1)
     or die ($query1 . " could not be executed");
-
-    while($row = mysqli_fetch_array($result))
+    $count = 0;
+    while($count < 5 && $row = mysqli_fetch_array($result))
     {
         if (strtolower($row['nickname'] != "admin")) {
+            $count++;
             $user_id = $row['user_id'];
             $f_name = ucfirst($row['f_name']);
             $name = $row['nickname'];

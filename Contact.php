@@ -61,6 +61,7 @@ if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
     <div class="section">
         <p>To: <?=$reciever_name?> </p>
         <?php
+        $hidden_fields = "Hello " . $reciever_name . ",\n";
         if (isset($_POST['report_id']) && isset($_POST['report_f_name'])) {
             $hidden_fields = "Reporting ID: " . $_POST['report_id'] . "\nReporting: " . $_POST['report_f_name'] . ".\n";
             echo $hidden_fields;
