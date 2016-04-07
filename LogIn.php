@@ -1,7 +1,7 @@
 <?php
+require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
 $login_error = "";
-require_once("./include/dbConfig.php");
 if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
 	header("location: Profile.php");
 }
@@ -59,11 +59,11 @@ if(isset($_POST['username'])) {
 <body>
 <div id="nav">
 	<div class="nav-title">
-		<h1><a href="index.html">Perfect Matches</a></h1>
+		<h1><a href="MainPage.html">Perfect Matches</a></h1>
 	</div>
 	<div class="navbar">
 		<ul>
-			<li class='active'><a href='index.html'>Home</a></li>
+			<li class='active'><a href='MainPage.html'>Home</a></li>
 			<li>
 				<span class="link-sep">&#9679;</span></li>
 			<li><a href='About.html'>About us</a></li>

@@ -73,20 +73,17 @@ $banned_users = mysqli_query($conn, $display)
 <body>
 <div id="nav">
 	<div class="nav-title">
-		<h1><a href="Index.html">Perfect Matches</a></h1>
+		<h1><a href="MainPage.html">Perfect Matches</a></h1>
 	</div>
 	<div class="navbar">
 		<ul>
-			<li class='active'><a href='Profile.php'>Profile</a></li>
-			<li>
-				<span class="link-sep">&#9679;</span></li>
 			<li><a href='admin.php'>Admin</a></li>
 			<li>
 				<span class="link-sep">&#9679;</span></li>
 			<li class='has-sub'><a href='#'>Search</a>
 				<ul>
 					<li><a href='Search.php'>Search Users</a></li>
-					<li><a href='Browse.php'>Browse</a></li>
+					<li><a href='Mailbox.php'>Mailbox</a></li>
 				</ul>
 			</li>
 			<li>

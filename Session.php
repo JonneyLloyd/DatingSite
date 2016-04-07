@@ -17,4 +17,3 @@
         mysqli_close($connection); // Closing Connection
     }
     //header('Location: MainPage.php');
-?>
