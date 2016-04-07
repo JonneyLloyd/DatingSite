@@ -89,7 +89,7 @@ if(isset($_POST['username'])) {
 
 		<div class="row requiredRow">
 			<label for="password">Password</label>
-			<input id="password" name="password" type="text" onblur="checkFormPassword1(this);"  title="" />
+			<input id="password" name="password" type="password" onblur="checkFormPassword1(this);"  title="" />
 			<?= $login_error?>
 		</div>
 		<div class="row">
