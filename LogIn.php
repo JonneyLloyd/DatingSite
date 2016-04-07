@@ -5,6 +5,7 @@ require_once("./include/dbConfig.php");
 if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
 	header("location: Profile.php");
 }
+//test
 
 if(isset($_POST['username'])) {
 
