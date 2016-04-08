@@ -5,7 +5,7 @@ $login_error = "";
 if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
 	header("location: Profile.php");
 }
-//test
+
 
 if(isset($_POST['username'])) {
 
@@ -23,9 +23,9 @@ if(isset($_POST['username'])) {
 
 			//update login table
 
-		$query = "UPDATE `group17db`.`login` SET `status` = '1' WHERE `login`.`user_id` =". $_SESSION['user_id'].  ";";
+		$query = "UPDATE `group17db`.`login` SET `status` = NOW() WHERE `login`.`user_id` =". $_SESSION['user_id'].  ";";
 		$result = mysqli_query($conn,$query)
-		or die ("Couldn't execute query.");
+		or die ("Couldn't execute loginUpdate query.");
 		if($nickname == "admin"){
 			header("location: admin.php");
 		}

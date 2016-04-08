@@ -2,6 +2,9 @@
     require_once("./include/dbConfig.php");
     session_start(); // Starting Session
     $error=''; // Variable To Store Error Message
+    $query = "UPDATE `group17db`.`login` SET `status` = NOW() WHERE `login`.`user_id` =". $_SESSION['user_id'].  ";";
+    $result = mysqli_query($conn,$query)
+    or die ("Couldn't execute loginUpdate query.");
 
     if (isset($_POST['Asubmit'])) {
         if (empty($_POST['username']) || empty($_POST['password'])) {

@@ -28,7 +28,7 @@ if(isset($_POST['Email']))
 	$user_id = $row[0];
 
 
-$query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $user_id . "', '" . 1 . "');";
+$query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $user_id . "', NOW());";
 	$result = mysqli_query($conn,$query)
 	or die ("Couldn't execute insert login query.");
 
