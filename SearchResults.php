@@ -55,7 +55,7 @@ else if ((( $_POST['Firstname'] == "")) && (( $_POST['Surname'] == ""))&& (( $_P
     $count = 0;
     $query_count = 0;
     $i = 0;
-    $final_query = "SELECT user_id, f_name, nickname, about, sex, seeking FROM user WHERE ";
+    $final_query = "SELECT user_id, f_name, nickname, about, sex, seeking, dob FROM user WHERE ";
     $query_parts = array(
         0    => "",
         1    => "",
@@ -80,19 +80,19 @@ else if ((( $_POST['Firstname'] == "")) && (( $_POST['Surname'] == ""))&& (( $_P
     if ($like != null) {
 
         if ($count != 0) $final_query .= " AND user_id in (SELECT user_id FROM group17db.like WHERE `like_desc` LIKE '%" . $like . "%')";
-        else $final_query = "SELECT user.user_id, user.f_name, user.nickname, user.about, user.sex, user.seeking FROM `user` JOIN `like` on user.user_id = like.user_id WHERE like_desc LIKE'" . $like . "'";
+        else $final_query = "SELECT user.user_id, user.f_name, user.nickname, user.about, user.sex, user.seeking, user.dob FROM `user` JOIN `like` on user.user_id = like.user_id WHERE like_desc LIKE'" . $like . "'";
         $count++;
     }
     $dislike = strtolower(htmlspecialchars($_POST['Dislike']));
     if ($dislike != null) {
         if ($count != 0) $final_query .= " AND user_id in (SELECT user_id FROM group17db.dislike WHERE `dislike_desc` LIKE '%" . $dislike . "%')";
-        else $final_query = "SELECT user.user_id, user.f_name, user.nickname, user.about, user.sex, user.seeking FROM `user` JOIN `dislike` on user.user_id = dislike.user_id WHERE dislike_desc LIKE'" . $dislike . "'";
+        else $final_query = "SELECT user.user_id, user.f_name, user.nickname, user.about, user.sex, user.seeking, user.dob FROM `user` JOIN `dislike` on user.user_id = dislike.user_id WHERE dislike_desc LIKE'" . $dislike . "'";
         $count++;
     }
     $sex = strtolower(htmlspecialchars($_POST['gender']));
     if ($sex != null) {
         if ($count != 0) $final_query .= " AND sex = '" . $sex . "'";
-        else $final_query = "SELECT user.user_id, user.f_name, user.nickname, user.about, user.sex, user.seeking FROM `user` JOIN `dislike` on user.user_id = dislike.user_id WHERE dislike_desc LIKE'" . $dislike . "'";
+        else $final_query = "SELECT user.user_id, user.f_name, user.nickname, user.about, user.sex, user.seeking, user.dob FROM `user` JOIN `dislike` on user.user_id = dislike.user_id WHERE dislike_desc LIKE'" . $dislike . "'";
         $count++;
     }
 
@@ -112,6 +112,8 @@ if ($count == 0){
                 $f_name = ucfirst($row['f_name']);
                 $name = $row['nickname'];
                 $bio = $row['about'];
+                $dob = $row['dob'];
+                $age = date("Y/m/d") - $dob;
                 if ($row['sex'] == "m")
                     $sex = "man";
                 else
@@ -133,7 +135,7 @@ if ($count == 0){
             <div class='section-content'>
                 <ul>
                     <p>My name is " . $f_name . ".</p>
-                    <p>I am a " . $sex . " looking for a " . $seeking . "</p>
+                    <p>I am a " .$age . " year old " . $sex . " looking for a " . $seeking . ".</p>
                     <p>Here's a little about myself:</p>
                     <p> " . $bio . "</p>
                     <br><br>

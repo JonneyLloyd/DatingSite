@@ -11,6 +11,9 @@ if(isset($_POST['Email']))
 	$dob = htmlspecialchars($_POST["DOByear"] ."-" . $_POST["DOBmonth"] . "-" .$_POST["DOBday"]);
 	$nickname = strtolower(htmlspecialchars($_POST["username"]));
 
+
+	//query to check username & email not already in table!
+
 	$query = "INSERT INTO `group17db`.`user` (`user_id`, `password`, `nickname`,
 												`f_name`, `l_name`, `sex`, `seeking`,
 												`dob`, `about`, `email`)

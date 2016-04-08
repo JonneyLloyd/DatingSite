@@ -60,6 +60,8 @@ if (strtolower($row['nickname'] != "admin")) {
     $f_name = ucfirst($row['f_name']);
     $name = $row['nickname'];
     $bio = $row['about'];
+    $dob = $row['dob'];
+    $age = date("Y/m/d") - $dob;
     if ($row['sex'] == "m")
         $sex = "man";
     else
@@ -81,7 +83,7 @@ if (strtolower($row['nickname'] != "admin")) {
             <div class='section-content'>
                 <ul>
                     <p>My name is " . $f_name . ".</p>
-                    <p>I am a " . $sex . " looking for a " . $seeking . "</p>
+                    <p>I am a " .$age . " year old " . $sex . " looking for a " . $seeking . ".</p>
                     <p>Here's a little about myself:</p>
                     <p> " . $bio . "</p>
                      <br><br>
