@@ -58,7 +58,7 @@ else
 			<li class='active'><a href='Profile.php'>Profile</a></li>
 			<li>
 				<span class="link-sep">&#9679;</span></li>
-			<li><a href='Details.php'>Account Settings</a></li>
+			<li><a href='Details.php'>My Details</a></li>
 			<li>
 				<span class="link-sep">&#9679;</span></li>
 			<li class='has-sub'><a href='#'>Options</a>
