@@ -192,6 +192,52 @@ function checkFormAge(el) {
 
 }
 
+function checkFormCreditCard(el){
+	re = /^[0-9]{16}$/;
+	if (!el.value.match(re)) {
+		if (el.value == "") markReset(el);
+		else markInvalid(el, "Invalid Credit Card Number");
+
+		return false;
+	}
+
+	markValid(el);
+	return true;
+
+}
+
+function checkFormSecurityNum(el){
+	re = /^[0-9]{3}$/;
+	if (!el.value.match(re)) {
+		if (el.value == "") markReset(el);
+		else markInvalid(el, "Invalid Security Code");
+
+		return false;
+	}
+
+	markValid(el);
+	return true;
+
+}
+
+function checkCardDate(month, year) {
+
+	//var dayField = document.getElementById("DOBday");
+	var yearField = document.getElementById("year");
+
+	if ( month.value == 0 || year.value == 0) {
+		markRequired(yearField, "Invalid date");
+		return false;
+	}
+	if (month.value < (new Date()).getMonth() && year.value <= (new Date()).getFullYear().toString().substr(2,2)) {
+		markInvalid(yearField, "Invalid Expiry date");
+		return false;
+	}
+	markValid(yearField);
+	return true;
+
+}
+
 
 function checkLoginForm(form){
 	var valid = true;
@@ -250,8 +296,23 @@ function checkForm(form) {
 		valid = false;
 	}
 
+	if (!checkFormCreditCard(form.ccNumber)) {
+		valid = false;
+	}
+
+	if (!checkCardDate(form.month, form.year)) {
+		valid = false;
+	}
+
+
+	if (!checkFormSecurityNum(form.security)) {
+		valid = false;
+	}
+
+
+
 	//check required
-	var fields = ["Firstname", "Surname", "Email", "Password1", "Password2", "username"];
+	var fields = ["Firstname", "Surname", "Email", "Password1", "Password2", "username", "ccNumber", "security"];
 
 	for (var i = 0; i < fields.length; i++) {
 		var field = document.forms["Registration"][fields[i]];

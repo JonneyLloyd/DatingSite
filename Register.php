@@ -7,12 +7,19 @@ if(isset($_POST['Email']))
 	$firstName = strtolower(htmlspecialchars($_POST["Firstname"]));
 	$surname = strtolower(htmlspecialchars($_POST["Surname"]));
 	$email = strtolower(htmlspecialchars($_POST["Email"]));
+	$email2 =strtolower($_POST["Email"]);
 	$password = htmlspecialchars($_POST["Password1"]);
 	$dob = htmlspecialchars($_POST["DOByear"] ."-" . $_POST["DOBmonth"] . "-" .$_POST["DOBday"]);
 	$nickname = strtolower(htmlspecialchars($_POST["username"]));
 
 
 	//query to check username & email not already in table!
+	$query = "SELECT * from user WHERE nickname = '" . $nickname . "' OR email = '" . $email . "' OR email = '" . $email2 . "'";
+	$result = mysqli_query($conn,$query)
+	or die ("Couldn't execute Check user exists query.");
+	if ($row = mysqli_fetch_array($result) != NULL)
+		header("Location: Register.php");
+
 
 	$query = "INSERT INTO `group17db`.`user` (`user_id`, `password`, `nickname`,
 												`f_name`, `l_name`, `sex`, `seeking`,
@@ -76,6 +83,7 @@ $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $use
 		$(document).ready(function() {
 			var x_timer;
 			$("#username").keyup(function (e){
+				$('#Registration').addClass('no-submit');
 				clearTimeout(x_timer);
 				var user_name = $(this).val();
 				x_timer = setTimeout(function(){
@@ -89,6 +97,7 @@ $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $use
 					$("#user-result").html(data);
 				});
 			}
+
 		});
 
 		function check_email_ajax(email){
@@ -98,6 +107,43 @@ $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $use
 				$("#email-result").html(data);
 			});
 		}
+		$(document).submit(function(e) {
+			e.preventDefault();
+			var firstnameTextbox = $("#Firstname");
+			var surnameTextbox = $("#Surname");
+			var ccNumberTextbox = $("#ccNumber");
+			var monthTextbox = $("#month");
+			var yearTextbox = $("#year");
+			var securityTextbox = $("#security");
+			var fullname = firstnameTextbox.val() + "+" + surnameTextbox.val();
+			var ccNumber = ccNumberTextbox.val();
+			var month = monthTextbox.val();
+			var year = yearTextbox.val();
+			var security = securityTextbox.val();
+			var form = this;
+			$.ajaxPrefilter( function (options) {
+				if (options.crossDomain && jQuery.support.cors) {
+					var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
+					options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
+					//options.url = "http://cors.corsproxy.io/url=" + options.url;
+				}
+			});
+			$.get(
+				'http://amnesia.csisdmz.ul.ie/4014/cc.php?' + "fullname=" + fullname + "&ccNumber=" + ccNumber + "&month=" + month + "&year=" + year + "&security=" + security).done(function(result) {
+					if (checkForm(document.getElementById ('Registration')) == true) {
+						if (result == "1") document.getElementById('Registration').submit();
+						else alert("Credit Card Rejected");
+					}
+				else {
+					alert("Please fully complete form");
+				}
+			}).fail(function() {
+				alert('ERROR');
+			});
+		});
+
+
+
 	</script>
 
 
@@ -130,7 +176,7 @@ $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $use
 	<div class="section">
 			<p></p>
 			<h3>Register</h3>
-				<form name="Registration" method="post" id="Registration" action = "" onsubmit="return checkForm(this);" >
+				<form name="Registration" method="post" id="Registration"  action="" >
 					<div class="row requiredRow">
 						<label for="Firstname">First name</label>
 						<input id="Firstname" name="Firstname" type="text" onblur="checkFormFirstname(this); " title="" />
@@ -335,8 +381,48 @@ $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $use
 					<input id="DOBage" name="DOBage" type="checkbox" title="" />
 					<span><label for="DOBage" class="accept-terms">I accept the terms and conditions and that I am over the age of 18.</label></span>
 				</div>
+
+					<br><br><br>
+					<div class="row requiredRow">
+						<label for="ccNumber">Credit Card Number</label>
+						<input id="ccNumber" name="ccNumber" type="text" onblur="checkFormCreditCard(this);" title="" />
+					</div>
+
+					<div class="row requiredRow">
+						<label for="month year">Expiry Date</label>
+						<select id="month" name="month" title="">
+							<option value="01">January</option>
+							<option value="02">February</option>
+							<option value="03">March</option>
+							<option value="04">April</option>
+							<option value="05">May</option>
+							<option value="06">June</option>
+							<option value="07">July</option>
+							<option value="08">August</option>
+							<option value="09">September</option>
+							<option value="10">October</option>
+							<option value="11">November</option>
+							<option value="12">December</option>
+						</select>
+						<select id="year" name="year" title="">
+							<option value="16">2016</option>
+							<option value="17">2017</option>
+							<option value="18">2018</option>
+							<option value="19">2019</option>
+							<option value="20">2020</option>
+							<option value="21">2021</option>
+
+						</select>
+					</div>
+
+					<div class="row requiredRow">
+						<label for="security">Security number</label>
+						<input id="security" name="security" type="text" onblur="checkFormSecurityNum(this);" title="" />
+					</div>
+
+
 				<div class="row">
-					<input type="submit" value="Register" />
+					<input type="submit" value="submit" />
 				</div>
 				</form>
 

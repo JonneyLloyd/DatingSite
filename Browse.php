@@ -2,7 +2,6 @@
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
 if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
-//this is  a comment
 }
 else
     header("location: LogIn.php");
