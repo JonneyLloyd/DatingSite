@@ -65,6 +65,20 @@ while($row = mysqli_fetch_array($result))
     $sender_f_name = ucfirst(htmlspecialchars($row2['f_name']));
 	$sender_l_name = ucfirst(htmlspecialchars($row2['l_name']));
 
+	$query3 = "SELECT UNIX_TIMESTAMP(status) FROM login WHERE user_id = $sender";
+	$result3 = mysqli_query($conn,$query3);
+	$row3 = mysqli_fetch_array($result3);
+	$current = date("Y-m-d H:i:s");
+	$string=$row[0]->format('Y-m-d H:i:s');
+	$interval = round(abs($current - $string) / 60,2);
+	$status = $interval > 30 ? $status . "Active in last 30 min" : $status . "No activity in last 30 min";
+
+
+
+
+
+
+
     echo "<div class='section'>
             <p></p>
             <div class='thumbnail rounded-frame-small'>
@@ -77,6 +91,7 @@ while($row = mysqli_fetch_array($result))
                     <p>Message from: " . $sender_f_name . " " .$sender_l_name . ".</p>
                     <p>" . $message . "</p>
                     <br>
+                    <p>Log: " . $sender_f_name . " " .$sender_l_name . " " . $status . ".</p>
                     <form action='Contact.php' method='post' enctype='multipart/form-data'>
 					<div class='row'>
 						<label for='Profile'></label>
