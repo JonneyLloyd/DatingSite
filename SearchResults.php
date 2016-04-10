@@ -28,15 +28,17 @@ else if ((( $_POST['Firstname'] == "")) && (( $_POST['Surname'] == ""))&& (( $_P
             <li class='active'><a href='Profile.php'>Profile</a></li>
             <li>
                 <span class="link-sep">&#9679;</span></li>
-            <li><a href='Details.php'>Account Settings</a></li>
-            <li>
+            <li class='has-sub'><a href='#'>Account</a>
+                <ul>
+                    <li><a href='Details.php'>My Details</a></li>
+                    <li><a href='Mailbox.php'>Mailbox</a></li>
+                </ul>
                 <span class="link-sep">&#9679;</span></li>
-            <li class='has-sub'><a href='#'>Options</a>
+            <li class='has-sub'><a href='#'>Search</a>
                 <ul>
                     <li><a href='Search.php'>Search Users</a></li>
                     <li><a href='Browse.php'>Browse Users</a></li>
                     <li><a href='SuggestedMatches.php'>Suggested Matches</a></li>
-                    <li><a href='Mailbox.php'>Mailbox</a></li>
                 </ul>
             </li>
             <li>
@@ -132,15 +134,7 @@ if ($count == 0){
                 <span class='caption'></span>
             </div>
 
-            <div class='section-content'>
-                <ul>
-                    <p>My name is " . $f_name . ".</p>
-                    <p>I am a " .$age . " year old " . $sex . " looking for a " . $seeking . ".</p>
-                    <p>Here's a little about myself:</p>
-                    <p> " . $bio . "</p>
-                    <br><br>
-
-        <form name = 'contact' action='Contact.php' method='post' enctype='multipart/form-data'>
+             <form name = 'contact' action='Contact.php' method='post' enctype='multipart/form-data'>
 			<div class='row'>
 			<label for='Profile'>Contact $f_name</label>
             <input type='hidden' name='contact_id' value='$user_id' />
@@ -149,6 +143,16 @@ if ($count == 0){
 			</div>
 		</form>
 <br>
+
+            <div class='section-content'>
+                <ul>
+                    <p>My name is " . $f_name . ".</p>
+                    <p>I am a " .$age . " year old " . $sex . " looking for a " . $seeking . ".</p>
+                    <p>Here's a little about myself:</p>
+                    <p> " . $bio . "</p>
+                    <br><br>
+
+
 		<form name = 'report' action='ContactUser.php' method='post' enctype='multipart/form-data'>
 			<div class='row'>
 			<label for='Profile'>Report $f_name</label>
