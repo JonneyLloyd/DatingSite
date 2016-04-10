@@ -44,8 +44,8 @@ function removeErrorMsg(el) {
 	}
 	else if(par.childNodes[6])
 		par.removeChild(par.childNodes[6]);//email
-	//else if(par.childNodes[4])
-		//par.removeChild(par.childNodes[4]);
+	else if(par.childNodes[4])
+		par.removeChild(par.childNodes[4]);
 }
 
 

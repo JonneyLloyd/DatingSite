@@ -46,7 +46,7 @@ if ($uploadOk == 0) {
         $resized_file = $outputFile;
         $wmax = 150;
         $hmax = 150;
-        ak_img_resize($target_file, $resized_file, $wmax, $hmax, $imageFileType);
+        img_resize($target_file, $resized_file, $wmax, $hmax, $imageFileType);
         header("Location: Details.php");
 
 

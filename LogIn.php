@@ -8,7 +8,6 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
 
 
 if(isset($_POST['username'])) {
-
 	$nickname = strtolower(htmlspecialchars($_POST["username"]));
 	$password = htmlspecialchars($_POST["password"]);
 	//$hash = password_hash($_SESSION['user_password'], PASSWORD_DEFAULT);
@@ -38,9 +37,13 @@ if (password_verify($password, $row['password'])) {
 	}
 //if $nickname == "admin" then go to admin log in else go to profile
 }
+		else {
+			$login_error = "Incorrect password";
+			sleep(1);
+		}
 	}
 	else {
-		$login_error = "Username or password not found";
+		$login_error = "Username not found";
 	}
 }
 

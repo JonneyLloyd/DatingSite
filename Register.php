@@ -428,7 +428,7 @@ $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $use
 
 
 				<div class="row">
-					<input type="submit" value="submit" />
+					<input type="submit" value="Register" />
 				</div>
 				</form>
 
