@@ -13,13 +13,13 @@ if(isset($_POST['username'])) {
 	//$hash = password_hash($_SESSION['user_password'], PASSWORD_DEFAULT);
 
 
-	$query = "SELECT * from user WHERE nickname =  '" . $nickname . "';";
+	$query = "SELECT * from user WHERE nickname =  '" . $nickname . "' OR email = '" . $nickname . "';";
 	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute query.");
 	$row = mysqli_fetch_array($result);
 	if ($row[0] != null){
 if (password_verify($password, $row['password'])) {
-	$_SESSION['login_user'] = $nickname;
+	$_SESSION['login_user'] = $row['nickname'];
 	$_SESSION['user_password'] = true;;
 	$_SESSION['user_id'] = $row[0];
 
@@ -89,7 +89,7 @@ if (password_verify($password, $row['password'])) {
 		<form name = "login" id = "login" action="" method="post" onsubmit="return checkLoginForm(this);" >
 		<div class="row requiredRow">
 			<label for="username">Username</label>
-			<input id="username" name="username" type="text" onblur="checkFormUsername(this);"  title="" />
+			<input id="username" name="username" type="text"   title="" />
 		</div>
 
 		<div class="row requiredRow">

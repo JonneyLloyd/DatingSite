@@ -89,7 +89,7 @@ function checkFormEmail(el) {
 
 	if (!el.value.match(re)) {
 		if (el.value == "") markReset(el);
-		else markInvalid(el, "Invalid e-mail");
+		else markInvalid(el, "Invalid entry");
 
 		return false;
 	}
@@ -100,7 +100,7 @@ function checkFormEmail(el) {
 }
 
 function checkFormUsername(el) {
-	re = /^[A-Za-z0-9._]{2,}$/;
+	re = /^[A-Za-z0-9._]{3,}$/;
 	if (!el.value.match(re)) {
 		if (el.value == "") markReset(el);
 		else markInvalid(el, "Invalid Username");
@@ -241,7 +241,7 @@ function checkCardDate(month, year) {
 
 function checkLoginForm(form){
 	var valid = true;
-	if (!checkFormUsername(form.username)) {
+	if (!checkFormUsername(form.username) && !checkFormEmail(form.username)) {
 		valid = false;
 	}
 	if (!checkFormPassword1(form.password)) {
