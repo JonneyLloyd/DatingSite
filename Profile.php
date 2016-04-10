@@ -6,6 +6,7 @@ if((isset($_SESSION['login_user'])) && ($_SESSION['login_user'] == "admin" )) {
 }
 else if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 	$username = $_SESSION['login_user'];
+
 }
 else {
 	header("location: LogIn.php");

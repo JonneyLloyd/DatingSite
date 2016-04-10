@@ -12,6 +12,9 @@ if(isset($_POST['Email']))
 	$email = strtolower(htmlspecialchars($_POST["Email"]));
 	$email2 =strtolower($_POST["Email"]);
 	$password = htmlspecialchars($_POST["Password1"]);
+
+	$password = password_hash($password, PASSWORD_DEFAULT);
+
 	$dob = htmlspecialchars($_POST["DOByear"] ."-" . $_POST["DOBmonth"] . "-" .$_POST["DOBday"]);
 	$nickname = strtolower(htmlspecialchars($_POST["username"]));
 
@@ -52,7 +55,7 @@ $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $use
 			header("Location: LogIn.php");
 		} else {
 			$_SESSION['login_user'] = strtolower(htmlspecialchars($_POST["username"]));
-			$_SESSION['user_password'] = htmlspecialchars($_POST["Password1"]);
+			$_SESSION['user_password'] = true;
 
 			$query1 = "SELECT * from user WHERE nickname =  '" .$_SESSION['login_user'] . "';";
 			$result = mysqli_query($conn,$query1)

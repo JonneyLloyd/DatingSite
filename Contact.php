@@ -10,12 +10,17 @@ $sender_id = "";
 $hidden_fields = "";
 $report_id = "";
 $report_name = "";*/
-
-if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
+if (isset( $_POST['report_id']) && isset($_POST['report_f_name'])) {
     $receiver_id = $_POST['contact_id'];
     $receiver_name = $_POST['contact_f_name'];
     $report_id = $_POST['report_id'];
     $report_name = $_POST['report_f_name'];
+    $sender_id = $_SESSION['user_id'];
+}
+
+else if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
+    $receiver_id = $_POST['contact_id'];
+    $receiver_name = $_POST['contact_f_name'];
     $sender_id = $_SESSION['user_id'];
 }
 ?>
@@ -75,7 +80,10 @@ if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
                 <label for="message">Message</label>
                 <textarea name="message_text" input id="message_text" type="text"  title=""  rows="4" cols="50"> <?=$hidden_fields?></textarea><br><br>
                 <input type='hidden' name='sender_id' value='<?=$sender_id?>' />
-                <input type='hidden' name='report_id' value='<?=$report_id?>' />
+                <?php if (isset( $_POST['report_id'])){
+                echo "<input type='hidden' name='report_id' value='. $report_id. ' />";
+                }
+                ?>
                 <input type='hidden' name='receiver_id' value='<?=$receiver_id?>' />
                 <input type="submit" value="Send" />
                 <p></p>
