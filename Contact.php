@@ -4,19 +4,20 @@ include('LogInProcess.php'); // Includes Login Script
 if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) {
     header("location: LogIn.php");
 }
-$reciever_id = "";
-$reciever_name = "";
+/*$receiver_id = "";
+$receiver_name = "";
 $sender_id = "";
 $hidden_fields = "";
+$report_id = "";
+$report_name = "";*/
+
 if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
-    $reciever_id = $_POST['contact_id'];
-    $reciever_name = $_POST['contact_f_name'];
+    $receiver_id = $_POST['contact_id'];
+    $receiver_name = $_POST['contact_f_name'];
+    $report_id = $_POST['report_id'];
+    $report_name = $_POST['report_f_name'];
     $sender_id = $_SESSION['user_id'];
-
-
 }
-
-
 ?>
 
 
@@ -59,11 +60,11 @@ if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
 
 <div id="content">
     <div class="section">
-        <p>To: <?=$reciever_name?> </p>
+        <p>To: <?=$receiver_name?> </p>
         <?php
-        $hidden_fields = "Hello " . $reciever_name . ",\n";
-        if (isset($_POST['report_id']) && isset($_POST['report_f_name'])) {
-            $hidden_fields = "Reporting ID: " . $_POST['report_id'] . "\nReporting: " . $_POST['report_f_name'] . ".\n";
+        $hidden_fields = "Hello " . $receiver_name . ",\n";
+        if (isset($report_id) && isset($report_name)) {
+            $hidden_fields = "Reporting ID: " . $report_id . " \nReporting: " . $report_name . ".\n";
             echo $hidden_fields;
                 }
         ?>
@@ -71,8 +72,9 @@ if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
             <div class="row requiredRow">
                 <label for="message">Message</label>
                 <textarea name="message_text" input id="message_text" type="text"  title=""  rows="4" cols="50"> <?=$hidden_fields?></textarea><br><br>
-                <input type='hidden' name='receiver_id' value='<?=$reciever_id?>' />
                 <input type='hidden' name='sender_id' value='<?=$sender_id?>' />
+                <input type='hidden' name='report_id' value='<?=$report_id?>' />
+                <input type='hidden' name='receiver_id' value='<?=$receiver_id?>' />
                 <input type="submit" value="Send" />
                 <p></p>
             </div>

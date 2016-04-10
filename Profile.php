@@ -1,10 +1,16 @@
 <?php
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
-if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
+if((isset($_SESSION['login_user'])) && ($_SESSION['login_user'] == "admin" )) {
+	$username = $_POST['nickname'];;
+}
+else if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 	$username = $_SESSION['login_user'];
-
-	$query = "SELECT user_id from user WHERE nickname =  '" . $_SESSION['login_user'] . "';";
+}
+else {
+	header("location: LogIn.php");
+}
+	$query = "SELECT user_id from user WHERE nickname =  '" . $username . "';";
 	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute query.");
 	$row = mysqli_fetch_array($result);
@@ -31,10 +37,6 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 	$dob = $row[7];
 	$about = $row[8];
 	$age = date("Y/m/d") - $dob;
-}
-else
-	header("location: LogIn.php");
-
 
 ?>
 
