@@ -74,13 +74,7 @@ while($row = mysqli_fetch_array($result))
 	$string=$row[0]->format('Y-m-d H:i:s');
 	$interval = round(abs($current - $string) / 60,2);
 	$status = $interval > 30 ? $status . "Active in last 30 min" : $status . "No activity in last 30 min";
-
-
-
-
-
-
-
+	
     echo "<div class='section'>
             <p></p>
             <div class='thumbnail rounded-frame-small'>
