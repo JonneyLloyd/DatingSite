@@ -1,6 +1,6 @@
 <?php
 // Function for resizing jpg, gif, or png image files
-function ak_img_resize($target, $newcopy, $w, $h, $ext) {
+function img_resize($target, $newcopy, $w, $h, $ext) {
     list($w_orig, $h_orig) = getimagesize($target);
     $scale_ratio = $w_orig / $h_orig;
     if (($w / $h) > $scale_ratio) {

@@ -8,37 +8,42 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
 
 
 if(isset($_POST['username'])) {
-
 	$nickname = strtolower(htmlspecialchars($_POST["username"]));
 	$password = htmlspecialchars($_POST["password"]);
-	$query = "SELECT * from user WHERE nickname =  '" . $nickname . "' AND  password = '" . $password . "';";
+	//$hash = password_hash($_SESSION['user_password'], PASSWORD_DEFAULT);
+
+
+	$query = "SELECT * from user WHERE nickname =  '" . $nickname . "' OR email = '" . $nickname . "';";
 	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute query.");
 	$row = mysqli_fetch_array($result);
 	if ($row[0] != null){
+if (password_verify($password, $row['password'])) {
+	$_SESSION['login_user'] = $row['nickname'];
+	$_SESSION['user_password'] = true;;
+	$_SESSION['user_id'] = $row[0];
 
-		$_SESSION['login_user'] = $nickname;
-		$_SESSION['user_password'] = $password;
-		$_SESSION['user_id'] = $row[0];
+	//update login table
 
-			//update login table
-
-		$query = "UPDATE `group17db`.`login` SET `status` = NOW() WHERE `login`.`user_id` =". $_SESSION['user_id'].  ";";
-		$result = mysqli_query($conn,$query)
-		or die ("Couldn't execute loginUpdate query.");
-		if($nickname == "admin"){
-			header("location: admin.php");
-		}
-		else {
-			//no logged in
-			//go to log in.php
-			header("Location: Profile.php");
-		}
+	$query = "UPDATE `group17db`.`login` SET `status` = NOW() WHERE `login`.`user_id` =" . $_SESSION['user_id'] . ";";
+	$result = mysqli_query($conn, $query)
+	or die ("Couldn't execute loginUpdate query.");
+	if ($nickname == "admin") {
+		header("location: admin.php");
+	} else {
+		//no logged in
+		//go to log in.php
+		header("Location: Profile.php");
+	}
 //if $nickname == "admin" then go to admin log in else go to profile
-
+}
+		else {
+			$login_error = "Incorrect password";
+			sleep(1);
+		}
 	}
 	else {
-		$login_error = "Username or password not found";
+		$login_error = "Username not found";
 	}
 }
 
@@ -84,7 +89,7 @@ if(isset($_POST['username'])) {
 		<form name = "login" id = "login" action="" method="post" onsubmit="return checkLoginForm(this);" >
 		<div class="row requiredRow">
 			<label for="username">Username</label>
-			<input id="username" name="username" type="text" onblur="checkFormUsername(this);"  title="" />
+			<input id="username" name="username" type="text"   title="" />
 		</div>
 
 		<div class="row requiredRow">

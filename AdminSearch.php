@@ -1,7 +1,7 @@
 <?php
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
-if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
+if((isset($_SESSION['login_user'])) && ($_SESSION['login_user'] == "admin" )) {
 }
 else
     header("location: LogIn.php");
@@ -24,22 +24,16 @@ else
     </div>
     <div class="navbar">
         <ul>
-            <li class='active'><a href='Profile.php'>Profile</a></li>
+            <li><a href='Ban_user.php'>Ban User</a></li>
             <li>
-                <span class="link-sep">&#9679;</span></li>
-            <li class='has-sub'><a href='#'>Account</a>
-                <ul>
-                    <li><a href='Details.php'>My Details</a></li>
-                    <li><a href='Mailbox.php'>Mailbox</a></li>
-                </ul>
                 <span class="link-sep">&#9679;</span></li>
             <li class='has-sub'><a href='#'>Search</a>
                 <ul>
-                    <li><a href='Search.php'>Search Users</a></li>
-                    <li><a href='Browse.php'>Browse Users</a></li>
-                    <li><a href='SuggestedMatches.php'>Suggested Matches</a></li>
+                    <li><a href='AdminSearch.php'>Search Users</a></li>
+                    <li><a href='Mailbox.php'>Mailbox</a></li>
                 </ul>
             </li>
+
             <li>
                 <span class="link-sep">&#9679;</span></li>
             <li><a href='LogOut.php'>Log Out</a></li>

@@ -29,15 +29,17 @@ header("location: LogIn.php");
             <li class='active'><a href='Profile.php'>Profile</a></li>
             <li>
                 <span class="link-sep">&#9679;</span></li>
-            <li><a href='Details.php'>Account Settings</a></li>
-            <li>
+            <li class='has-sub'><a href='#'>Account</a>
+                <ul>
+                    <li><a href='Details.php'>My Details</a></li>
+                    <li><a href='Mailbox.php'>Mailbox</a></li>
+                </ul>
                 <span class="link-sep">&#9679;</span></li>
-            <li class='has-sub'><a href='#'>Options</a>
+            <li class='has-sub'><a href='#'>Search</a>
                 <ul>
                     <li><a href='Search.php'>Search Users</a></li>
                     <li><a href='Browse.php'>Browse Users</a></li>
                     <li><a href='SuggestedMatches.php'>Suggested Matches</a></li>
-                    <li><a href='Mailbox.php'>Mailbox</a></li>
                 </ul>
             </li>
             <li>
@@ -52,12 +54,13 @@ header("location: LogIn.php");
 
     <?php
     $user_id = $_SESSION['user_id'];
-    $query = "SELECT seeking from user WHERE user_id = '" . $user_id . "'";
+    $query = "SELECT seeking, sex from user WHERE user_id = '" . $user_id . "'";
     $result = mysqli_query($conn, $query)
     or die ("Couldn't execute query.");
     $row = mysqli_fetch_array($result);
 
     $seeking = $row['seeking'];
+    $sex = $row['sex'];
 
     $like_array = array();
 
@@ -78,7 +81,8 @@ header("location: LogIn.php");
                  (select z.user_id, IFNULL(count(*), 0) as neg_score
                  from `like` x left join `dislike` z on x.like_desc = z.dislike_desc
                   where x.user_id = '". $user_id . "' and x.like_desc != '' group by z.user_id)w using(user_id)))t
-                  on d.user_id = t.user_id WHERE sex = '". $seeking . "' order by total desc";
+                  on d.user_id = t.user_id WHERE sex = '". $seeking . "' and seeking = '" . $sex . "' and d.user_id != '" . $user_id .
+                "' order by total desc";
 
     $result = mysqli_query($conn, $query1)
     or die ($query1 . " could not be executed");
@@ -110,6 +114,15 @@ header("location: LogIn.php");
                 <br />
                 <span class='caption'></span>
             </div>
+            <form name = 'contact' action='Contact.php' method='post' enctype='multipart/form-data'>
+			<div class='row'>
+			<label for='Profile'>Contact $f_name</label>
+            <input type='hidden' name='contact_id' value='$user_id' />
+            <input type='hidden' name='contact_f_name' value='$f_name' />
+			<input type='submit' value='Contact' name='submit''>
+			</div>
+		</form>
+<br>
 
             <div class='section-content'>
                 <ul>
@@ -119,15 +132,7 @@ header("location: LogIn.php");
                     <p> " . $bio . "</p>
                      <br><br>
 
-        <form name = 'contact' action='Contact.php' method='post' enctype='multipart/form-data'>
-			<div class='row'>
-			<label for='Profile'>Contact $f_name</label>
-            <input type='hidden' name='contact_id' value='$user_id' />
-            <input type='hidden' name='contact_f_name' value='$f_name' />
-			<input type='submit' value='Contact' name='submit''>
-			</div>
-		</form>
-<br>
+
 		<form name = 'report' action='Contact.php' method='post' enctype='multipart/form-data'>
 			<div class='row'>
 			<label for='Profile'>Report $f_name</label>
