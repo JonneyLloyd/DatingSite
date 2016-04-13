@@ -12,12 +12,14 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
 
 //ensuring user isn't blocked
 //automatically blocks user no matter if they are in the blocked table or not???
+
 /*
+ *
     $query = "Select user_id from blocked where user_id = (Select user_id from user Where nickname = '$username')";
     $row = mysqli_query($conn, $query)
     or die ("Couldn't execute blocked table query.");
     if($row > 0){
-        header("Location: Blocked.html");
+        header("Location: Blocked.php");
     }
 */
         if (isset($_POST['Asubmit'])) {

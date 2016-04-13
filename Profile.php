@@ -18,7 +18,7 @@ else
 	$row = mysqli_query($conn, $query)
 	or die ("Couldn't execute blocked table query.");
 	if($row > 0){
-		header("Location: Blocked.html");
+		header("Location: Blocked.php");
 	}*/
 
 	$query = "SELECT user_id from user WHERE nickname =  '" . $username . "';";
