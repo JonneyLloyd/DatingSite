@@ -4,7 +4,6 @@ include('LogInProcess.php'); // Includes Login Script
 if((!isset($_SESSION['login_user'])) || (!isset($_SESSION['user_password']))) {
     header("location: LogIn.php");
 }
-
 $testing = "some other problem";
     if((isset($_POST['report_id']))&& (isset($_POST['sender_id'])) && (isset($_POST['message_text']))) {
         $sender = $_POST['sender_id'];
@@ -14,7 +13,7 @@ $testing = "some other problem";
         $result = mysqli_query($conn, $query)
         or die ("\nCouldn't execute admin query. ". $query);
     }
-    else 
+    else
         if((isset($_POST['receiver_id'])) && (isset($_POST['sender_id'])) && (isset($_POST['message_text']))) {
         $sender = $_POST['sender_id'];
         $recipient = $_POST['receiver_id'];
@@ -24,5 +23,6 @@ $testing = "some other problem";
         or die ("Couldn't execute query.");
     }
     else
-        echo $testing;
+        if ($_SESSION['login_user'] == "admin" )
+            header("location: AdminMailbox.php");
 header("location: Profile.php");
