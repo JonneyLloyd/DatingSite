@@ -1,6 +1,7 @@
 <?php
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
+
 if((isset($_SESSION['login_user'])) && ($_SESSION['login_user'] == "admin" )) {
 	$username = $_POST['nickname'];;
 }
@@ -8,9 +9,18 @@ else if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password'])))
 	$username = $_SESSION['login_user'];
 
 }
-else {
-	header("location: LogIn.php");
-}
+else 
+	header("Location: LogIn.php");
+
+	//compare currdatetime to blocked first and if date is in the past delete entry from blocked table
+	//ensuring user isn't blocked
+	/*$query = "Select user_id from blocked where user_id = (Select user_id from user Where nickname = '$username')";
+	$row = mysqli_query($conn, $query)
+	or die ("Couldn't execute blocked table query.");
+	if($row > 0){
+		header("Location: Blocked.html");
+	}*/
+
 	$query = "SELECT user_id from user WHERE nickname =  '" . $username . "';";
 	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute query.");

@@ -8,18 +8,23 @@ else
     header("location: LogIn.php");
 
 $error = 0;
-$banErr = $reasonErr = $exists = $already_banned = "";
+$banErr = $reasonErr = $exists = $already_banned = $date_error = "";
 //check if submit has been pressed
 // enter nickname of user
 if ($_SERVER["REQUEST_METHOD"] == "POST")
     $user = strtolower(htmlspecialchars($_POST['user_ban']));
     $reason = strtolower(htmlspecialchars($_POST['block_reason']));
+    $end_date = strtolower(htmlspecialchars($_POST['ban']));
     if(empty($user)){
         $banErr = "Username Required";
         $error = 1;
     }
     if(empty($reason)) {
         $reasonErr = "Reason is required";
+        $error = 1;
+    }
+    if(empty($end_date)) {
+        $date_error = "End date is required";
         $error = 1;
     }
     if($error != 1){
@@ -42,7 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             }
             else{
                 //enter user into blocked database
-                $query = "INSERT INTO blocked (user_id, reason) VALUES ('$user_id', '$reason')";
+                echo $user_id, $reason;
+                $query = "INSERT INTO blocked (user_id, reason, end_date) VALUES ('$user_id', '$reason', NULL)";
                 $result = mysqli_query($conn, $query)
                 or die ("Couldn't execute query cannot insert into blocked table.");
             }

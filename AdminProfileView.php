@@ -93,6 +93,18 @@ include('LogInProcess.php'); // Includes Login Script
                 <div class="row requiredRow">
                     <input type='hidden' name='user_id' value='<?=$user_id?>' />
                     <input type="submit" value="Block User" />
+                    
+            <form name = "Edit_User" action="Edit_user.php" method="post" >
+                <div class="row requiredRow">
+                    <input type='hidden' name='user_id' value='<?=$user_id?>' />
+                    <input type='hidden' name='firstname' value='<?=$f_name?>' />
+                    <input type='hidden' name='lastname' value='<?=$l_name?>' />
+                    <input type='hidden' name='age' value='<?=$age?>' />
+                    <input type='hidden' name='sex' value='<?=$sex?>' />
+                    <input type='hidden' name='preference' value='<?=$pref?>' />
+                    <input type='hidden' name='about' value='<?=$about?>' />
+                    <input type='hidden' name='dob' value='<?=$dob?>' />
+                    <input type="submit" value="Edit User" />
         </div>
     </div>
     <div id="footer">

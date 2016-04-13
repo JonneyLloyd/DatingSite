@@ -2,6 +2,7 @@
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
 if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
+
 	$query = "SELECT user_id from user WHERE nickname =  '" . $_SESSION['login_user'] . "';";
 	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute query.");
@@ -51,15 +52,14 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 	or die ("Couldn't execute query.");
 	$counter = 0;
 	$like = array(
-		0    => "",
-		1    => "",
-		2    => "",
-		3    => "",
-		4    => "",
-		5    => ""
+		0 => "",
+		1 => "",
+		2 => "",
+		3 => "",
+		4 => "",
+		5 => ""
 	);
-	while($row = mysqli_fetch_array($result))
-	{
+	while ($row = mysqli_fetch_array($result)) {
 		$like[$counter] = $row["like_desc"];
 		$counter++;
 	}
@@ -68,14 +68,13 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 	or die ("Couldn't execute query.");
 	$counter = 0;
 	$dislike = array(
-		0    => "",
-		1    => "",
-		2    => "",
-		3    => "",
-		4    => ""
+		0 => "",
+		1 => "",
+		2 => "",
+		3 => "",
+		4 => ""
 	);
-	while($row = mysqli_fetch_array($result))
-	{
+	while ($row = mysqli_fetch_array($result)) {
 		$dislike[$counter] = $row["dislike_desc"];
 		$counter++;
 	}
@@ -111,45 +110,44 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 			$result = mysqli_query($conn, $query2)
 			or die ("Couldn't execute query2.");
 
-			$like[0]= strtolower(htmlspecialchars($_POST["Like1"]));
-			$like[1]= strtolower(htmlspecialchars($_POST["Like2"]));
-			$like[2]= strtolower(htmlspecialchars($_POST["Like3"]));
-			$like[3]= strtolower(htmlspecialchars($_POST["Like4"]));
-			$like[4]= strtolower(htmlspecialchars($_POST["Like5"]));
+			$like[0] = strtolower(htmlspecialchars($_POST["Like1"]));
+			$like[1] = strtolower(htmlspecialchars($_POST["Like2"]));
+			$like[2] = strtolower(htmlspecialchars($_POST["Like3"]));
+			$like[3] = strtolower(htmlspecialchars($_POST["Like4"]));
+			$like[4] = strtolower(htmlspecialchars($_POST["Like5"]));
 
 
 			$query = "DELETE FROM `like` WHERE user_id = '" . $user_id . "'";
 			$result = mysqli_query($conn, $query)
 			or die ("Couldn't execute delete query.");
-			$query_tail = "VALUES ('". $user_id . "', NULL, '".$like[0]."')";
-			for($i = 1; $i <5; $i++){
+			$query_tail = "VALUES ('" . $user_id . "', NULL, '" . $like[0] . "')";
+			for ($i = 1; $i < 5; $i++) {
 				if ($like != "")
-					$query_tail .= ", ('". $user_id . "', NULL, '" .$like[$i] ."')";
+					$query_tail .= ", ('" . $user_id . "', NULL, '" . $like[$i] . "')";
 
 			}
 			$query = "INSERT INTO `like` (`user_id`, `like_id`, `like_desc`)" . $query_tail . ";";
 			$result = mysqli_query($conn, $query)
 			or die ("Couldn't execute insert like query.");
 
-			$dislike[0]= strtolower(htmlspecialchars($_POST["Dislike1"]));
-			$dislike[1]= strtolower(htmlspecialchars($_POST["Dislike2"]));
-			$dislike[2]= strtolower(htmlspecialchars($_POST["Dislike3"]));
-			$dislike[3]= strtolower(htmlspecialchars($_POST["Dislike4"]));
-			$dislike[4]= strtolower(htmlspecialchars($_POST["Dislike5"]));
+			$dislike[0] = strtolower(htmlspecialchars($_POST["Dislike1"]));
+			$dislike[1] = strtolower(htmlspecialchars($_POST["Dislike2"]));
+			$dislike[2] = strtolower(htmlspecialchars($_POST["Dislike3"]));
+			$dislike[3] = strtolower(htmlspecialchars($_POST["Dislike4"]));
+			$dislike[4] = strtolower(htmlspecialchars($_POST["Dislike5"]));
 
 			$query = "DELETE FROM `dislike` WHERE user_id = '" . $user_id . "'";
 			$result = mysqli_query($conn, $query)
 			or die ("Couldn't execute delete query.");
-			$query_tail = "VALUES ('". $user_id . "', NULL, '".$dislike[0]."')";
-			for($i = 1; $i <5; $i++){
+			$query_tail = "VALUES ('" . $user_id . "', NULL, '" . $dislike[0] . "')";
+			for ($i = 1; $i < 5; $i++) {
 				if ($like != "")
-					$query_tail .= ", ('". $user_id . "', NULL, '" .$dislike[$i] ."')";
+					$query_tail .= ", ('" . $user_id . "', NULL, '" . $dislike[$i] . "')";
 			}
 			$query = "INSERT INTO `group17db`.`dislike` (`user_id`, `dislike_id`, `dislike_desc`)" . $query_tail . ";";
 			$result = mysqli_query($conn, $query)
 			or die ("Couldn't execute insert dislike query.");
 		}
-
 	}
 }
 else

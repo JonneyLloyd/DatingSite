@@ -1,5 +1,6 @@
 <?php
     require_once("./include/dbConfig.php");
+
     session_start(); // Starting Session
     $error=''; // Variable To Store Error Message
 if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
@@ -7,28 +8,40 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
     $result = mysqli_query($conn,$query)
     or die ("Couldn't execute loginUpdate query.");
 }
+//compare currdatetime to blocked first and if date is in the past delete entry from blocked table
 
-
-    if (isset($_POST['Asubmit'])) {
-        if (empty($_POST['username']) || empty($_POST['password'])) {
-            $error = "Username or Password is invalid";
-            echo $error;
-            header("Location: MainPage.html");
-        } else {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            $_SESSION['login_user'] = $username;
-            $_SESSION['user_password'] = $password;
-
-            header("Location: HomePage.php");
-            /*$connection = mysqli_connect($servername, $dbusername, $password, $dbname, $port = 3307);
+//ensuring user isn't blocked
+//automatically blocks user no matter if they are in the blocked table or not???
+/*
+    $query = "Select user_id from blocked where user_id = (Select user_id from user Where nickname = '$username')";
+    $row = mysqli_query($conn, $query)
+    or die ("Couldn't execute blocked table query.");
+    if($row > 0){
+        header("Location: Blocked.html");
+    }
+*/
+        if (isset($_POST['Asubmit'])) {
+            if (empty($_POST['username']) || empty($_POST['password'])) {
+                $error = "Username or Password is invalid";
+                echo $error;
+                header("Location: MainPage.html");
+            } else {
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                $_SESSION['login_user'] = $username;
+                $_SESSION['user_password'] = $password;
+                header("Location: Profile.php");
+            }
+        }
+            /*
+            $connection = mysqli_connect($servername, $dbusername, $password, $dbname, $port = 3307);
             // To protect MySQL injection for Security purpose
-            /**$username = stripslashes($username);
-             * $password = stripslashes($password);
-             * $username = mysqli_real_escape_string($username);
-             * $password = mysqli_real_escape_string($password);*/
+            $username = stripslashes($username);
+              $password = stripslashes($password);
+              $username = mysqli_real_escape_string($username);
+             $password = mysqli_real_escape_string($password);
             // SQL query to fetch information of registered users and finds user match.
-            /*$query = mysqli_query("select * from login where password='$password' AND username='$username'", $connection);
+            $query = mysqli_query("select * from login where password='$password' AND username='$username'", $connection);
             $rows = mysql_num_rows($query);
             if ($rows == 1) {
                 $_SESSION['login_user'] = $username; // Initializing Session
@@ -36,9 +49,7 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
             } else {
                 mysqli_close($connection);
                 header("location: MainPage.html"); //redirecting to Main page
-            }*/
-        }
-    }/*
+            }
     else if(isset($_POST['Email'])) {
         if (empty($_POST['username']) || empty($_POST['Password1'])) {
             $error = "Username or Password is invalid";
@@ -62,5 +73,3 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
 
         }
     }*/
-
-?>
