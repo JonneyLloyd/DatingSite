@@ -8,7 +8,7 @@ include('LogInProcess.php'); // Includes Login Script
         header("location: LogIn.php");
     }
 
-    $query = "SELECT user_id from user WHERE nickname =  '" . $username . "';";
+    $query = "SELECT user_id from user WHERE nickname =  '" . $_POST['nickname'] . "';";
     $result = mysqli_query($conn, $query)
     or die ("Couldn't execute query.");
     $row = mysqli_fetch_array($result);
@@ -93,18 +93,20 @@ include('LogInProcess.php'); // Includes Login Script
                 <div class="row requiredRow">
                     <input type='hidden' name='user_id' value='<?=$user_id?>' />
                     <input type="submit" value="Block User" />
+                    </form>
                     
-            <form name = "Edit_User" action="Edit_user.php" method="post" >
+            <form name = "Edit_User" action="adminDetailView.php" method="post" >
                 <div class="row requiredRow">
                     <input type='hidden' name='user_id' value='<?=$user_id?>' />
                     <input type='hidden' name='firstname' value='<?=$f_name?>' />
-                    <input type='hidden' name='lastname' value='<?=$l_name?>' />
+                    <input type='hidden' name='lastname' value='<?=$s_name?>' />
                     <input type='hidden' name='age' value='<?=$age?>' />
                     <input type='hidden' name='sex' value='<?=$sex?>' />
                     <input type='hidden' name='preference' value='<?=$pref?>' />
                     <input type='hidden' name='about' value='<?=$about?>' />
                     <input type='hidden' name='dob' value='<?=$dob?>' />
                     <input type="submit" value="Edit User" />
+            </form>
         </div>
     </div>
     <div id="footer">

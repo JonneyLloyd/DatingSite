@@ -4,6 +4,7 @@ include('LogInProcess.php'); // Includes Login Script
 if((!isset($_SESSION['login_user'])) || (!isset($_SESSION['user_password']))) {
     header("location: LogIn.php");
 }
+
 $testing = "some other problem";
     if((isset($_POST['report_id']))&& (isset($_POST['sender_id'])) && (isset($_POST['message_text']))) {
         $sender = $_POST['sender_id'];

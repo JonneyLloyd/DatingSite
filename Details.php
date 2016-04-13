@@ -273,7 +273,7 @@ else
 			</div>
 		</form>
 		<div class="thumbnail rounded-frame-small">
-			<img src="uploads/<?= $_SESSION['login_user']?>.jpg" alt="Profile pic" />
+			<?="<img src='uploads/" .  $_SESSION['login_user'] . ".jpg' alt='Profile pic' />"?>
 			<br />
 			<span class="caption"></span>
 		</div>

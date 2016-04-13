@@ -4,6 +4,7 @@ include('LogInProcess.php'); // Includes Login Script
 if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) {
     header("location: LogIn.php");
 }
+
 /*$receiver_id = "";
 $receiver_name = "";
 $sender_id = "";

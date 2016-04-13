@@ -31,8 +31,15 @@ if (password_verify($password, $row['password'])) {
 	if ($nickname == "admin") {
 		header("location: admin.php");
 	} else {
-		//no logged in
-		//go to log in.php
+		$query2 = "select user_id from blocked where user_id = '" . $_SESSION['user_id'] . "'";
+		$result2 = mysqli_query($conn,$query2)
+		or die ("Couldn't execute block check query.");
+		if (mysqli_fetch_array($result2) != null)
+		{
+			header("Location: Blocked.php");
+
+		}
+		else
 		header("Location: Profile.php");
 	}
 //if $nickname == "admin" then go to admin log in else go to profile

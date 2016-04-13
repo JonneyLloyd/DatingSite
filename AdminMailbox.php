@@ -106,7 +106,7 @@ if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) 
                 <ul>
                     <p>Reported: " . $reported_f_name . " " .$reported_l_name . ".</p>
                     <br>
-                    <form action='AdminProfileView.php' method='post' enctype='multipart/form-data'>
+                    <form action='adminDetailView.php' method='post' enctype='multipart/form-data'>
 					<div class='row'>
 						<label for='Profile'></label>
 						<input type='hidden' name='nickname' value='$reported_nickname' />

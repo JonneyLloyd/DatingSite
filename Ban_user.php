@@ -20,9 +20,9 @@ include('LogInProcess.php'); // Includes Login Script
 	</head>
 	<body>
 	<div id="nav">
-	<div class="nav-title">
-		<h1><a href="MainPage.html">Perfect Matches</a></h1>
-	</div>
+		<div class="nav-title">
+			<h1><a href="MainPage.html">Perfect Matches</a></h1>
+		</div>
 		<div class="navbar">
 			<ul>
 				<li><a href='Ban_user.php'>Ban User</a></li>
@@ -30,8 +30,8 @@ include('LogInProcess.php'); // Includes Login Script
 					<span class="link-sep">&#9679;</span></li>
 				<li class='has-sub'><a href='#'>Search</a>
 					<ul>
-						<li><a href='Search.php'>Search Users</a></li>
-						<li><a href='Mailbox.php'>Mailbox</a></li>
+						<li><a href='AdminSearch.php'>Search Users</a></li>
+						<li><a href='AdminMailbox.php'>Mailbox</a></li>
 					</ul>
 				</li>
 

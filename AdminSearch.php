@@ -30,7 +30,7 @@ else
             <li class='has-sub'><a href='#'>Search</a>
                 <ul>
                     <li><a href='AdminSearch.php'>Search Users</a></li>
-                    <li><a href='Mailbox.php'>Mailbox</a></li>
+                    <li><a href='AdminMailbox.php'>Mailbox</a></li>
                 </ul>
             </li>
 
@@ -46,7 +46,7 @@ else
     <div class="section">
         <h3>Enter 1 or more search terms</h3>
         <p>
-        <form name="Details" method="post" id="Details"  action="SearchResults.php" onsubmit="">
+        <form name="Details" method="post" id="Details"  action="AdminSearchResults.php" onsubmit="">
             <div class="row">
                 <label for="Firstname">Firstname</label>
                 <input id="Firstname" name="Firstname" type="text" title="" placeholder="Firstname"/>

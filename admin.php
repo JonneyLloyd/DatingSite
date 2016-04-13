@@ -40,12 +40,10 @@ $banned_users = mysqli_query($conn, $display)
 				</ul>
 			</li>
 
-			<li>	<span class="link-sep">&#9679;</span></li>
-			<li><a href='AdminEditDetails.php'>Edit Users</a></li>
+			<li>
 				<span class="link-sep">&#9679;</span></li>
-			<li><a href='LogOut.php'>Log Out</a>
+			<li><a href='LogOut.php'>Log Out</a></li>
 		</ul>
-		
 	</div>
 </div>
 

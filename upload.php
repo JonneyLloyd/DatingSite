@@ -6,12 +6,13 @@ $query1 = "SELECT user_id from user WHERE nickname =  '" .$_SESSION['login_user'
 $result = mysqli_query($conn,$query1)
 or die ("Couldn't execute query.");
 $row = mysqli_fetch_array($result);*/
-
+$user = $_SESSION['login_user'];
+if (isset($_POST['nickname'])) $user = $_POST['nickname'];
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-$outputFile = $target_dir . $_SESSION['login_user'] . "." . $imageFileType;
+$outputFile = $target_dir . $user . "." . $imageFileType;
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -47,7 +48,8 @@ if ($uploadOk == 0) {
         $wmax = 150;
         $hmax = 150;
         img_resize($target_file, $resized_file, $wmax, $hmax, $imageFileType);
-        header("Location: Details.php");
+        if (isset($_POST['nickname'])) header("Location: admin.php");
+        else header("Location: Details.php");
 
 
 
@@ -55,6 +57,6 @@ if ($uploadOk == 0) {
         echo "Sorry, there was an error uploading your file.";
     }
 }
-
-header("Location: Details.php");
+if (isset($_POST['nickname'])) header("Location: admin.php");
+else header("Location: Details.php");
 ?>
