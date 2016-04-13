@@ -31,10 +31,15 @@ if (password_verify($password, $row['password'])) {
 	if ($nickname == "admin") {
 		header("location: admin.php");
 	} else {
-		$query2 = "select user_id from blocked where user_id = '" . $_SESSION['user_id'] . "'";
+		$del_query = "delete from blocked where user_id = '" . $_SESSION['user_id']. "' and end_date < NOW()";
+		$del_result = mysqli_query($conn,$del_query)
+		or die ("Couldn't execute del blocked query.");
+
+		$query2 = "select * from blocked where user_id = '" . $_SESSION['user_id'] . "'";
 		$result2 = mysqli_query($conn,$query2)
 		or die ("Couldn't execute block check query.");
-		if (mysqli_fetch_array($result2) != null)
+		$row = mysqli_fetch_array($result2);
+		if ($row != null)
 		{
 			header("Location: Blocked.php");
 
