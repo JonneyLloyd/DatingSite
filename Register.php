@@ -4,51 +4,55 @@ include('LogInProcess.php'); // Includes Login Script
 if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
 	header("location: Profile.php");
 }
-if(isset($_POST['Email']))
-{
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	$firstName = strtolower(htmlspecialchars($_POST["Firstname"]));
 	$surname = strtolower(htmlspecialchars($_POST["Surname"]));
 	$email = strtolower(htmlspecialchars($_POST["Email"]));
-	$email2 =strtolower($_POST["Email"]);
+	$email2 = strtolower($_POST["Email"]);
 	$password = htmlspecialchars($_POST["Password1"]);
 
 	$password = password_hash($password, PASSWORD_DEFAULT);
 
-	$dob = htmlspecialchars($_POST["DOByear"] ."-" . $_POST["DOBmonth"] . "-" .$_POST["DOBday"]);
+	$dob = htmlspecialchars($_POST["DOByear"] . "-" . $_POST["DOBmonth"] . "-" . $_POST["DOBday"]);
 	$nickname = strtolower(htmlspecialchars($_POST["username"]));
 
 
 	//query to check username & email not already in table!
 	$query = "SELECT * from user WHERE nickname = '" . $nickname . "' OR email = '" . $email . "' OR email = '" . $email2 . "'";
-	$result = mysqli_query($conn,$query)
+	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute Check user exists query.");
 	if ($row = mysqli_fetch_array($result) != NULL)
 		header("Location: Register.php");
 
+	include('payment.php');
+	if (checkPayment() != "1")
+		header("location: FailedPayment.html");
+	else {
 
-	$query = "INSERT INTO `group17db`.`user` (`user_id`, `password`, `nickname`,
+
+		$query = "INSERT INTO `group17db`.`user` (`user_id`, `password`, `nickname`,
 												`f_name`, `l_name`, `sex`, `seeking`,
 												`dob`, `about`, `email`)
-			VALUES (NULL, '" . $password . "', '" . $nickname . "','" . $firstName . "', '" . $surname . "', NULL, NULL, '" . $dob ."', NULL, '" .$email ."')";
-	$result = mysqli_query($conn,$query)
+			VALUES (NULL, '" . $password . "', '" . $nickname . "','" . $firstName . "', '" . $surname . "', NULL, NULL, '" . $dob . "', NULL, '" . $email . "')";
+		$result = mysqli_query($conn, $query)
 		or die ("Couldn't execute addUser query.");
-	copy("uploads/user.jpg","uploads/$nickname.jpg");
+		copy("uploads/user.jpg", "uploads/$nickname.jpg");
 
 
-	//another query to add user to login table
-	$query = "SELECT user_id from user WHERE nickname =  '" . $nickname . "';";
-	$result = mysqli_query($conn, $query)
-	or die ("Couldn't execute getID query.");
-	$row = mysqli_fetch_array($result);
-	$user_id = $row[0];
+		//another query to add user to login table
+		$query = "SELECT user_id from user WHERE nickname =  '" . $nickname . "';";
+		$result = mysqli_query($conn, $query)
+		or die ("Couldn't execute getID query.");
+		$row = mysqli_fetch_array($result);
+		$user_id = $row[0];
 
 
-$query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $user_id . "', NOW());";
-	$result = mysqli_query($conn,$query)
-	or die ("Couldn't execute insert login query.");
+		$query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('" . $user_id . "', NOW());";
+		$result = mysqli_query($conn, $query)
+		or die ("Couldn't execute insert login query.");
 
-	{
+
 		if (empty($_POST['username']) || empty($_POST['Password1'])) {
 			$error = "Username or Password is invalid";
 			echo $error;
@@ -57,16 +61,15 @@ $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $use
 			$_SESSION['login_user'] = strtolower(htmlspecialchars($_POST["username"]));
 			$_SESSION['user_password'] = true;
 
-			$query1 = "SELECT * from user WHERE nickname =  '" .$_SESSION['login_user'] . "';";
-			$result = mysqli_query($conn,$query1)
+			$query1 = "SELECT * from user WHERE nickname =  '" . $_SESSION['login_user'] . "';";
+			$result = mysqli_query($conn, $query1)
 			or die ("Couldn't execute query login id.");
 			$row = mysqli_fetch_array($result);
 			$_SESSION['user_id'] = $row['user_id'];
 
 		}
-	}
-
 		header("Location: Details.php");
+	}
 }
 ?>
 
@@ -108,40 +111,6 @@ $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $use
 				$("#email-result").html(data);
 			});
 		}
-		$(document).submit(function(e) {
-			e.preventDefault();
-			var firstnameTextbox = $("#Firstname");
-			var surnameTextbox = $("#Surname");
-			var ccNumberTextbox = $("#ccNumber");
-			var monthTextbox = $("#month");
-			var yearTextbox = $("#year");
-			var securityTextbox = $("#security");
-			var fullname = firstnameTextbox.val() + "+" + surnameTextbox.val();
-			var ccNumber = ccNumberTextbox.val();
-			var month = monthTextbox.val();
-			var year = yearTextbox.val();
-			var security = securityTextbox.val();
-			var form = this;
-			$.ajaxPrefilter( function (options) {
-				if (options.crossDomain && jQuery.support.cors) {
-					var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
-					options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
-					//options.url = "http://cors.corsproxy.io/url=" + options.url;
-				}
-			});
-			$.get(
-				'http://amnesia.csisdmz.ul.ie/4014/cc.php?' + "fullname=" + fullname + "&ccNumber=" + ccNumber + "&month=" + month + "&year=" + year + "&security=" + security).done(function(result) {
-					if (checkForm(document.getElementById ('Registration')) == true) {
-						if (result == "1") document.getElementById('Registration').submit();
-						else alert("Credit Card Rejected");
-					}
-				else {
-					alert("Please fully complete form");
-				}
-			}).fail(function() {
-				alert('ERROR');
-			});
-		});
 
 
 
@@ -177,7 +146,7 @@ $query = "INSERT INTO `group17db`.`login` (`user_id`, `status`) VALUES ('". $use
 	<div class="section">
 			<p></p>
 			<h3>Register</h3>
-				<form name="Registration" method="post" id="Registration"  action="" >
+				<form name="Registration" method="post" id="Registration" onsubmit="return checkForm(this);" >
 					<div class="row requiredRow">
 						<label for="Firstname">First name</label>
 						<input id="Firstname" name="Firstname" type="text" onblur="checkFormFirstname(this); " title="" />
