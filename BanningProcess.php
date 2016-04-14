@@ -8,7 +8,8 @@ else
     header("location: LogIn.php");
 
 $error = 0;
-$banErr = $reasonErr = $exists = $already_banned = $date_error = "";
+$banErr = $reasonErr = $exists = $already_banned = $date_error = $interval = "";
+$date = date("d.m.y");
 //check if submit has been pressed
 // enter nickname of user
 if ($_SERVER["REQUEST_METHOD"] == "POST")
@@ -47,8 +48,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             }
             else{
                 //enter user into blocked database
-                echo $user_id, $reason;
-                $query = "INSERT INTO blocked (user_id, reason, end_date) VALUES ('$user_id', '$reason', NULL)";
+                if ($end_date == "day"){
+                    $blocked_til=strtotime("+1 day", $date);
+                }
+                else if ($end_date == "week")
+                    $blocked_til=strtotime("+7 days", $date);
+                else
+                    $blocked_til = NULL;
+                $query = "INSERT INTO blocked (user_id, reason, end_date) VALUES ('$user_id', '$reason', $blocked_til)";
                 $result = mysqli_query($conn, $query)
                 or die ("Couldn't execute query cannot insert into blocked table.");
             }
@@ -58,4 +65,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         }
     header("location: Admin.php");
 }
-?>

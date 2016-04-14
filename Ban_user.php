@@ -55,7 +55,7 @@ include('LogInProcess.php'); // Includes Login Script
 					</p>
 					Length of ban:
 					<select name="ban">
-						<option value="hours">24 hours</option>
+						<option value="day">1 Day</option>
 						<option value="week">1 Week</option>
 						<option value="lifetime">Lifetime</option>
 					</select>
