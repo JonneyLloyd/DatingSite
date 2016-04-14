@@ -131,6 +131,8 @@ else
             <div class='thumbnail rounded-frame-small'>
                 <img src='uploads/" . $name . ".jpg' alt='Profile pic' />
                 <br />
+                
+                User nickname is $nickname.
                 <span class='caption'></span>
             </div>
 
