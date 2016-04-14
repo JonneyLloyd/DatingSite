@@ -2,7 +2,12 @@
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
 $login_error = "";
-if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
+if((isset($_SESSION['login_user'])) && ($_SESSION['login_user'] == "admin")){
+	header("location: admin.php");
+}
+
+
+else if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
 	header("location: Profile.php");
 }
 
