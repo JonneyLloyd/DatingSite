@@ -162,6 +162,7 @@ else
 	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
 	<script type = "text/javascript" src="http://use.edgefonts.net/comfortaa:n4,n3,n7:all;miss-fajardose:n4:all;montez:n4:all.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script type = "text/javascript" src="formValidation.js"></script>
 	<title>Details</title>
 </head>
 <body>
@@ -214,7 +215,7 @@ else
 
 				<div class="row requiredRow">
 					<label for="Bio">Bio</label>
-					<textarea name="bio" input id="bio" type="text"  title="" onblur = "checkBio(this)"   rows="4" cols="50"><?=$bio?> </textarea><br><br>
+					<textarea name="bio" input id="bio" type="text"  title="" rows="4" cols="50"><?=$bio?> </textarea><br><br>
 
 				</div>
 

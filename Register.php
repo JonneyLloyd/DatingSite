@@ -26,8 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		header("Location: Register.php");
 
 	include('payment.php');
-	if (checkPayment() != "1")
+	if (checkPayment() != "1"){
+
 		header("location: FailedPayment.html");
+	}
 	else {
 
 
