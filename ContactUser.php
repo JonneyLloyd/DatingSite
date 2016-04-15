@@ -18,9 +18,9 @@ $testing = "some other problem";
         $sender = $_POST['sender_id'];
         $recipient = $_POST['receiver_id'];
         $message = $_POST['message_text'];
-        $query = "INSERT INTO `messages` VALUES (NULL, $sender, $recipient, '" . $message . "')";
+        $query = "INSERT INTO `messages` VALUES (NULL, $sender, $recipient, '" . $message . "', NOW())";
         $result = mysqli_query($conn, $query)
-        or die ("Couldn't execute query.");
+        or die ("Couldn't execute query." . $query);
     }
     else
         if ($_SESSION['login_user'] == "admin" )

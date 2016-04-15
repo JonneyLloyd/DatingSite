@@ -66,7 +66,37 @@ while($row = mysqli_fetch_array($result))
 	$receiver_nickname = $row2['nickname'];
     $sender_f_name = ucfirst(htmlspecialchars($row2['f_name']));
 	$sender_l_name = ucfirst(htmlspecialchars($row2['l_name']));
-	
+
+	$now = date("Y-m-d H:i:s");
+	$sent_time = $row['time_sent'];
+	$diff = $now - $sent_time ;
+
+    if (!function_exists('time_since')) {
+	function time_since($diff)
+	{
+		$chunks = array(
+			array(31536000, 'year'),
+			array(2592000, 'month'),
+			array(604800, 'week'),
+			array(86400, 'day'),
+			array(3600, 'hour'),
+			array(60, 'minute'),
+			array(1, 'second')
+		);
+
+		for ($i = 0, $j = count($chunks); $i < $j; $i++) {
+			$seconds = $chunks[$i][0];
+			$name = $chunks[$i][1];
+			if (($count = floor($diff / $seconds)) != 0) {
+				break;
+			}
+		}
+
+		$print = ($count == 1) ? '1 ' . $name : "$count {$name}s";
+		return $print;
+	}
+}
+
     echo "<div class='section'>
             <p></p>
             <div class='thumbnail rounded-frame-small'>
@@ -77,8 +107,9 @@ while($row = mysqli_fetch_array($result))
             <div class='section-content'>
                 <ul>
                     <p>Message from: " . $sender_f_name . " " .$sender_l_name . ".</p>
-                    <p>" . $message . "</p>
-                    <br>
+                    <p>" . $message . "</p> 
+                    <br> 
+                    <p>recieved: " . time_since($diff) . " ago</p>
                     <form action='Contact.php' method='post' enctype='multipart/form-data'>
 					<div class='row'>
 						<label for='Profile'></label>
