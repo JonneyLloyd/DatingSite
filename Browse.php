@@ -52,29 +52,54 @@ else
 <div id="content">
 	<h3>Browse users</h3>
 <?php
-    $query = "SELECT * FROM `user`";
-    $result = mysqli_query($conn, $query)
-    or die ("Couldn't execute query.");
-    while($row = mysqli_fetch_array($result))
-    {
-if (strtolower($row['nickname'] != "admin")) {
-    $user_id = $row['user_id'];
-    $f_name = ucfirst($row['f_name']);
-    $name = $row['nickname'];
-    $bio = $row['about'];
-    $dob = $row['dob'];
-    $age = date("Y/m/d") - $dob;
-    if ($row['sex'] == "m")
-        $sex = "man";
-    else
-        $sex = "woman";
-    if ($row['seeking'] == "m")
-        $seeking = "man";
-    else
-        $seeking = "woman";
 
 
-    echo "<div class='section'>
+$perPage = 10;
+$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+if ($page == 0) $page = 1;
+$startAt = $perPage * ($page - 1);
+
+$query = "SELECT COUNT(*) as total FROM `user`";
+$r = mysqli_fetch_assoc(mysqli_query($conn, $query));
+
+$totalPages = ceil($r['total'] / $perPage);
+$i = $page;
+$prev = $i-1;
+$next = $i+1;
+if ($prev == 0) $prev = 1;
+if ($next == $totalPages + 1) $next = $totalPages;
+$links = "<ul class='pagination'>";
+$links .= "<li><a href='Browse.php?page=$prev'>Previous</a></li> ";
+$links .= "<li><a> $page </a></li>";
+$links .= "<li><a href='Browse.php?page=$next'>Next</a></li> ";
+$links .= "</ul>";
+
+$query = "SELECT * FROM `user` LIMIT " . $startAt . "," . $perPage . ";";
+$result = mysqli_query($conn, $query)
+ or die ("Couldn't execute query." . $query);
+
+//$r = mysqli_query($conn, $query);
+while($r = mysqli_fetch_array($result)) {
+
+// display results here the way you want
+    if (strtolower($r['nickname'] != "admin")) {
+        $user_id = $r['user_id'];
+        $f_name = ucfirst($r['f_name']);
+        $name = $r['nickname'];
+        $bio = $r['about'];
+        $dob = $r['dob'];
+        $age = date("Y/m/d") - $dob;
+        if ($r['sex'] == "m")
+            $sex = "man";
+        else
+            $sex = "woman";
+        if ($r['seeking'] == "m")
+            $seeking = "man";
+        else
+            $seeking = "woman";
+
+
+        echo "<div class='section'>
             <p></p>
             <div class='thumbnail rounded-frame-small'>
                 <img src='uploads/" . $name . ".jpg' alt='Profile pic' />
@@ -94,7 +119,7 @@ if (strtolower($row['nickname'] != "admin")) {
             <div class='section-content'>
                 <ul>
                     <p>My name is " . $f_name . ".</p>
-                    <p>I am a " .$age . " year old " . $sex . " looking for a " . $seeking . ".</p>
+                    <p>I am a " . $age . " year old " . $sex . " looking for a " . $seeking . ".</p>
                     <p>Here's a little about myself:</p>
                     <p> " . $bio . "</p>
                      <br><br>
@@ -114,8 +139,82 @@ if (strtolower($row['nickname'] != "admin")) {
                 </ul>
             </div>
         </div>";
-}
     }
+}
+echo $links; // show links to other pages
+
+
+
+
+
+
+//    $query = "SELECT * FROM `user`";
+//    $result = mysqli_query($conn, $query)
+//    or die ("Couldn't execute query.");
+//
+//
+//    while($row = mysqli_fetch_array($result))
+//    {
+//if (strtolower($row['nickname'] != "admin")) {
+//    $user_id = $row['user_id'];
+//    $f_name = ucfirst($row['f_name']);
+//    $name = $row['nickname'];
+//    $bio = $row['about'];
+//    $dob = $row['dob'];
+//    $age = date("Y/m/d") - $dob;
+//    if ($row['sex'] == "m")
+//        $sex = "man";
+//    else
+//        $sex = "woman";
+//    if ($row['seeking'] == "m")
+//        $seeking = "man";
+//    else
+//        $seeking = "woman";
+//
+//
+//    echo "<div class='section'>
+//            <p></p>
+//            <div class='thumbnail rounded-frame-small'>
+//                <img src='uploads/" . $name . ".jpg' alt='Profile pic' />
+//                <br />
+//                <span class='caption'></span>
+//            </div>
+//            <form name = 'contact' action='Contact.php' method='post' enctype='multipart/form-data'>
+//                <div class='row'>
+//                <label for='Profile'>Contact $f_name</label>
+//                <input type='hidden' name='contact_id' value='$user_id' />
+//                <input type='hidden' name='contact_f_name' value='$f_name' />
+//                <input type='submit' value='Contact' name='submit''>
+//                </div>
+//		    </form>
+//        <br>
+//
+//            <div class='section-content'>
+//                <ul>
+//                    <p>My name is " . $f_name . ".</p>
+//                    <p>I am a " .$age . " year old " . $sex . " looking for a " . $seeking . ".</p>
+//                    <p>Here's a little about myself:</p>
+//                    <p> " . $bio . "</p>
+//                     <br><br>
+//
+//
+//		<form name = 'report' action='Contact.php' method='post' enctype='multipart/form-data'>
+//			<div class='row'>
+//			<label for='Profile'>Report $f_name</label>
+//            <input type='hidden' name='contact_id' value='admin' />
+//            <input type='hidden' name='contact_f_name' value='Administrator' />
+//             <input type='hidden' name='report_id' value='$user_id' />
+//            <input type='hidden' name='report_f_name' value='$f_name' />
+//			<input type='submit' value='Report' name='submit''>
+//			</div>
+//		</form>
+//
+//                </ul>
+//            </div>
+//        </div>";
+//}
+//    }
+
 ?>
 
 <div id="footer">

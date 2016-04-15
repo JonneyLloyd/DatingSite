@@ -108,7 +108,7 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 			$query2 = "UPDATE `user` SET `sex` = '" . $sex . "', `seeking` = '" . $pref .
 				"', `about` = '" . $bio . "' WHERE `user`.`user_id` = " . $row[0] . ";";
 			$result = mysqli_query($conn, $query2)
-			or die ("Couldn't execute query2.");
+			or die ("Couldn't execute query2." . $query2);
 
 			$like[0] = strtolower(htmlspecialchars($_POST["Like1"]));
 			$like[1] = strtolower(htmlspecialchars($_POST["Like2"]));
@@ -162,6 +162,7 @@ else
 	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
 	<script type = "text/javascript" src="http://use.edgefonts.net/comfortaa:n4,n3,n7:all;miss-fajardose:n4:all;montez:n4:all.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script type = "text/javascript" src="formValidation.js"></script>
 	<title>Details</title>
 </head>
 <body>
@@ -200,7 +201,7 @@ else
 	<div class="section">
 			<h3>Details</h3>
 			<p>
-			<form name="Details" method="post" id="Details"  onsubmit="" >
+			<form name="Details" method="post" id="Details"  onsubmit="return checkBio(this);" >
 				<div class="row requiredRow">
 					<label for="Sex">I am:</label>
 					<input type="radio" name="gender" value="m" <?=$sexMale?>>Male
@@ -214,7 +215,7 @@ else
 
 				<div class="row requiredRow">
 					<label for="Bio">Bio</label>
-					<textarea name="bio" input id="bio" type="text"  title=""   rows="4" cols="50"><?=htmlspecialchars($bio)?> </textarea><br><br>
+					<textarea name="bio" input id="bio" type="text"  title="" rows="4" cols="50"><?=$bio?> </textarea><br><br>
 
 				</div>
 

@@ -112,6 +112,21 @@ function checkFormUsername(el) {
 }
 
 
+function checkBio(el) {
+	re = /^[A-Za-z0-9-]{2,}$/;
+	if (!el.value.match(re)) {
+		if (el.value == "") markReset(el);
+		else markInvalid(el, "Invalid Entry");
+
+		return false;
+	}
+
+	markValid(el);
+	return true;
+
+}
+
+
 
 function checkFormPassword1(el) {
 
