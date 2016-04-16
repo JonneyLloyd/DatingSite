@@ -27,12 +27,15 @@ function markReset(el) {
 
 function addErrorMsg(el, msg) {
 	//Adds the error message
+	if(! el.parentNode.getElementsByClassName('error-msg').length > 0) {
 	var error = document.createElement("p");
 	error.className = "error-msg";
 	var text = document.createTextNode(msg);
 	error.appendChild(text);
 
 	el.parentNode.appendChild(error);
+
+	}
 }
 
 function removeErrorMsg(el) {
