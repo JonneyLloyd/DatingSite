@@ -58,7 +58,7 @@ or die ("Couldn't execute message query.");
 while($row = mysqli_fetch_array($result))
 {
     $sender = $row['sender_id'];
-    $message = htmlspecialchars($row['message_body']);
+    $message = $row['message_body'];
     $query2 = "SELECT f_name, l_name, nickname FROM `user` WHERE user_id = '" . $sender . "'";
     $result2 = mysqli_query($conn, $query2)
     or die ("Couldn't execute name query.");
@@ -70,6 +70,7 @@ while($row = mysqli_fetch_array($result))
 	$now = date("Y-m-d H:i:s");
 	$sent_time = $row['time_sent'];
 	$diff = $now - $sent_time ;
+	$diff = (abs(strtotime($sent_time) - strtotime($now)));
 
     if (!function_exists('time_since')) {
 	function time_since($diff)
@@ -109,7 +110,7 @@ while($row = mysqli_fetch_array($result))
                     <p>Message from: " . $sender_f_name . " " .$sender_l_name . ".</p>
                     <p>" . $message . "</p> 
                     <br> 
-                    <p>recieved: " . time_since($diff) . " ago</p>
+                    <p>Sent: " . time_since($diff) . " ago</p>
                     <form action='Contact.php' method='post' enctype='multipart/form-data'>
 					<div class='row'>
 						<label for='Profile'></label>

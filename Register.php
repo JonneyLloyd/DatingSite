@@ -6,16 +6,16 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-	$firstName = strtolower(htmlspecialchars($_POST["Firstname"]));
-	$surname = strtolower(htmlspecialchars($_POST["Surname"]));
-	$email = strtolower(htmlspecialchars($_POST["Email"]));
+	$firstName = strtolower(htmlspecialchars($_POST["Firstname"],ENT_QUOTES));
+	$surname = strtolower(htmlspecialchars($_POST["Surname"],ENT_QUOTES));
+	$email = strtolower(htmlspecialchars($_POST["Email"],ENT_QUOTES));
 	$email2 = strtolower($_POST["Email"]);
-	$password = htmlspecialchars($_POST["Password1"]);
+	$password = htmlspecialchars($_POST["Password1"],ENT_QUOTES);
 
 	$password = password_hash($password, PASSWORD_DEFAULT);
 
 	$dob = htmlspecialchars($_POST["DOByear"] . "-" . $_POST["DOBmonth"] . "-" . $_POST["DOBday"]);
-	$nickname = strtolower(htmlspecialchars($_POST["username"]));
+	$nickname = strtolower(htmlspecialchars($_POST["username"],ENT_QUOTES));
 
 
 	//query to check username & email not already in table!

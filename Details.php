@@ -32,7 +32,8 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 	$sexFemale = "";
 	$seekingMale = "";
 	$seekingFemale = "";
-	$bio = strtolower(htmlspecialchars($row[2]));
+	$bio = $row[2];
+
 	if ($bio == null)
 		$bio = "Say something about yourself";
 
@@ -100,7 +101,8 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 			else
 				$seekingFemale = "Checked";
 
-			$bio = strtolower(htmlspecialchars($_POST["bio"]));
+			$bio = strtolower(htmlspecialchars($_POST["bio"],ENT_QUOTES));
+
 			$query1 = "SELECT user_id from user WHERE nickname =  '" . $_SESSION['login_user'] . "';";
 			$result = mysqli_query($conn, $query1)
 			or die ("Couldn't execute query.");
@@ -110,11 +112,11 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 			$result = mysqli_query($conn, $query2)
 			or die ("Couldn't execute query2." . $query2);
 
-			$like[0] = strtolower(htmlspecialchars($_POST["Like1"]));
-			$like[1] = strtolower(htmlspecialchars($_POST["Like2"]));
-			$like[2] = strtolower(htmlspecialchars($_POST["Like3"]));
-			$like[3] = strtolower(htmlspecialchars($_POST["Like4"]));
-			$like[4] = strtolower(htmlspecialchars($_POST["Like5"]));
+			$like[0] = strtolower(htmlspecialchars($_POST["Like1"],ENT_QUOTES));
+			$like[1] = strtolower(htmlspecialchars($_POST["Like2"],ENT_QUOTES));
+			$like[2] = strtolower(htmlspecialchars($_POST["Like3"],ENT_QUOTES));
+			$like[3] = strtolower(htmlspecialchars($_POST["Like4"],ENT_QUOTES));
+			$like[4] = strtolower(htmlspecialchars($_POST["Like5"],ENT_QUOTES));
 
 
 			$query = "DELETE FROM `like` WHERE user_id = '" . $user_id . "'";
@@ -130,11 +132,11 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 			$result = mysqli_query($conn, $query)
 			or die ("Couldn't execute insert like query.");
 
-			$dislike[0] = strtolower(htmlspecialchars($_POST["Dislike1"]));
-			$dislike[1] = strtolower(htmlspecialchars($_POST["Dislike2"]));
-			$dislike[2] = strtolower(htmlspecialchars($_POST["Dislike3"]));
-			$dislike[3] = strtolower(htmlspecialchars($_POST["Dislike4"]));
-			$dislike[4] = strtolower(htmlspecialchars($_POST["Dislike5"]));
+			$dislike[0] = strtolower(htmlspecialchars($_POST["Dislike1"],ENT_QUOTES));
+			$dislike[1] = strtolower(htmlspecialchars($_POST["Dislike2"],ENT_QUOTES));
+			$dislike[2] = strtolower(htmlspecialchars($_POST["Dislike3"],ENT_QUOTES));
+			$dislike[3] = strtolower(htmlspecialchars($_POST["Dislike4"],ENT_QUOTES));
+			$dislike[4] = strtolower(htmlspecialchars($_POST["Dislike5"],ENT_QUOTES));
 
 			$query = "DELETE FROM `dislike` WHERE user_id = '" . $user_id . "'";
 			$result = mysqli_query($conn, $query)
