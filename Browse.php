@@ -78,10 +78,8 @@ $query = "SELECT * FROM `user` LIMIT " . $startAt . "," . $perPage . ";";
 $result = mysqli_query($conn, $query)
  or die ("Couldn't execute query." . $query);
 
-//$r = mysqli_query($conn, $query);
 while($r = mysqli_fetch_array($result)) {
 
-// display results here the way you want
     if (strtolower($r['nickname'] != "admin")) {
         $user_id = $r['user_id'];
         $f_name = ucfirst($r['f_name']);
@@ -105,15 +103,16 @@ while($r = mysqli_fetch_array($result)) {
                 <img src='uploads/" . $name . ".jpg' alt='Profile pic' />
                 <br />
                 <span class='caption'></span>
-            </div>
+
             <form name = 'contact' action='Contact.php' method='post' enctype='multipart/form-data'>
                 <div class='row'>
-                <label for='Profile'>Contact $f_name</label>
+                <label for='Profile'></label>
                 <input type='hidden' name='contact_id' value='$user_id' />
                 <input type='hidden' name='contact_f_name' value='$f_name' />
-                <input type='submit' value='Contact' name='submit''>
+                <input type='submit' class='contact'  value='Contact' name='submit''>
                 </div>
 		    </form>
+		    </div>
         <br>
 
             <div class='section-content'>
@@ -127,12 +126,12 @@ while($r = mysqli_fetch_array($result)) {
 
 		<form name = 'report' action='Contact.php' method='post' enctype='multipart/form-data'>
 			<div class='row'>
-			<label for='Profile'>Report $f_name</label>
+			<label for='Profile'></label>
             <input type='hidden' name='contact_id' value='admin' />
             <input type='hidden' name='contact_f_name' value='Administrator' />
              <input type='hidden' name='report_id' value='$user_id' />
             <input type='hidden' name='report_f_name' value='$f_name' />
-			<input type='submit' value='Report' name='submit''>
+			<input type='submit'class='report' value='Report user' name='submit''>
 			</div>
 		</form>
 
@@ -142,78 +141,6 @@ while($r = mysqli_fetch_array($result)) {
     }
 }
 echo $links; // show links to other pages
-
-
-
-
-
-
-//    $query = "SELECT * FROM `user`";
-//    $result = mysqli_query($conn, $query)
-//    or die ("Couldn't execute query.");
-//
-//
-//    while($row = mysqli_fetch_array($result))
-//    {
-//if (strtolower($row['nickname'] != "admin")) {
-//    $user_id = $row['user_id'];
-//    $f_name = ucfirst($row['f_name']);
-//    $name = $row['nickname'];
-//    $bio = $row['about'];
-//    $dob = $row['dob'];
-//    $age = date("Y/m/d") - $dob;
-//    if ($row['sex'] == "m")
-//        $sex = "man";
-//    else
-//        $sex = "woman";
-//    if ($row['seeking'] == "m")
-//        $seeking = "man";
-//    else
-//        $seeking = "woman";
-//
-//
-//    echo "<div class='section'>
-//            <p></p>
-//            <div class='thumbnail rounded-frame-small'>
-//                <img src='uploads/" . $name . ".jpg' alt='Profile pic' />
-//                <br />
-//                <span class='caption'></span>
-//            </div>
-//            <form name = 'contact' action='Contact.php' method='post' enctype='multipart/form-data'>
-//                <div class='row'>
-//                <label for='Profile'>Contact $f_name</label>
-//                <input type='hidden' name='contact_id' value='$user_id' />
-//                <input type='hidden' name='contact_f_name' value='$f_name' />
-//                <input type='submit' value='Contact' name='submit''>
-//                </div>
-//		    </form>
-//        <br>
-//
-//            <div class='section-content'>
-//                <ul>
-//                    <p>My name is " . $f_name . ".</p>
-//                    <p>I am a " .$age . " year old " . $sex . " looking for a " . $seeking . ".</p>
-//                    <p>Here's a little about myself:</p>
-//                    <p> " . $bio . "</p>
-//                     <br><br>
-//
-//
-//		<form name = 'report' action='Contact.php' method='post' enctype='multipart/form-data'>
-//			<div class='row'>
-//			<label for='Profile'>Report $f_name</label>
-//            <input type='hidden' name='contact_id' value='admin' />
-//            <input type='hidden' name='contact_f_name' value='Administrator' />
-//             <input type='hidden' name='report_id' value='$user_id' />
-//            <input type='hidden' name='report_f_name' value='$f_name' />
-//			<input type='submit' value='Report' name='submit''>
-//			</div>
-//		</form>
-//
-//                </ul>
-//            </div>
-//        </div>";
-//}
-//    }
 
 ?>
 

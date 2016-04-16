@@ -215,11 +215,6 @@ hr {
 	height: 3px;
 }
 
-.red-notice {
-	color: red;
-	font-size: 0.7em;
-}
-
 /* Form */
 form div {
 	padding: 5px;
@@ -263,6 +258,34 @@ form .error-msg {
 	margin: 0 5px 0;
     font-size: 0.8em;
 }
+
+.report {
+	background-color: #f44336;
+	border: none;
+	color: white;
+	padding: 7px 15px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	margin: 4px 2px;
+	cursor: pointer;
+}
+
+
+.contact {
+	background-color: #4CAF50;
+	border: none;
+	color: white;
+	padding: 10px 28px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	margin: 4px 2px;
+	cursor: pointer;
+}
+
 
 /* Footer */
 #footer {
