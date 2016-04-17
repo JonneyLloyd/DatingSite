@@ -201,6 +201,7 @@ else
 </div>
 <div id="content">
     <h3><?= htmlspecialchars($f_name) . " " . htmlspecialchars($l_name)?></h3>
+    <h3> Username is: <?= $nickname ?> </h3>
 
 
     <div class="section">
