@@ -66,37 +66,41 @@ while($row = mysqli_fetch_array($result))
 	$receiver_nickname = $row2['nickname'];
     $sender_f_name = ucfirst(htmlspecialchars($row2['f_name']));
 	$sender_l_name = ucfirst(htmlspecialchars($row2['l_name']));
-
-	$now = date("Y-m-d H:i:s");
+	$now = date("Y-m-d H:i:s", time());
 	$sent_time = $row['time_sent'];
-	$diff = $now - $sent_time ;
-	$diff = (abs(strtotime($sent_time) - strtotime($now)));
+	$hour_correction = 3600;
+	$diff = (abs(strtotime($now) - strtotime($sent_time)))- $hour_correction ;
+	$years = abs(floor($diff / 31536000));
+	$days = abs(floor(($diff-($years * 31536000))/86400));
+	$hours = abs(floor(($diff-($years * 31536000)-($days * 86400))/3600));
+	$mins = abs(floor(($diff-($years * 31536000)-($days * 86400)-($hours * 3600))/60));
 
-    if (!function_exists('time_since')) {
-	function time_since($diff)
-	{
-		$chunks = array(
-			array(31536000, 'year'),
-			array(2592000, 'month'),
-			array(604800, 'week'),
-			array(86400, 'day'),
-			array(3600, 'hour'),
-			array(60, 'minute'),
-			array(1, 'second')
-		);
 
-		for ($i = 0, $j = count($chunks); $i < $j; $i++) {
-			$seconds = $chunks[$i][0];
-			$name = $chunks[$i][1];
-			if (($count = floor($diff / $seconds)) != 0) {
-				break;
-			}
-		}
+	$min_tag = "Minutes";
+	if ($mins == 1) $min_tag = "Minute";
 
-		$print = ($count == 1) ? '1 ' . $name : "$count {$name}s";
-		return $print;
-	}
-}
+	$hour_tag = "Hours";
+	if ($hours == 1) $hour_tag = "Hour";
+
+	$day_tag = "Days";
+	if ($days == 1) $day_tag = "Day";
+
+	$year_tag = "Years";
+	if ($years == 1) $year_tag = "Year";
+
+	if ($diff < 60)
+		$time_print = "Just now";
+	else if ($diff < 3600)
+		$time_print = $mins . " ". $min_tag. " ago.";
+	else if ($diff < 86400)
+		$time_print = $hours . " " . $hour_tag . ", " . $mins . " ". $min_tag. " ago.";
+	else if ($diff < 604800)
+		$time_print = $days . " " . $day_tag . ", " . $hours . " " . $hour_tag . ", " . $mins . " ". $min_tag. " ago.";
+	else
+		$time_print = $years . " " . $year_tag . ", " . $days . " " . $day_tag . ", " . $hours . $hour_tag . ", " . $mins . " ". $min_tag. " ago.";
+
+
+
 
     echo "<div class='section'>
             <p></p>
@@ -110,7 +114,7 @@ while($row = mysqli_fetch_array($result))
                     <p>Message from: " . $sender_f_name . " " .$sender_l_name . ".</p>
                     <p>" . $message . "</p> 
                     <br> 
-                    <p>Sent: " . time_since($diff) . " ago</p>
+                    <p>Sent: " .$time_print . "</p>
                     <form action='Contact.php' method='post' enctype='multipart/form-data'>
 					<div class='row'>
 						<label for='Profile'></label>
