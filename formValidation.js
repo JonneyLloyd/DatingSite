@@ -42,11 +42,11 @@ function removeErrorMsg(el) {
 	//Removes the error message
 	var par = el.parentNode;
 	//alert(par.childNodes.length);
-	if (par.childNodes[8]) {
-		par.removeChild(par.childNodes[8]);//date
+	if (par.childNodes[9]) {
+		par.removeChild(par.childNodes[9]);//date
 	}
-	else if(par.childNodes[6])
-		par.removeChild(par.childNodes[6]);//email
+	//else if(par.childNodes[6])
+	//	par.removeChild(par.childNodes[6]);//email
 }
 
 
@@ -173,7 +173,6 @@ function checkFormPassword2(el) {
 
 function checkFormDate(day, month, year) {
 
-	//var dayField = document.getElementById("DOBday");
 	var yearField = document.getElementById("DOByear");
 
 	if (day.value == 0 || month.value == 0 || year.value == 0) {
@@ -191,7 +190,7 @@ function checkFormDate(day, month, year) {
 		markInvalid(yearField, "Invalid value for day: " + day.value);
 		return false;
 	}
-	//markValid(yearField);
+	markValid(yearField);
 	return true;
 
 }

@@ -92,6 +92,7 @@ if (isset($_POST['bannedID'])){
 		$f_name = ucfirst($r['f_name']);
 		$reason = ucfirst($r['reason']);
 		$end_date = ($r['end_date']);
+		if ($end_date == "" || $end_date == NULL) $end_date = "Lifetime";
 
 
 

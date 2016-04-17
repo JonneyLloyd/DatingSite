@@ -1,18 +1,12 @@
 <?php
-require_once("./include/dbConfig.php");
-include('LogInProcess.php'); // Includes Login Script
-if((isset($_SESSION['login_user'])) && ($_SESSION['login_user'] == "admin" )) {
-
-}
-else
-    header("location: LogIn.php");
 
 $error = 0;
 $banErr = $reasonErr = $exists = $already_banned = $date_error = $interval = "";
 $date = date("d.m.y");
+echo($date);
 //check if submit has been pressed
 // enter nickname of user
-if ($_SERVER["REQUEST_METHOD"] == "POST")
+
     $user = strtolower(htmlspecialchars($_POST['user_ban']));
     $reason = strtolower(htmlspecialchars($_POST['block_reason']));
     $end_date = strtolower(htmlspecialchars($_POST['ban']));
@@ -48,13 +42,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             }
             else{
                 //enter user into blocked database
+                //INSERT INTO `group17db`.`blocked` (`user_id`, `reason`, `end_date`) VALUES ('234', 'asdasd', NOW() + INTERVAL 1 DAY);
                 if ($end_date == "day"){
-                    $blocked_til=strtotime("+1 day", $date);
+                    $blocked_til= " NOW() + INTERVAL 1 DAY";
                 }
                 else if ($end_date == "week")
-                    $blocked_til=strtotime("+7 days", $date);
+                    $blocked_til= " NOW() + INTERVAL 1 WEEK";
                 else
-                    $blocked_til = NULL;
+                    $blocked_til = " NULL";
                 $query = "INSERT INTO blocked (user_id, reason, end_date) VALUES ('$user_id', '$reason', $blocked_til)";
                 $result = mysqli_query($conn, $query)
                 or die ("Couldn't execute query cannot insert into blocked table.");

@@ -1,10 +1,19 @@
 <?php
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
+$banErr = $reasonErr = $exists = $already_banned = $date_error = $interval = "";
 	if((isset($_SESSION['login_user'])) && ($_SESSION['login_user'] == "admin" )) {
 }
 	else
 		header("location: LogIn.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+	include('BanningProcess.php');
+
+}
+
+
+
 
 ?>
 
@@ -52,20 +61,20 @@ include('LogInProcess.php'); // Includes Login Script
 	<div id="content">
 	<p>Perfect Matches</p>
 		<div class="section">
-			<form name = 'contact' action='BanningProcess.php' method='post' >
+			<form name = 'contact' action='' method='post' >
 				<h3>Ban User</h3>
 					<p>
 						Enter user to be banned:
-						<input type="text" name="user_ban"><br />
+						<input type="text" name="user_ban"> <?= $banErr?><br />
 					</p>
 					Length of ban:
 					<select name="ban">
 						<option value="day">1 Day</option>
 						<option value="week">1 Week</option>
 						<option value="lifetime">Lifetime</option>
-					</select>
+					</select><?= $date_error?>
 				<p>
-					Please enter a reason for blocking this user:
+					Please enter a reason for blocking this user: <?= $reasonErr?>
 					<p>
 						<textarea name="block_reason" type="text" rows="4" cols="50"></textarea>
 					</p>
