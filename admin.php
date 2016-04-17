@@ -90,6 +90,7 @@ if (isset($_POST['bannedID'])){
 	while($r = mysqli_fetch_array($result)) {
 		$id = $r['user_id'];
 		$f_name = ucfirst($r['f_name']);
+		$l_name = ucfirst($r['l_name']);
 		$reason = ucfirst($r['reason']);
 		$end_date = ($r['end_date']);
 		if ($end_date == "" || $end_date == NULL) $end_date = "Lifetime";
@@ -97,7 +98,7 @@ if (isset($_POST['bannedID'])){
 
 
 	echo "<div class='section'>
-		<p>$f_name | $reason | $end_date </p>
+		<p>$f_name $l_name| $reason | $end_date </p>
 		 <form name = 'removeBan' id ='removeBan' action='' method='post' >
             <div class='row requiredRow'>
                 <label for='message'></label>
