@@ -3,7 +3,6 @@
 $error = 0;
 $banErr = $reasonErr = $exists = $already_banned = $date_error = $interval = "";
 $date = date("d.m.y");
-echo($date);
 //check if submit has been pressed
 // enter nickname of user
 
@@ -38,7 +37,8 @@ echo($date);
             $query = ("SELECT * FROM blocked WHERE user_id = '$user_id'");
             $result = mysqli_query($conn, $query);
             if($result->num_rows){
-                $already_banned = "User is already banned.";
+                $banErr = "User is already banned.";
+                $error = 1;
             }
             else{
                 //enter user into blocked database
@@ -56,7 +56,9 @@ echo($date);
             }
         }
         else{
-            $exists = "Username does not exist.";
+            $banErr = "Username does not exist.";
+            $error = 1;
         }
+        if ($error != 1)
     header("location: Admin.php");
 }
