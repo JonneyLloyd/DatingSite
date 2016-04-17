@@ -94,7 +94,7 @@ while($row = mysqli_fetch_array($result))
 		$time_print = $mins . " ". $min_tag. " ago.";
 	else if ($diff < 86400)
 		$time_print = $hours . " " . $hour_tag . ", " . $mins . " ". $min_tag. " ago.";
-	else if ($diff < 604800)
+	else if ($diff < 31536000)
 		$time_print = $days . " " . $day_tag . ", " . $hours . " " . $hour_tag . ", " . $mins . " ". $min_tag. " ago.";
 	else
 		$time_print = $years . " " . $year_tag . ", " . $days . " " . $day_tag . ", " . $hours . $hour_tag . ", " . $mins . " ". $min_tag. " ago.";
