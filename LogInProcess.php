@@ -26,7 +26,7 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
             if (empty($_POST['username']) || empty($_POST['password'])) {
                 $error = "Username or Password is invalid";
                 echo $error;
-                header("Location: MainPage.html");
+                header("Location: index.html");
             } else {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
@@ -50,7 +50,7 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))){
                 header("location: HomePage.php"); // Redirecting To HomePage
             } else {
                 mysqli_close($connection);
-                header("location: MainPage.html"); //redirecting to Main page
+                header("location: index.html"); //redirecting to Main page
             }
     else if(isset($_POST['Email'])) {
         if (empty($_POST['username']) || empty($_POST['Password1'])) {

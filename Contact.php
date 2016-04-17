@@ -33,7 +33,7 @@ else if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
 <body>
 <div id="nav">
     <div class="nav-title">
-        <h1><a href="MainPage.html">Perfect Matches</a></h1>
+        <h1><a href="index.html">Perfect Matches</a></h1>
     </div>
     <div class="navbar">
         <ul>
