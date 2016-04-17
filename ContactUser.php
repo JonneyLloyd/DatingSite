@@ -22,7 +22,7 @@ $testing = "some other problem";
         $result = mysqli_query($conn, $query)
         or die ("Couldn't execute query." . $query);
     }
-    else
         if ($_SESSION['login_user'] == "admin" )
             header("location: AdminMailbox.php");
-header("location: Profile.php");
+        else
+            header("location: Profile.php");

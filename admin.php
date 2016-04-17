@@ -30,7 +30,13 @@ $banned_users = mysqli_query($conn, $display)
 	</div>
 	<div class="navbar">
 		<ul>
-			<li><a href='Ban_user.php'>Ban User</a></li>
+			<li class='has-sub'><a href='#'>Options</a>
+				<ul>
+					<li><a href='Ban_user.php'>Ban User</a></li>
+					<li><a href='admin.php'>Ban View</a></li>
+				</ul>
+			</li>
+
 			<li>
 				<span class="link-sep">&#9679;</span></li>
 			<li class='has-sub'><a href='#'>Search</a>
@@ -48,10 +54,70 @@ $banned_users = mysqli_query($conn, $display)
 </div>
 
 <div id="content">
-	Admin Homepage
-	display blocked users here
+	<h3>Banned users</h3>
+<?php
+if (isset($_POST['bannedID'])){
+	$query = "DELETE FROM `blocked` WHERE user_id = '" . $_POST['bannedID'] . "';";
+	$result = mysqli_query($conn, $query)
+	or die ("Couldn't execute delete blocked query." . $query);
+
+
+}
+	$perPage = 10;
+	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+	if ($page == 0) $page = 1;
+	$startAt = $perPage * ($page - 1);
+
+	$query = "SELECT COUNT(*) as total FROM `blocked`";
+	$r = mysqli_fetch_assoc(mysqli_query($conn, $query));
+
+	$totalPages = ceil($r['total'] / $perPage);
+	$i = $page;
+	$prev = $i-1;
+	$next = $i+1;
+	if ($prev == 0) $prev = 1;
+	if ($next == $totalPages + 1) $next = $totalPages;
+	$links = "<ul class='pagination'>";
+		$links .= "<li><a href='Browse.php?page=$prev'>Previous</a></li> ";
+		$links .= "<li><a> $page </a></li>";
+		$links .= "<li><a href='Browse.php?page=$next'>Next</a></li> ";
+		$links .= "</ul>";
+
+	$query = "SELECT * FROM `user` join `blocked` on `user`.user_id = `blocked`.user_id LIMIT " . $startAt . "," . $perPage . ";";
+	$result = mysqli_query($conn, $query)
+	or die ("Couldn't execute blocked query." . $query);
+
+	while($r = mysqli_fetch_array($result)) {
+		$id = $r['user_id'];
+		$f_name = ucfirst($r['f_name']);
+		$reason = ucfirst($r['reason']);
+		$end_date = ($r['end_date']);
+
+
+
+	echo "<div class='section'>
+		<p>$f_name | $reason | $end_date </p>
+		 <form name = 'removeBan' id ='removeBan' action='' method='post' >
+            <div class='row requiredRow'>
+                <label for='message'></label>
+                <input type='hidden' name='bannedID' value='$id' />
+                <input type='submit' value='Remove Ban' />
+                <p></p>
+            </div>
+        </form>
+
+		<br>
+
+	</div>";
+	}
+	echo $links; // show links to other pages
+
+
+
+	?>
+
+	</div>
 	<div id="footer">
 	</div>
-</div>
 </body>
 </html>

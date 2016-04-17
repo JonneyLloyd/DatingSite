@@ -5,12 +5,6 @@ if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) 
     header("location: LogIn.php");
 }
 
-/*$receiver_id = "";
-$receiver_name = "";
-$sender_id = "";
-$hidden_fields = "";
-$report_id = "";
-$report_name = "";*/
 if (isset( $_POST['report_id']) && isset($_POST['report_f_name'])) {
     $receiver_id = $_POST['contact_id'];
     $receiver_name = $_POST['contact_f_name'];

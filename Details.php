@@ -101,7 +101,7 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 			else
 				$seekingFemale = "Checked";
 
-			$bio = strtolower(htmlspecialchars($_POST["bio"],ENT_QUOTES));
+			$bio = htmlspecialchars($_POST["bio"],ENT_QUOTES);
 
 			$query1 = "SELECT user_id from user WHERE nickname =  '" . $_SESSION['login_user'] . "';";
 			$result = mysqli_query($conn, $query1)
@@ -223,44 +223,44 @@ else
 
 				<div class="row">
 					<label for="Like1">Like 1</label>
-					<input id="Like1" name="Like1" type="text" title="" value="<?=htmlspecialchars($like[0])?>"/>
+					<input id="Like1" name="Like1" type="text" title="" value="<?=$like[0]?>"/>
 				</div>
 				<div class="row">
 					<label for="Like2">Like 2</label>
-					<input id="Like2" name="Like2" type="text" title=""  value="<?=htmlspecialchars($like[1])?>"/>
+					<input id="Like2" name="Like2" type="text" title=""  value="<?=$like[1]?>"/>
 				</div>
 				<div class="row">
 					<label for="Like3">Like 2</label>
-					<input id="Like3" name="Like3" type="text" title=""  value="<?=htmlspecialchars($like[2])?>"/>
+					<input id="Like3" name="Like3" type="text" title=""  value="<?=$like[2]?>"/>
 				</div>
 				<div class="row">
 					<label for="Like4">Like 4</label>
-					<input id="Like4" name="Like4" type="text" title=""  value="<?=htmlspecialchars($like[3])?>"/>
+					<input id="Like4" name="Like4" type="text" title=""  value="<?=$like[3]?>"/>
 				</div>
 				<div class="row">
 					<label for="Like5">Like 5</label>
-					<input id="Like5" name="Like5" type="text" title=""  value="<?=htmlspecialchars($like[4])?>"/>
+					<input id="Like5" name="Like5" type="text" title=""  value="<?=$like[4]?>"/>
 				</div>
 <br><br>
 				<div class="row">
 					<label for="Dislike 1">Dislike 1</label>
-					<input id="Dislike1" name="Dislike1" type="text" title=""  value="<?=htmlspecialchars($dislike[0])?>"/>
+					<input id="Dislike1" name="Dislike1" type="text" title=""  value="<?=$dislike[0]?>"/>
 				</div>
 			<div class="row">
 				<label for="Dislike 2">Dislike 2</label>
-				<input id="Dislike2" name="Dislike2" type="text" title=""  value="<?=htmlspecialchars($dislike[1])?>"/>
+				<input id="Dislike2" name="Dislike2" type="text" title=""  value="<?=$dislike[1]?>"/>
 			</div>
 			<div class="row">
 				<label for="Dislike 3">Dislike 3</label>
-				<input id="Dislike3" name="Dislike3" type="text" title=""  value="<?=htmlspecialchars($dislike[2])?>"/>
+				<input id="Dislike3" name="Dislike3" type="text" title=""  value="<?=$dislike[2]?>"/>
 			</div>
 			<div class="row">
 				<label for="Dislike 4">Dislike 4</label>
-				<input id="Dislike4" name="Dislike4" type="text" title=""  value="<?=htmlspecialchars($dislike[3])?>"/>
+				<input id="Dislike4" name="Dislike4" type="text" title=""  value="<?=$dislike[3]?>"/>
 			</div>
 			<div class="row">
 				<label for="Dislike 5">Dislike 5</label>
-				<input id="Dislike5" name="Dislike5" type="text" title=""  value="<?=htmlspecialchars($dislike[4])?>"/>
+				<input id="Dislike5" name="Dislike5" type="text" title=""  value="<?=$dislike[4]?>"/>
 			</div>
 
 				<div class="row">

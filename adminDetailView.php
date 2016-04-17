@@ -107,7 +107,7 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
             else
                 $seekingFemale = "Checked";
 
-            $bio = strtolower(htmlspecialchars($_POST["bio"]));
+            $bio = htmlspecialchars($_POST["bio"],ENT_QUOTES);
             $query1 = "SELECT user_id from user WHERE nickname =  '" . $nickname . "';";
             $result = mysqli_query($conn, $query1)
             or die ("Couldn't execute query.");
@@ -117,11 +117,11 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
             $result = mysqli_query($conn, $query2)
             or die ("Couldn't execute query2.");
 
-            $like[0] = strtolower(htmlspecialchars($_POST["Like1"]));
-            $like[1] = strtolower(htmlspecialchars($_POST["Like2"]));
-            $like[2] = strtolower(htmlspecialchars($_POST["Like3"]));
-            $like[3] = strtolower(htmlspecialchars($_POST["Like4"]));
-            $like[4] = strtolower(htmlspecialchars($_POST["Like5"]));
+            $like[0] = strtolower(htmlspecialchars($_POST["Like1"],ENT_QUOTES));
+            $like[1] = strtolower(htmlspecialchars($_POST["Like2"],ENT_QUOTES));
+            $like[2] = strtolower(htmlspecialchars($_POST["Like3"],ENT_QUOTES));
+            $like[3] = strtolower(htmlspecialchars($_POST["Like4"],ENT_QUOTES));
+            $like[4] = strtolower(htmlspecialchars($_POST["Like5"],ENT_QUOTES));
 
 
             $query = "DELETE FROM `like` WHERE user_id = '" . $user_id . "'";
@@ -137,11 +137,11 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
             $result = mysqli_query($conn, $query)
             or die ("Couldn't execute insert like query.");
 
-            $dislike[0] = strtolower(htmlspecialchars($_POST["Dislike1"]));
-            $dislike[1] = strtolower(htmlspecialchars($_POST["Dislike2"]));
-            $dislike[2] = strtolower(htmlspecialchars($_POST["Dislike3"]));
-            $dislike[3] = strtolower(htmlspecialchars($_POST["Dislike4"]));
-            $dislike[4] = strtolower(htmlspecialchars($_POST["Dislike5"]));
+            $dislike[0] = strtolower(htmlspecialchars($_POST["Dislike1"],ENT_QUOTES));
+            $dislike[1] = strtolower(htmlspecialchars($_POST["Dislike2"],ENT_QUOTES));
+            $dislike[2] = strtolower(htmlspecialchars($_POST["Dislike3"],ENT_QUOTES));
+            $dislike[3] = strtolower(htmlspecialchars($_POST["Dislike4"],ENT_QUOTES));
+            $dislike[4] = strtolower(htmlspecialchars($_POST["Dislike5"],ENT_QUOTES));
 
             $query = "DELETE FROM `dislike` WHERE user_id = '" . $user_id . "'";
             $result = mysqli_query($conn, $query)
@@ -178,7 +178,12 @@ else
     </div>
     <div class="navbar">
         <ul>
-            <li><a href='Ban_user.php'>Ban User</a></li>
+            <li class='has-sub'><a href='#'>Options</a>
+                <ul>
+                    <li><a href='Ban_user.php'>Ban User</a></li>
+                    <li><a href='admin.php'>Ban View</a></li>
+                </ul>
+            </li>
             <li>
                 <span class="link-sep">&#9679;</span></li>
             <li class='has-sub'><a href='#'>Search</a>
@@ -215,50 +220,50 @@ else
 
             <div class="row requiredRow">
                 <label for="Bio">Bio</label>
-                <textarea name="bio" input id="bio" type="text"  title=""   rows="4" cols="50"><?=htmlspecialchars($bio)?> </textarea><br><br>
+                <textarea name="bio" input id="bio" type="text"  title=""   rows="4" cols="50"><?=$bio?> </textarea><br><br>
 
             </div>
 
             <div class="row">
                 <label for="Like1">Like 1</label>
-                <input id="Like1" name="Like1" type="text" title="" value="<?=htmlspecialchars($like[0])?>"/>
+                <input id="Like1" name="Like1" type="text" title="" value="<?=$like[0]?>"/>
             </div>
             <div class="row">
                 <label for="Like2">Like 2</label>
-                <input id="Like2" name="Like2" type="text" title=""  value="<?=htmlspecialchars($like[1])?>"/>
+                <input id="Like2" name="Like2" type="text" title=""  value="<?=$like[1]?>"/>
             </div>
             <div class="row">
                 <label for="Like3">Like 2</label>
-                <input id="Like3" name="Like3" type="text" title=""  value="<?=htmlspecialchars($like[2])?>"/>
+                <input id="Like3" name="Like3" type="text" title=""  value="<?=$like[2]?>"/>
             </div>
             <div class="row">
                 <label for="Like4">Like 4</label>
-                <input id="Like4" name="Like4" type="text" title=""  value="<?=htmlspecialchars($like[3])?>"/>
+                <input id="Like4" name="Like4" type="text" title=""  value="<?=$like[3]?>"/>
             </div>
             <div class="row">
                 <label for="Like5">Like 5</label>
-                <input id="Like5" name="Like5" type="text" title=""  value="<?=htmlspecialchars($like[4])?>"/>
+                <input id="Like5" name="Like5" type="text" title=""  value="<?=$like[4]?>"/>
             </div>
             <br><br>
             <div class="row">
                 <label for="Dislike 1">Dislike 1</label>
-                <input id="Dislike1" name="Dislike1" type="text" title=""  value="<?=htmlspecialchars($dislike[0])?>"/>
+                <input id="Dislike1" name="Dislike1" type="text" title=""  value="<?=$dislike[0]?>"/>
             </div>
             <div class="row">
                 <label for="Dislike 2">Dislike 2</label>
-                <input id="Dislike2" name="Dislike2" type="text" title=""  value="<?=htmlspecialchars($dislike[1])?>"/>
+                <input id="Dislike2" name="Dislike2" type="text" title=""  value="<?=$dislike[1]?>"/>
             </div>
             <div class="row">
                 <label for="Dislike 3">Dislike 3</label>
-                <input id="Dislike3" name="Dislike3" type="text" title=""  value="<?=htmlspecialchars($dislike[2])?>"/>
+                <input id="Dislike3" name="Dislike3" type="text" title=""  value="<?=$dislike[2]?>"/>
             </div>
             <div class="row">
                 <label for="Dislike 4">Dislike 4</label>
-                <input id="Dislike4" name="Dislike4" type="text" title=""  value="<?=htmlspecialchars($dislike[3])?>"/>
+                <input id="Dislike4" name="Dislike4" type="text" title=""  value="<?=$dislike[3]?>"/>
             </div>
             <div class="row">
                 <label for="Dislike 5">Dislike 5</label>
-                <input id="Dislike5" name="Dislike5" type="text" title=""  value="<?=htmlspecialchars($dislike[4])?>"/>
+                <input id="Dislike5" name="Dislike5" type="text" title=""  value="<?=$dislike[4]?>"/>
             </div>
             <input type='hidden' name='nickname' value='<?=$nickname?>' />
 

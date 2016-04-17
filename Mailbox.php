@@ -65,7 +65,10 @@ while($row = mysqli_fetch_array($result))
 	$row2 = mysqli_fetch_array($result2);
 	$receiver_nickname = $row2['nickname'];
     $sender_f_name = ucfirst(htmlspecialchars($row2['f_name']));
-	$sender_l_name = ucfirst(htmlspecialchars($row2['l_name']));
+	if ($row2['f_name'] == "admin")
+		$sender_l_name = "No-Reply";
+	else
+		$sender_l_name = ucfirst(htmlspecialchars($row2['l_name']));
 	$now = date("Y-m-d H:i:s", time());
 	$sent_time = $row['time_sent'];
 	$hour_correction = 3600;
@@ -114,15 +117,18 @@ while($row = mysqli_fetch_array($result))
                     <p>Message from: " . $sender_f_name . " " .$sender_l_name . ".</p>
                     <p>" . $message . "</p> 
                     <br> 
-                    <p>Sent: " .$time_print . "</p>
-                    <form action='Contact.php' method='post' enctype='multipart/form-data'>
+                    <p>Sent: " .$time_print . "</p>";
+	if ($sender_l_name != "No-Reply"){
+		echo "<form action='Contact.php' method='post' enctype='multipart/form-data'>
 					<div class='row'>
 						<label for='Profile'></label>
 						<input type='hidden' name='contact_id' value='$sender' />
 						<input type='hidden' name='contact_f_name' value='$sender_f_name' />
 						<input type='submit' value='Reply' name='submit''>
 					</div>
-					</form>
+					</form>";
+					}
+			echo "
 
                 </ul>
             </div>

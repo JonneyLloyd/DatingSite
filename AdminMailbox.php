@@ -24,7 +24,12 @@ if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) 
     </div>
     <div class="navbar">
         <ul>
-            <li><a href='Ban_user.php'>Ban User</a></li>
+            <li class='has-sub'><a href='#'>Options</a>
+                <ul>
+                    <li><a href='Ban_user.php'>Ban User</a></li>
+                    <li><a href='admin.php'>Ban View</a></li>
+                </ul>
+            </li>
             <li>
                 <span class="link-sep">&#9679;</span></li>
             <li class='has-sub'><a href='#'>Search</a>
@@ -69,7 +74,6 @@ if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) 
         $reported_nickname = $row3['nickname'];
         $reported_f_name = ucfirst(htmlspecialchars($row3['f_name']));
         $reported_l_name = ucfirst(htmlspecialchars($row3['l_name']));
-        echo $reported_nickname, $reported_f_name, $reported_l_name, $reported;
 
         echo "<div class='section'>
             <p></p>
