@@ -52,7 +52,29 @@ if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) 
 
 <?php
 $user = $_SESSION['user_id'];
-$query = "SELECT * FROM `messages` WHERE receiver_id = '" . $user . "' order by message_id desc";
+$perPage = 10;
+$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+if ($page == 0) $page = 1;
+$startAt = $perPage * ($page - 1);
+
+$query = "SELECT COUNT(*) as total FROM `messages` WHERE receiver_id = '" . $user . "';";
+$r = mysqli_fetch_assoc(mysqli_query($conn, $query));
+
+$totalPages = ceil($r['total'] / $perPage);
+$i = $page;
+$prev = $i-1;
+$next = $i+1;
+if ($prev == 0) $prev = 1;
+if ($next == $totalPages + 1) $next = $totalPages;
+$links = "<ul class='pagination'>";
+$links .= "<li><a href='Mailbox.php?page=$prev'>Previous</a></li> ";
+$links .= "<li><a> $page </a></li>";
+$links .= "<li><a href='Mailbox.php?page=$next'>Next</a></li> ";
+$links .= "</ul>";
+
+
+
+$query = "SELECT * FROM `messages` WHERE receiver_id = '" . $user . "' order by message_id desc LIMIT " . $startAt . "," . $perPage . ";";
 $result = mysqli_query($conn, $query)
 or die ("Couldn't execute message query.");
 while($row = mysqli_fetch_array($result))
@@ -135,7 +157,7 @@ while($row = mysqli_fetch_array($result))
         </div>";
 
 }
-
+echo $links; // show links to other pages
 ?>
 
 <div id="footer">
