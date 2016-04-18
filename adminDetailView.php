@@ -1,10 +1,17 @@
 <?php
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
+$banErr = $reasonErr = $exists = $already_banned = $date_error = $interval = "";
 if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
     if ($_SESSION['login_user'] != "admin")
         header("location: LogIn.php");
 
+
+
+
+
+
+    //$nickname = $_POST['user_ban'];
     $nickname = $_POST['nickname'];
     $query = "SELECT user_id from user WHERE nickname =  '" . $_POST['nickname'] . "';";
     $result = mysqli_query($conn, $query)
@@ -84,6 +91,10 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
     while ($row = mysqli_fetch_array($result)) {
         $dislike[$counter] = $row["dislike_desc"];
         $counter++;
+    }
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST['user_ban']))){
+        include('BanningProcess.php');
+
     }
 
     if (isset($_POST['gender'])) {
@@ -283,10 +294,31 @@ else
         </form>
         <div class="thumbnail rounded-frame-small">
             <?="<img src='uploads/" .  $nickname . ".jpg' alt='Profile pic' />"?>
-
             <br />
             <span class="caption"></span>
         </div>
+        <form name = 'contact' action='' method='post' >
+            <h3>Ban User</h3>
+            <p>
+                Ban user: <?=$f_name . " " . $l_name?>
+                <input type="hidden" readonly name="user_ban" value = "<?=$nickname?>"> <?= $banErr?><br />
+                <input type='hidden' name='nickname' value='<?=$nickname?>' />
+            </p>
+            Length of ban:
+            <select name="ban">
+                <option value="day">1 Day</option>
+                <option value="week">1 Week</option>
+                <option value="lifetime">Lifetime</option>
+            </select><?= $date_error?>
+            <p>
+                Please enter a reason for blocking this user: <?= $reasonErr?>
+            <p>
+                <textarea name="block_reason" type="text" rows="4" cols="50"></textarea>
+            </p>
+            <div class="row">
+                <input type="submit" value="Ban User" />
+            </div>
+        </form>
 
     </div>
 </div>

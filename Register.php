@@ -22,10 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 	//query to check username & email not already in table!
-	$query = "SELECT * from user WHERE nickname = '" . $nickname . "' OR email = '" . $email . "' OR email = '" . $email2 . "'";
+	$query = "SELECT * from user WHERE nickname = '" . $nickname . "' OR email = '" . $email . "'";
 	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute Check user exists query.");
-	if ($row = mysqli_fetch_array($result) != NULL)
+	$row = mysqli_fetch_array($result);
+	if ($row['user_id'] != NULL)
 		header("Location: Register.php");
 
 	include('payment.php');

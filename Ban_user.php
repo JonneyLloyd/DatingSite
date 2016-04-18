@@ -7,7 +7,7 @@ $banErr = $reasonErr = $exists = $already_banned = $date_error = $interval = "";
 	else
 		header("location: LogIn.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST['user_ban']))){
 	include('BanningProcess.php');
 
 }
@@ -78,7 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 					<p>
 						<textarea name="block_reason" type="text" rows="4" cols="50"></textarea>
 					</p>
-				</p>
 				<div class="row">
 					<input type="submit" value="Ban User" />
 				</div>

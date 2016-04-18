@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 $error = 0;
 $banErr = $reasonErr = $exists = $already_banned = $date_error = $interval = "";
 $date = date("d.m.y");
