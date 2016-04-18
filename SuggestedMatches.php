@@ -64,15 +64,6 @@ header("location: LogIn.php");
 
     $like_array = array();
 
-
-    /*$query1 =  "SELECT * from user d LEFT JOIN (select user_id, ((score * 2) - neg_score) as total from
-                ((select b.user_id, count(*) as score from `like` a left join `like` b on a.like_desc = b.like_desc
-                where a.user_id = '". $user_id . "' and b.user_id != '". $user_id . "' and a.like_desc != '' group by b.user_id)q join
-                (select z.user_id, count(*) as neg_score from `dislike` x left join `dislike` z on x.dislike_desc = z.dislike_desc
-                where x.user_id = '". $user_id . "' and z.user_id != '". $user_id . "' and x.dislike_desc != '' group by z.user_id)w using(user_id)))t
-                on d.user_id = t.user_id WHERE sex = 'f' order by total desc";*/
-
-
     $query1 = "SELECT * from user d LEFT JOIN
                 (select user_id, (IFNULL(score * 2, 0) - IFNULL(neg_score, 0)) as total from
                 ((select b.user_id, IFNULL(count(*), 0) as score from `like` a left join

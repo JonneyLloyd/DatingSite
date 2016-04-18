@@ -46,7 +46,7 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
     $sexFemale = "";
     $seekingMale = "";
     $seekingFemale = "";
-    $bio = strtolower(htmlspecialchars($row[2]));
+    $bio = $row[2];
     if ($bio == null)
         $bio = "Say something about yourself";
 
@@ -211,7 +211,7 @@ else
     </div>
 </div>
 <div id="content">
-    <h3><?= htmlspecialchars($f_name) . " " . htmlspecialchars($l_name)?></h3>
+    <h3><?= $f_name . " " . $l_name?></h3>
     <h3> Username is: <?= $nickname ?> </h3>
 
 

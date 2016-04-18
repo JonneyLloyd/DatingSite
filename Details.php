@@ -272,7 +272,7 @@ else
 			<div class="row">
 			<label for="Profile">Change Profile Pic:</label>
 			<input type="file" name="fileToUpload" id="fileToUpload">
-			<input type="submit" value="Upload Image" name="submit">
+			<input type="submit" value="Upload JPEG" name="submit">
 			</div>
 		</form>
 		<div class="thumbnail rounded-frame-small">

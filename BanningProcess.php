@@ -16,6 +16,10 @@ $date = date("d.m.y");
         $banErr = "Username Required";
         $error = 1;
     }
+    if($user == "admin"){
+        $banErr = "Cant ban admin";
+        $error = 1;
+    }
     if(empty($reason)) {
         $reasonErr = "Reason is required";
         $error = 1;

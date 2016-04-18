@@ -259,9 +259,13 @@ function checkLoginForm(form){
 	if (!checkFormUsername(form.username) && !checkFormEmail(form.username)) {
 		valid = false;
 	}
+	else
+		markValid(form.username);
 	if (!checkFormPassword1(form.password)) {
 		valid = false;
 	}
+	else
+		markValid(form.password);
 	var fields = ["username", "password"];
 	for (var i = 0; i < fields.length; i++) {
 		var field = document.forms["login"][fields[i]];
