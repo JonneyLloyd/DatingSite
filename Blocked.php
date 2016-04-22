@@ -1,4 +1,18 @@
 <?php
+require_once("./include/dbConfig.php");
+include('LogInProcess.php');
+//Get the reason and duration of ban for the user
+$query = "SELECT reason, end_date from blocked WHERE user_id = '" . $_SESSION['user_id'] . "'";
+$result = mysqli_query($conn, $query)
+or die ("Couldn't execute query.");
+$row = mysqli_fetch_array($result);
+$end_date = ($row['end_date']);
+$reason =$row['reason'];
+$end_date = ($row['end_date']);
+$time = strtotime($end_date);
+if ($end_date == "" || $end_date == NULL) $end_date = "Lifetime";
+else $end_date = date("d/m/y ", $time);
+
 include('LogOutProcess.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -33,7 +47,9 @@ include('LogOutProcess.php');
 <div id="content">
     <h2>Perfect Matches</h2>
     <div class="section">
-        You have been blocked by the administrator and are unable to access your account.
+        <p>You have been blocked by the administrator and are unable to access your account.</p>
+        <p><?='Reason for ban: ' . $reason . '<BR>' .
+            'Ban until: ' . $end_date?></p>
         </div>
 </div>
 <div id="footer">

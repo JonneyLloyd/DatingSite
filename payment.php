@@ -9,7 +9,7 @@ function checkPayment(){
 
 
     $curl = curl_init();
-// Set some options - we are passing in a useragent too here
+// simple cURL to payment server with GET
 
     curl_setopt($curl, CURLOPT_URL, 'http://amnesia.csisdmz.ul.ie/4014/cc.php?' . "fullname=" . $fullname . "&ccNumber=" . $ccNumber . "&month=" . $month . "&year=" . $year . "&security=" . $security);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

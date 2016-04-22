@@ -1,15 +1,11 @@
-
-
-<?php //header('Access-Control-Allow-Origin: *');
+<?php
 
 require_once("./include/dbConfig.php");
 
 
-//use htmlspecialchars() on incoming values
-
-
 if(isset($_POST['username']))
 {
+    //checking username available and returning HTML
     $username = filter_var($_POST["username"], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH);
     $query = "SELECT * FROM user where nickname = " . "'" . $username . "'";
     $result = mysqli_query($conn,$query)
@@ -26,6 +22,7 @@ if(isset($_POST['username']))
 
 if(isset($_POST['email']))
 {
+    //checking email available and returning HTML
     $email = filter_var($_POST["email"], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW|FILTER_FLAG_STRIP_HIGH);
     $query = "SELECT * FROM user WHERE email = " . "'" . $email . "'";
     $result = mysqli_query($conn,$query)
@@ -49,6 +46,6 @@ function selectNameFromID($conn, $id){
     $number=mysqli_num_rows($result);
     echo $number;
     $row = mysqli_fetch_array($result);
-echo $row[0];
+    echo $row[0];
 }
 

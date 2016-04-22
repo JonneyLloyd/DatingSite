@@ -107,7 +107,7 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
 }
 
 #nav .navbar a {
-    padding: 5px 10px;
+    padding: 7px 10px;
     display: inline-block;
     color: white;
     font-size: 1.1em;

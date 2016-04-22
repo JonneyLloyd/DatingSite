@@ -2,6 +2,7 @@
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
 
+//only user allowed in is admin
 if((isset($_SESSION['login_user'])) && ($_SESSION['login_user'] == "admin" )) {
 }
 
@@ -63,6 +64,7 @@ else
     $count = 0;
     $query_count = 0;
     $i = 0;
+    //preparing search query
     $final_query = "SELECT user_id, f_name, nickname, about, sex, seeking FROM user WHERE ";
     $query_parts = array(
         0    => "",
@@ -71,6 +73,7 @@ else
         3    => ""
     );
 
+    //Handle which search fields entered and append to query
     $firstname = strtolower(htmlspecialchars($_POST['Firstname']));
     if ($firstname != null) {
         $final_query .= "f_name LIKE '%" . $firstname . "%'";
@@ -104,16 +107,17 @@ else
         $count++;
     }
 
-
+    //handle if user has bypassed restriction on entries
     if ($count == 0){
         echo "<div class='section'>
             <h3>No serarch terms entered!</h3>
             </div>";
     }
     else {
+        //reun final query
         $result = mysqli_query($conn, $final_query)
         or die ($final_query . " could not be executed");
-
+        //loop through results and display
         while ($row = mysqli_fetch_array($result)) {
             if (strtolower($row['nickname'] != "admin")) {
                 $nickname = $row['nickname'];

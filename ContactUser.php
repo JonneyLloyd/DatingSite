@@ -5,6 +5,7 @@ if((!isset($_SESSION['login_user'])) || (!isset($_SESSION['user_password']))) {
     header("location: LogIn.php");
 }
 $testing = "some other problem";
+    //handle reports
     if((isset($_POST['report_id']))&& (isset($_POST['sender_id'])) && (isset($_POST['message_text']))) {
         $sender = $_POST['sender_id'];
         $report_id = $_POST['report_id'];
@@ -14,6 +15,7 @@ $testing = "some other problem";
         or die ("\nCouldn't execute admin query. ". $query);
     }
     else
+        //handle standard messages
         if((isset($_POST['receiver_id'])) && (isset($_POST['sender_id'])) && (isset($_POST['message_text']))) {
         $sender = $_POST['sender_id'];
         $recipient = $_POST['receiver_id'];

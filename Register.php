@@ -8,15 +8,15 @@ else if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password'])))
 	header("location: Profile.php");
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+	//if user has submitted form successfully
+	//cleanse all data
 	$firstName = strtolower(htmlspecialchars($_POST["Firstname"],ENT_QUOTES));
 	$surname = strtolower(htmlspecialchars($_POST["Surname"],ENT_QUOTES));
 	$email = strtolower(htmlspecialchars($_POST["Email"],ENT_QUOTES));
 	$email2 = strtolower($_POST["Email"]);
 	$password = htmlspecialchars($_POST["Password1"],ENT_QUOTES);
-
+	//create a Hash
 	$password = password_hash($password, PASSWORD_DEFAULT);
-
 	$dob = htmlspecialchars($_POST["DOByear"] . "-" . $_POST["DOBmonth"] . "-" . $_POST["DOBday"]);
 	$nickname = strtolower(htmlspecialchars($_POST["username"],ENT_QUOTES));
 
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	else {
 
-
+		//create user entry
 		$query = "INSERT INTO `group17db`.`user` (`user_id`, `password`, `nickname`,
 												`f_name`, `l_name`, `sex`, `seeking`,
 												`dob`, `about`, `email`)
@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			echo $error;
 			header("Location: LogIn.php");
 		} else {
+			//set session variables
 			$_SESSION['login_user'] = strtolower(htmlspecialchars($_POST["username"]));
 			$_SESSION['user_password'] = true;
 

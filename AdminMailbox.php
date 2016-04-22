@@ -1,7 +1,7 @@
 <?php
 require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
-if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) {
+if((! isset($_SESSION['login_user'])) || ( ($_SESSION['login_user'] != "admin"))) {
     header("location: LogIn.php");
 }
 ?>
@@ -50,6 +50,7 @@ if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) 
     <h3>Mailbox</h3>
 
     <?php
+    //pagination setup
     $user = $_SESSION['user_id'];
     $perPage = 10;
     $page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
@@ -71,10 +72,11 @@ if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) 
     $links .= "<li><a href='AdminMailbox.php?page=$next'>Next</a></li> ";
     $links .= "</ul>";
 
-
+    //get messages from adminMail
     $query = "SELECT * FROM `admin_mail` order by message_id desc LIMIT " . $startAt . "," . $perPage . ";";
     $result = mysqli_query($conn, $query)
     or die ("Couldn't execute message query.");
+    //Loop through messages and display to screen
     while($row = mysqli_fetch_array($result))
     {
 

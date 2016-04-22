@@ -32,7 +32,7 @@ $date = date("d.m.y");
         $query = ("SELECT * FROM user WHERE nickname = '$user'");
         $result = mysqli_query($conn, $query);
         if($result->num_rows){
-            //get user_id...could be a function
+            //get user_id.
             $query = "SELECT user_id FROM user WHERE nickname = '$user'";
             $result = mysqli_query($conn, $query)
             or die ("Couldn't execute query cannot get user id from nickname.");
@@ -49,7 +49,6 @@ $date = date("d.m.y");
             }
             else{
                 //enter user into blocked database
-                //INSERT INTO `group17db`.`blocked` (`user_id`, `reason`, `end_date`) VALUES ('234', 'asdasd', NOW() + INTERVAL 1 DAY);
                 if ($end_date == "day"){
                     $blocked_til= " NOW() + INTERVAL 1 DAY";
                 }

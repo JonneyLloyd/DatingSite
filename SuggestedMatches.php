@@ -63,7 +63,9 @@ header("location: LogIn.php");
     $sex = $row['sex'];
 
     $like_array = array();
-
+    //complex query to match user likes to others likes and likes-dislikes
+    //attach double value to likes-likes and order on score
+    //Only get results where sex-seeking match
     $query1 = "SELECT * from user d LEFT JOIN
                 (select user_id, (IFNULL(score * 2, 0) - IFNULL(neg_score, 0)) as total from
                 ((select b.user_id, IFNULL(count(*), 0) as score from `like` a left join
@@ -78,6 +80,7 @@ header("location: LogIn.php");
     $result = mysqli_query($conn, $query1)
     or die ($query1 . " could not be executed");
     $count = 0;
+    //loop through top 5 results
     while($count < 5 && $row = mysqli_fetch_array($result))
     {
         if (strtolower($row['nickname'] != "admin")) {

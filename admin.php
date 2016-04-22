@@ -63,6 +63,7 @@ if (isset($_POST['bannedID'])){
 
 
 }
+//pagination setup
 	$perPage = 10;
 	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
 	if ($page == 0) $page = 1;
@@ -83,17 +84,20 @@ if (isset($_POST['bannedID'])){
 		$links .= "<li><a href='Browse.php?page=$next'>Next</a></li> ";
 		$links .= "</ul>";
 
+//get all blocked users
 	$query = "SELECT * FROM `user` join `blocked` on `user`.user_id = `blocked`.user_id LIMIT " . $startAt . "," . $perPage . ";";
 	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute blocked query." . $query);
-
+//loop through all blocked users
 	while($r = mysqli_fetch_array($result)) {
 		$id = $r['user_id'];
 		$f_name = ucfirst($r['f_name']);
 		$l_name = ucfirst($r['l_name']);
 		$reason = ucfirst($r['reason']);
 		$end_date = ($r['end_date']);
+		$time = strtotime($end_date);
 		if ($end_date == "" || $end_date == NULL) $end_date = "Lifetime";
+		else $end_date = date("d/m/y ", $time);
 
 
 

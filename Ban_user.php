@@ -1,12 +1,13 @@
 <?php
 require_once("./include/dbConfig.php");
-include('LogInProcess.php'); // Includes Login Script
+include('LogInProcess.php');
+//only allow admin access
 $banErr = $reasonErr = $exists = $already_banned = $date_error = $interval = "";
 	if((isset($_SESSION['login_user'])) && ($_SESSION['login_user'] == "admin" )) {
 }
 	else
 		header("location: LogIn.php");
-
+//handle the ban if submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST['user_ban']))){
 	include('BanningProcess.php');
 

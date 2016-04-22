@@ -3,51 +3,35 @@ require_once("./include/dbConfig.php");
 include('LogInProcess.php'); // Includes Login Script
 if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 
-	$query = "SELECT user_id from user WHERE nickname =  '" . $_SESSION['login_user'] . "';";
+	//get all details for user
+	$nickname = $_SESSION['login_user'];
+	$query = "SELECT * from user WHERE nickname =  '" . $nickname . "';";
 	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute query.");
 	$row = mysqli_fetch_array($result);
-//test comment
-	$user_id = $row[0];
-
-	$query = "SELECT f_name from user WHERE user_id = '" . $user_id . "';";
-	$query2 = "SELECT l_name from user WHERE user_id = '" . $user_id . "';";
-	$result = mysqli_query($conn, $query)
-	or die ("Couldn't execute query.");
-	$row = mysqli_fetch_array($result);
-
-	$f_name = ucfirst($row[0]);
-
-	$result = mysqli_query($conn, $query2)
-	or die ("Couldn't execute query.");
-	$row = mysqli_fetch_array($result);
-
-	$l_name = ucfirst($row[0]);
-
-	$query3 = "SELECT sex, seeking, about from user WHERE user_id = '" . $user_id . "'";
-	$result = mysqli_query($conn, $query3)
-	or die ("Couldn't execute query3.");
-	$row = mysqli_fetch_array($result);
+	$user_id = $row['user_id'];
+	$f_name = ucfirst($row['f_name']);
+	$l_name = ucfirst($row['l_name']);
 	$sexMale = "";
 	$sexFemale = "";
 	$seekingMale = "";
 	$seekingFemale = "";
-	$bio = $row[2];
+	$bio = $row['about'];
 
 	if ($bio == null)
 		$bio = "Say something about yourself";
 
-	$sex = $row[0];
+	$sex = $row['sex'];
 	if ($sex == "m")
 		$sexMale = "Checked";
 	else
 		$sexFemale = "Checked";
-	$seeking = $row[1];
+	$seeking = $row['seeking'];
 	if ($seeking == "m")
 		$seekingMale = "Checked";
 	else
 		$seekingFemale = "Checked";
-
+	//get likes user has stored
 	$query = "SELECT like_desc FROM `like` WHERE user_id = '" . $user_id . "'";
 	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute query.");
@@ -64,6 +48,7 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 		$like[$counter] = $row["like_desc"];
 		$counter++;
 	}
+	//get dislikes user has stored
 	$query = "SELECT dislike_desc FROM `dislike` WHERE user_id = '" . $user_id . "'";
 	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute query.");
@@ -79,7 +64,7 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 		$dislike[$counter] = $row["dislike_desc"];
 		$counter++;
 	}
-
+	//if user has submitted the form
 	if (isset($_POST['gender'])) {
 		if (empty($_POST['bio']) || empty($_POST['seeking'])) {
 			$error = "Please complete form";
@@ -103,12 +88,8 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 
 			$bio = htmlspecialchars($_POST["bio"],ENT_QUOTES);
 
-			$query1 = "SELECT user_id from user WHERE nickname =  '" . $_SESSION['login_user'] . "';";
-			$result = mysqli_query($conn, $query1)
-			or die ("Couldn't execute query.");
-			$row = mysqli_fetch_array($result);
 			$query2 = "UPDATE `user` SET `sex` = '" . $sex . "', `seeking` = '" . $pref .
-				"', `about` = '" . $bio . "' WHERE `user`.`user_id` = " . $row[0] . ";";
+				"', `about` = '" . $bio . "' WHERE `user`.`user_id` = " . $user_id . ";";
 			$result = mysqli_query($conn, $query2)
 			or die ("Couldn't execute query2." . $query2);
 
@@ -118,7 +99,7 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 			$like[3] = strtolower(htmlspecialchars($_POST["Like4"],ENT_QUOTES));
 			$like[4] = strtolower(htmlspecialchars($_POST["Like5"],ENT_QUOTES));
 
-
+			//delete users old likes
 			$query = "DELETE FROM `like` WHERE user_id = '" . $user_id . "'";
 			$result = mysqli_query($conn, $query)
 			or die ("Couldn't execute delete query.");
@@ -128,6 +109,7 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 					$query_tail .= ", ('" . $user_id . "', NULL, '" . $like[$i] . "')";
 
 			}
+			//insert new likes
 			$query = "INSERT INTO `like` (`user_id`, `like_id`, `like_desc`)" . $query_tail . ";";
 			$result = mysqli_query($conn, $query)
 			or die ("Couldn't execute insert like query.");
@@ -138,6 +120,7 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 			$dislike[3] = strtolower(htmlspecialchars($_POST["Dislike4"],ENT_QUOTES));
 			$dislike[4] = strtolower(htmlspecialchars($_POST["Dislike5"],ENT_QUOTES));
 
+			//delete users old dislikes
 			$query = "DELETE FROM `dislike` WHERE user_id = '" . $user_id . "'";
 			$result = mysqli_query($conn, $query)
 			or die ("Couldn't execute delete query.");
@@ -146,6 +129,7 @@ if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 				if ($like != "")
 					$query_tail .= ", ('" . $user_id . "', NULL, '" . $dislike[$i] . "')";
 			}
+			//insert new likes
 			$query = "INSERT INTO `group17db`.`dislike` (`user_id`, `dislike_id`, `dislike_desc`)" . $query_tail . ";";
 			$result = mysqli_query($conn, $query)
 			or die ("Couldn't execute insert dislike query.");

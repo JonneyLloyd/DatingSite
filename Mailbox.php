@@ -1,6 +1,7 @@
 <?php
 require_once("./include/dbConfig.php");
-include('LogInProcess.php'); // Includes Login Script
+include('LogInProcess.php');
+//check user is logged in
 if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) {
     header("location: LogIn.php");
 }
@@ -51,6 +52,7 @@ if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) 
 	<h3>Mailbox</h3>
 
 <?php
+//pagination setup
 $user = $_SESSION['user_id'];
 $perPage = 10;
 $page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
@@ -73,12 +75,13 @@ $links .= "<li><a href='Mailbox.php?page=$next'>Next</a></li> ";
 $links .= "</ul>";
 
 
-
+//getting message for the user
 $query = "SELECT * FROM `messages` WHERE receiver_id = '" . $user . "' order by message_id desc LIMIT " . $startAt . "," . $perPage . ";";
 $result = mysqli_query($conn, $query)
 or die ("Couldn't execute message query.");
 while($row = mysqli_fetch_array($result))
 {
+	//loop through results and display on screen
     $sender = $row['sender_id'];
     $message = $row['message_body'];
     $query2 = "SELECT f_name, l_name, nickname FROM `user` WHERE user_id = '" . $sender . "'";
@@ -109,10 +112,9 @@ while($row = mysqli_fetch_array($result))
 
 	$day_tag = "Days";
 	if ($days == 1) $day_tag = "Day";
-
+	//check timing to only display years, days etc when relevant
 	$year_tag = "Years";
 	if ($years == 1) $year_tag = "Year";
-
 	if ($diff < 60)
 		$time_print = "Just now";
 	else if ($diff < 3600)

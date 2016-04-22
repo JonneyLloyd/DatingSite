@@ -1,7 +1,8 @@
 <?php
 require_once("./include/dbConfig.php");
-include('LogInProcess.php'); // Includes Login Script
+include('LogInProcess.php');
 
+//Check user is logged in
 if((isset($_SESSION['login_user'])) && ($_SESSION['login_user'] == "admin" )) {
 	$username = $_POST['nickname'];;
 }
@@ -12,41 +13,28 @@ else if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password'])))
 else 
 	header("Location: LogIn.php");
 
-	//compare currdatetime to blocked first and if date is in the past delete entry from blocked table
-	//ensuring user isn't blocked
-	/*$query = "Select user_id from blocked where user_id = (Select user_id from user Where nickname = '$username')";
-	$row = mysqli_query($conn, $query)
-	or die ("Couldn't execute blocked table query.");
-	if($row > 0){
-		header("Location: Blocked.php");
-	}*/
-
-	$query = "SELECT user_id from user WHERE nickname =  '" . $username . "';";
+	//get all users details
+	$query = "SELECT * from user WHERE nickname =  '" . $username . "';";
 	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute query.");
 	$row = mysqli_fetch_array($result);
 
-	$user_id = $row[0];
+	$user_id = $row['user_id'];
 
-	$query = "SELECT * from user WHERE user_id = '" . $user_id . "';";
-	$result = mysqli_query($conn, $query)
-	or die ("Couldn't execute query.");
-	$row = mysqli_fetch_array($result);
-
-	$f_name = ucfirst($row[3]);
-	$s_name = ucfirst($row[4]);
-	$sex = $row[5];
+	$f_name = ucfirst($row['f_name']);
+	$s_name = ucfirst($row['l_name']);
+	$sex = $row['sex'];
 	if ($sex == "m")
 		$sex = "man";
 	else
 		$sex = "woman";
-	$pref = $row[6];
+	$pref = $row['seeking'];
 	if ($pref == "m")
 		$pref = "man";
 	else
 		$pref = "woman";
-	$dob = $row[7];
-	$about = $row[8];
+	$dob = $row['dob'];
+	$about = $row['about'];
 	$age = date("Y/m/d") - $dob;
 
 ?>

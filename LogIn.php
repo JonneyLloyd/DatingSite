@@ -1,7 +1,8 @@
 <?php
 require_once("./include/dbConfig.php");
-include('LogInProcess.php'); // Includes Login Script
+include('LogInProcess.php');
 $login_error = "";
+//check that user is logged in and its a regular user
 if((isset($_SESSION['login_user'])) && ($_SESSION['login_user'] == "admin")){
 	header("location: admin.php");
 }
@@ -15,21 +16,19 @@ else if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password'])))
 if(isset($_POST['username'])) {
 	$nickname = strtolower(htmlspecialchars($_POST["username"]));
 	$password = htmlspecialchars($_POST["password"]);
-	//$hash = password_hash($_SESSION['user_password'], PASSWORD_DEFAULT);
-
-
+//user can login with email or username
 	$query = "SELECT * from user WHERE nickname =  '" . $nickname . "' OR email = '" . $nickname . "';";
 	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute query.");
 	$row = mysqli_fetch_array($result);
 	if ($row[0] != null){
+		//if email/username is there then check password hash
 if (password_verify($password, $row['password'])) {
 	$_SESSION['login_user'] = $row['nickname'];
 	$_SESSION['user_password'] = true;;
 	$_SESSION['user_id'] = $row[0];
 
 	//update login table
-
 	$query = "UPDATE `group17db`.`login` SET `status` = NOW() WHERE `login`.`user_id` =" . $_SESSION['user_id'] . ";";
 	$result = mysqli_query($conn, $query)
 	or die ("Couldn't execute loginUpdate query.");
@@ -52,11 +51,11 @@ if (password_verify($password, $row['password'])) {
 		else
 		header("Location: Profile.php");
 	}
-//if $nickname == "admin" then go to admin log in else go to profile
+
 }
 		else {
 			$login_error = "Incorrect password";
-			sleep(1);
+			sleep(1); //basic brute force prevention
 		}
 	}
 	else {

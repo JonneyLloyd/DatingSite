@@ -1,6 +1,7 @@
 <?php
 require_once("./include/dbConfig.php");
-include('LogInProcess.php'); // Includes Login Script
+include('LogInProcess.php');
+//Make sure user is logged in
 if((isset($_SESSION['login_user'])) && (isset($_SESSION['user_password']))) {
 
 }
@@ -53,7 +54,7 @@ else
 	<h3>Browse users</h3>
 <?php
 
-
+//pagination setup
 $perPage = 10;
 $page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
 if ($page == 0) $page = 1;
@@ -75,10 +76,12 @@ $links .= "<li><a> $page </a></li>";
 $links .= "<li><a href='Browse.php?page=$next'>Next</a></li> ";
 $links .= "</ul>";
 
+//get everyone in the DB
 $query = "SELECT * FROM `user` LIMIT " . $startAt . "," . $perPage . ";";
 $result = mysqli_query($conn, $query)
  or die ("Couldn't execute query." . $query);
 
+//loop though all results and output with formatted HTML
 while($r = mysqli_fetch_array($result)) {
 
     if (strtolower($r['nickname'] != "admin")) {

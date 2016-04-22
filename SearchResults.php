@@ -1,9 +1,11 @@
 <?php
 require_once("./include/dbConfig.php");
-include('LogInProcess.php'); // Includes Login Script
+include('LogInProcess.php');
+//check user is logged in
 if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) {
     header("location: LogIn.php");
 }
+//handle empty search
 else if ((( $_POST['Firstname'] == "")) && (( $_POST['Surname'] == ""))&& (( $_POST['Like'] == ""))&& (( $_POST['Disike'] == "")))
     header("location: Search.php");
 ?>
@@ -54,6 +56,7 @@ else if ((( $_POST['Firstname'] == "")) && (( $_POST['Surname'] == ""))&& (( $_P
     <h3>Search Results</h3>
 
     <?php
+    //Create start of query
     $count = 0;
     $query_count = 0;
     $i = 0;
@@ -64,7 +67,7 @@ else if ((( $_POST['Firstname'] == "")) && (( $_POST['Surname'] == ""))&& (( $_P
         2    => "",
         3    => ""
     );
-
+    //handle any serach terms entered/not entered and append to query
     $firstname = strtolower(htmlspecialchars($_POST['Firstname']));
     if ($firstname != null) {
         $final_query .= "f_name LIKE '%" . $firstname . "%'";
@@ -105,9 +108,10 @@ if ($count == 0){
             </div>";
 }
     else {
+        //run final query
         $result = mysqli_query($conn, $final_query)
             or die ($final_query . " could not be executed");
-
+        //loop through results
         while ($row = mysqli_fetch_array($result)) {
             if (strtolower($row['nickname'] != "admin")) {
                 $user_id = $row['user_id'];

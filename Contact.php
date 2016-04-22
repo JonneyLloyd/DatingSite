@@ -1,10 +1,12 @@
 <?php
 require_once("./include/dbConfig.php");
-include('LogInProcess.php'); // Includes Login Script
+include('LogInProcess.php');
+//Ensure user is logged in
 if((! isset($_SESSION['login_user'])) || (! isset($_SESSION['user_password']))) {
     header("location: LogIn.php");
 }
 
+//handle reports
 if (isset( $_POST['report_id']) && isset($_POST['report_f_name'])) {
     $receiver_id = $_POST['contact_id'];
     $receiver_name = $_POST['contact_f_name'];
@@ -13,6 +15,7 @@ if (isset( $_POST['report_id']) && isset($_POST['report_f_name'])) {
     $sender_id = $_SESSION['user_id'];
 }
 
+//handle standard message
 else if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
     $receiver_id = $_POST['contact_id'];
     $receiver_name = $_POST['contact_f_name'];
@@ -77,7 +80,7 @@ else if (isset($_POST['contact_id']) && isset($_POST['contact_f_name'])) {
                 <input type='hidden' name='sender_id' value='<?=$sender_id?>' />
                 <?php if (isset( $_POST['report_id'])){
                 echo "<input type='hidden' name='report_id' value='$report_id' />";
-                }
+                }//send hidden fields id user is making a report
                 ?>
                 <input type='hidden' name='receiver_id' value='<?=$receiver_id?>' />
                 <input type="submit" value="Send" />

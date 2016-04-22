@@ -74,7 +74,7 @@ else
                 <input type="radio" name="gender" value="f">Female<br><br>
             </div>
             <div class="row">
-                <input type="submit" value="Update" />
+                <input type="submit" value="Search" />
             </div>
         </form>
     </div>

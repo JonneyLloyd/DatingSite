@@ -1,11 +1,7 @@
 <?php
 require_once("./include/dbConfig.php");
-include('LogInProcess.php'); // Includes Login Script
-/*
-$query1 = "SELECT user_id from user WHERE nickname =  '" .$_SESSION['login_user'] . "';";
-$result = mysqli_query($conn,$query1)
-or die ("Couldn't execute query.");
-$row = mysqli_fetch_array($result);*/
+include('LogInProcess.php');
+
 $user = $_SESSION['login_user'];
 if (isset($_POST['nickname'])) $user = $_POST['nickname'];
 $target_dir = "uploads/";
@@ -17,7 +13,6 @@ $outputFile = $target_dir . $user . "." . $imageFileType;
 if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
-        //echo "File is an image - " . $check["mime"] . ".";
         $uploadOk = 1;
     } else {
         echo "File is not an image.";
@@ -26,18 +21,18 @@ if(isset($_POST["submit"])) {
 }
 // Check file size
 if ($_FILES["fileToUpload"]["size"] > 500000) {
-    echo "Sorry, your file is too large.";
+    echo "File is too large.";
     $uploadOk = 0;
 }
 // Allow certain file formats
 if($imageFileType != "jpg"){
 //&& $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" )
-    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    echo "Only JPG allowed.";
     $uploadOk = 0;
 }
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.";
+    echo "File was not uploaded.";
 // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $outputFile )) {
@@ -45,16 +40,16 @@ if ($uploadOk == 0) {
         include_once("image_resizer.php");
         $target_file = $outputFile;
         $resized_file = $outputFile;
-        $wmax = 150;
-        $hmax = 150;
-        img_resize($target_file, $resized_file, $wmax, $hmax, $imageFileType);
+        $max_width = 150;
+        $max_height = 150;
+        img_resize($target_file, $resized_file, $max_width, $max_height, $imageFileType);
         if (isset($_POST['nickname'])) header("Location: admin.php");
         else header("Location: Details.php");
 
 
 
     } else {
-        echo "Sorry, there was an error uploading your file.";
+        echo "Error uploading your file.";
     }
 }
 if (isset($_POST['nickname'])) header("Location: admin.php");
